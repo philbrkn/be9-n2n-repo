@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<geometry>
+  <cell id="1" name="beryllium" material="1" region="-1 -2 3" universe="1"/>
+  <cell id="2" name="cadmium_lining" material="4" region="1 -4 -2 3" universe="1"/>
+  <cell id="3" name="poly_inner" material="2" region="-5 -8 9 (4 | 2 | -3)" universe="1"/>
+  <cell id="4" name="He3_detector" material="3" region="5 -6 -8 9" universe="1"/>
+  <cell id="5" name="poly_outer" material="2" region="6 -7 -8 9" universe="1"/>
+  <surface id="1" type="z-cylinder" coeffs="0.0 0.0 9.0"/>
+  <surface id="2" type="z-plane" coeffs="32.5"/>
+  <surface id="3" type="z-plane" coeffs="-32.5"/>
+  <surface id="4" type="z-cylinder" coeffs="0.0 0.0 9.1"/>
+  <surface id="5" type="z-cylinder" coeffs="0.0 0.0 12.0"/>
+  <surface id="6" type="z-cylinder" coeffs="0.0 0.0 13.0"/>
+  <surface id="7" type="z-cylinder" boundary="vacuum" coeffs="0.0 0.0 25.0"/>
+  <surface id="8" type="z-plane" boundary="vacuum" coeffs="40.0"/>
+  <surface id="9" type="z-plane" boundary="vacuum" coeffs="-40.0"/>
+</geometry>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<materials>
+  <material id="1" name="beryllium">
+    <density value="1.85" units="g/cm3"/>
+    <nuclide name="Be9" ao="1.0"/>
+  </material>
+  <material id="2" name="polyethylene">
+    <density value="0.95" units="g/cm3"/>
+    <nuclide name="C12" ao="0.988922"/>
+    <nuclide name="C13" ao="0.011078"/>
+    <nuclide name="H1" ao="1.99968852"/>
+    <nuclide name="H2" ao="0.00031148"/>
+    <sab name="c_H_in_CH2"/>
+  </material>
+  <material id="3" name="He3">
+    <density value="0.0005" units="g/cm3"/>
+    <nuclide name="He3" ao="1.0"/>
+  </material>
+  <material id="4" name="Cd">
+    <density value="8.65" units="g/cm3"/>
+    <nuclide name="Cd106" ao="0.01245"/>
+    <nuclide name="Cd108" ao="0.00888"/>
+    <nuclide name="Cd110" ao="0.1247"/>
+    <nuclide name="Cd111" ao="0.12795"/>
+    <nuclide name="Cd112" ao="0.24109"/>
+    <nuclide name="Cd113" ao="0.12227"/>
+    <nuclide name="Cd114" ao="0.28754"/>
+    <nuclide name="Cd116" ao="0.07512"/>
+  </material>
+</materials>
