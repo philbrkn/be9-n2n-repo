@@ -4,12 +4,21 @@ Basic Be cylinder with 14 MeV point source and time filter
 get the time distribution of leaking neutrons
 """
 
+from pathlib import Path
+
 import numpy as np
 import openmc
+
+openmc.reset_auto_ids()
 
 # os.environ["OPENMC_CROSS_SECTIONS"] = os.path.abspath(
 #     "Documents/endf-b8.0-hdf5/endfb-viii.0-hdf5/cross_sections.xml"
 # )
+# Create a folder for inputs if it doesn't exist
+base_dir = Path(__file__).parent.resolve()
+input_dir = base_dir / "inputs"
+output_dir = base_dir / "outputs"
+
 # =============================================================================
 # Materials
 # =============================================================================
@@ -36,7 +45,7 @@ cd.add_element("Cd", 1.0)
 cd.set_density("g/cm3", 8.65)
 
 materials = openmc.Materials([be, hdpe, he3, cd])  # collection object
-materials.export_to_xml()  # generates materials.xml file
+materials.export_to_xml(path=f"{input_dir}/materials.xml")
 
 # =============================================================================
 # Geometry: Be cylinder (Basu et al. dimensions)
@@ -61,14 +70,11 @@ CD_RADIUS = BE_RADIUS + CD_THICKNESS
 be_radius = openmc.ZCylinder(r=BE_RADIUS)
 be_top = openmc.ZPlane(z0=BE_HALF_HEIGHT)
 be_bot = openmc.ZPlane(z0=-BE_HALF_HEIGHT)
-
 # Cadmium
 cd_radius = openmc.ZCylinder(r=CD_RADIUS)
-
 # He-3 annulus
 he3_inner = openmc.ZCylinder(r=HE3_INNER_R)
 he3_outer = openmc.ZCylinder(r=HE3_OUTER_R)
-
 # Outer boundary
 outer_cyl = openmc.ZCylinder(r=OUTER_RADIUS, boundary_type="vacuum")
 outer_top = openmc.ZPlane(z0=OUTER_HALF_HEIGHT, boundary_type="vacuum")
@@ -120,14 +126,14 @@ universe = openmc.Universe(
     cells=[be_cell, cd_cell, poly_inner_cell, he3_cell, poly_outer_cell]
 )
 geometry = openmc.Geometry(universe)
-geometry.export_to_xml()
+geometry.export_to_xml(path=f"{input_dir}/geometry.xml")
 
 # =============================================================================
 # Settings
 # =============================================================================
 settings = openmc.Settings()
 settings.batches = 1
-settings.particles = 10000  # 1M total histories
+settings.particles = 1000000  # 1M total histories
 N = settings.particles * settings.batches
 # RATE = 1e8  # neutrons/second
 RATE = 3e4  # neutrons/second
@@ -144,10 +150,21 @@ source = openmc.IndependentSource(
 settings.source = source
 settings.run_mode = "fixed source"
 
-settings.track = [(1, 1, i) for i in range(1, settings.particles)]  # (batch, gen, part)
+# settings.track = [(1, 1, i) for i in range(1, settings.particles)]  # (batch, gen, part)
+# Assuming be_cell and poly_inner_cell were defined earlier
+settings.collision_track = {
+    "cell_ids": [he3_cell.id],
+    # "reactions": [103],
+    "max_collisions": 1000000,
+    "max_collision_track_files": 100,
+}
 # OpenMC RNG seed (reproducible result)
-settings.seed = 12346
-settings.export_to_xml()
+# settings.seed = 12346
+settings.output = {
+    "path": "outputs",  # This moves statepoints, summary, etc.
+    "tallies": False,  # Optional: set to False to stop generating tallies.out
+}
+settings.export_to_xml(path=f"{input_dir}/settings.xml")
 
 # Create a plot object
 # plot = openmc.Plot()
@@ -160,7 +177,7 @@ settings.export_to_xml()
 # plot.colors = {be: "lightgrey", hdpe: "blue", he3: "orange"}
 # # Create a Plots collection and export
 # plots = openmc.Plots([plot])
-# plots.export_to_xml()
+# plots.export_to_xml(path=f"{input_dir}/settings.xml")
 # # Generate the plot (.png file)
 # openmc.plot_geometry()
 
@@ -186,7 +203,9 @@ tallies = openmc.Tallies()
 # Tally 1: Leakage vs time (the key response function)
 det_response = openmc.Tally(name="detector_response")
 #  map every click of the detector to a specific nanosecond
-det_response.filters = [openmc.CellFilter([he3_cell]), time_filter]
+he3_filter = openmc.CellFilter([he3_cell])
+# Reuse that same variable
+det_response.filters = [he3_filter, time_filter]
 # neutron is detected by the reaction n+3He->H+3H, counts as absorption
 det_response.scores = ["absorption"]
 # this is the dieaway time of the whole system (how long signal lingers afterb burst)
@@ -196,7 +215,7 @@ tallies.append(det_response)
 # if Be produces 1.71 neutrons (ML), but the tally shows 0.17,
 # the detection efficiency epsilon is 10%
 det_total = openmc.Tally(name="detector_total")
-det_total.filters = [openmc.CellFilter([he3_cell])]
+det_total.filters = [he3_filter]
 det_total.scores = ["absorption"]
 tallies.append(det_total)
 
@@ -214,18 +233,18 @@ n2n_tally = openmc.Tally(name="n2n_rate")
 n2n_tally.filters = [openmc.CellFilter([be_cell])]
 n2n_tally.scores = ["(n,2n)"]
 tallies.append(n2n_tally)
-tallies.export_to_xml()
+tallies.export_to_xml(path=f"{input_dir}/tallies.xml")
 
 # =============================================================================
 # Run
 # =============================================================================
 print("Running OpenMC...")
-openmc.run()
+openmc.run(output=False, cwd=output_dir, path_input=input_dir)
 
 # =============================================================================
 # Process results
 # =============================================================================
-sp = openmc.StatePoint("statepoint.1.h5")
+sp = openmc.StatePoint(f"{output_dir}/statepoint.{settings.batches}.h5")
 
 # Total detection (efficiency)
 det_total_tally = sp.get_tally(name="detector_total")

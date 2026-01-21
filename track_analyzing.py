@@ -167,14 +167,14 @@ def r_pred_from_Ps(Ps, epsilon, predelay, gate_width, tau):
 
 
 if __name__ == "__main__":
-    tracks = openmc.Tracks("tracks.h5")
+    tracks = openmc.Tracks("outputs/tracks.h5")
     SOURCE_RATE = 3e4  # maximum value from srinivasan paper
-    GATE = 46e-6
+    GATE = 80e-6
     PREDELAY = 4e-6
     DELAY = 1000e-6
 
     DETECTOR_EFFICIENCY = 0.3344
-    TAU = 46e-6
+    TAU = 80e-6
 
     ### DEBUG ###
     for i, tr in enumerate(tracks[:5]):
