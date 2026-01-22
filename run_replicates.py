@@ -26,6 +26,10 @@ class ReplicateConfig:
     particles_per_rep: int = 100_000
     base_seed: Optional[int] = 12345
 
+    be_radius = 9
+    be_density: float = 1.85
+    he_density: float = 0.0005
+
     gate: float = 32e-6
     predelay: float = 4e-6
     delay: float = 1000e-6
@@ -33,7 +37,6 @@ class ReplicateConfig:
     rate: float = 3e4  # neutrons/sec for source time window T=N/rate
 
     max_collisions: Optional[int] = None
-    max_collision_track_files: int = 100
 
 
 def run_independent_replicates(
@@ -45,14 +48,68 @@ def run_independent_replicates(
     output_root = Path(output_root)
     output_root.mkdir(parents=True, exist_ok=True)
 
-    # Load geometry once to get He3 cell id
-    geom = openmc.Geometry.from_xml(
-        path=str(input_dir / "geometry.xml"),
-        materials=str(input_dir / "materials.xml"),
-    )
-    he3_cell = [c for c in geom.get_all_cells().values() if c.name == "He3_detector"][0]
-    he3_cell_id = he3_cell.id
+    # Materials
+    be = openmc.Material(name="beryllium")
+    be.add_nuclide("Be9", 1.0)
+    be.set_density("g/cm3", cfg.be_density)
+    hdpe = openmc.Material(name="polyethylene")
+    hdpe.add_element("C", 1.0)
+    hdpe.add_element("H", 2.0)
+    hdpe.set_density("g/cm3", 0.95)
+    hdpe.add_s_alpha_beta("c_H_in_CH2")  # thermal scattering
+    he3 = openmc.Material(name="He3")
+    he3.add_nuclide("He3", 1.0)
+    he3.set_density("g/cm3", cfg.he_density)  # this is a rough value
+    cd = openmc.Material(name="Cd")
+    cd.add_element("Cd", 1.0)
+    cd.set_density("g/cm3", 8.65)
+    materials = openmc.Materials([be, hdpe, he3, cd])
+    materials.export_to_xml(path=str(input_dir / "materials.xml"))
 
+    # Geometry: Be cylinder (Basu et al. dimensions)
+    BE_RADIUS = 9.0  # cm
+    BE_HALF_HEIGHT = 32.5  # cm
+    HE3_INNER_R = 12.0  # He-3 annulus inner radius
+    HE3_OUTER_R = 13.0  # He-3 annulus outer radius (1 cm thick)
+    OUTER_RADIUS = 25.0  # cm total
+    OUTER_HALF_HEIGHT = 40.0  # cm
+    CD_THICKNESS = 0.1  # 1mm lining
+    CD_RADIUS = BE_RADIUS + CD_THICKNESS
+
+    be_radius = openmc.ZCylinder(r=BE_RADIUS)
+    be_top = openmc.ZPlane(z0=BE_HALF_HEIGHT)
+    be_bot = openmc.ZPlane(z0=-BE_HALF_HEIGHT)
+    cd_radius = openmc.ZCylinder(r=CD_RADIUS)
+    he3_inner = openmc.ZCylinder(r=HE3_INNER_R)
+    he3_outer = openmc.ZCylinder(r=HE3_OUTER_R)
+    outer_cyl = openmc.ZCylinder(r=OUTER_RADIUS, boundary_type="vacuum")
+    outer_top = openmc.ZPlane(z0=OUTER_HALF_HEIGHT, boundary_type="vacuum")
+    outer_bot = openmc.ZPlane(z0=-OUTER_HALF_HEIGHT, boundary_type="vacuum")
+
+    be_cell = openmc.Cell(name="beryllium")
+    be_cell.fill = be
+    be_cell.region = -be_radius & -be_top & +be_bot
+    cd_cell = openmc.Cell(name="cadmium_lining")
+    cd_cell.fill = cd
+    cd_cell.region = +be_radius & -cd_radius & -be_top & +be_bot
+    poly_inner_cell = openmc.Cell(name="poly_inner")
+    poly_inner_cell.fill = hdpe
+    poly_inner_cell.region = (
+        -he3_inner & -outer_top & +outer_bot & ~(-cd_radius & -be_top & +be_bot)
+    )
+    he3_cell = openmc.Cell(name="He3_detector")
+    he3_cell.fill = he3
+    he3_cell.region = +he3_inner & -he3_outer & -outer_top & +outer_bot
+    poly_outer_cell = openmc.Cell(name="poly_outer")
+    poly_outer_cell.fill = hdpe
+    poly_outer_cell.region = +he3_outer & -outer_cyl & -outer_top & +outer_bot
+    universe = openmc.Universe(
+        cells=[be_cell, cd_cell, poly_inner_cell, he3_cell, poly_outer_cell]
+    )
+    geometry = openmc.Geometry(universe)
+    geometry.export_to_xml(path=str(input_dir / "geometry.xml"))
+
+    he3_cell_id = he3_cell.id
     if cfg.base_seed is None:
         base_seed = int(time.time() * 1000) % 2**31
     else:
@@ -78,7 +135,6 @@ def run_independent_replicates(
         settings.batches = 1
         settings.run_mode = "fixed source"
         settings.output = {"path": ".", "tallies": False}
-
         max_coll = (
             cfg.max_collisions
             if cfg.max_collisions is not None
@@ -87,9 +143,7 @@ def run_independent_replicates(
         settings.collision_track = {
             "cell_ids": [he3_cell_id],
             "max_collisions": int(max_coll),
-            "max_collision_track_files": int(cfg.max_collision_track_files),
         }
-
         T = cfg.particles_per_rep / cfg.rate
         settings.source = openmc.IndependentSource(
             space=openmc.stats.Point((0, 0, 0)),
@@ -97,11 +151,60 @@ def run_independent_replicates(
             angle=openmc.stats.Isotropic(),
             time=openmc.stats.Uniform(0.0, T),
         )
-
         settings.export_to_xml(path=str(rep_dir / "settings.xml"))
 
         # Run using rep_dir for both cwd and input
         openmc.run(output=False, cwd=str(rep_dir), path_input=str(rep_dir))
+
+        # Read collision track for this replicate
+        col_track_file = rep_dir / "collision_track.h5"
+        collision_tracks = openmc.read_collision_track_hdf5(str(col_track_file))
+
+        # Keep your current choice; validate MT mapping separately
+        absorption_events = collision_tracks[collision_tracks["event_mt"] == 101]
+        detection_times = np.sort(absorption_events["time"])
+        all_detections.append(int(len(detection_times)))
+
+        # SR analysis
+        rplusa_counts = sr_counts(detection_times, cfg.predelay, cfg.gate)
+        a_counts = sr_counts_delayed(detection_times, cfg.predelay, cfg.gate, cfg.delay)
+
+        rplusa_dist = np.bincount(rplusa_counts)
+        a_dist = np.bincount(a_counts, minlength=len(rplusa_dist))
+
+        try:
+            r = get_measured_multiplicity_causal(rplusa_dist, a_dist)
+            all_r.append(r)
+        except Exception as e:
+            print(f"[rep {i:04d}] deconvolution failed: {e}")
+
+    if not all_r:
+        raise RuntimeError("No successful replicates (all deconvolutions failed).")
+
+    max_len = max(len(r) for r in all_r)
+    r_padded = np.array([np.pad(r, (0, max_len - len(r))) for r in all_r])
+
+    r_mean = r_padded.mean(axis=0)
+    r_std = r_padded.std(axis=0, ddof=0)
+    r_sem = r_std / np.sqrt(len(all_r))
+
+    return r_mean, r_std, r_sem, all_r, all_detections
+
+
+def analyze_independent_replicates(
+    input_dir: Path,
+    output_root: Path,
+    cfg: ReplicateConfig,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[np.ndarray], List[int]]:
+    output_root = Path(output_root)
+    output_root.mkdir(parents=True, exist_ok=True)
+
+    all_r: List[np.ndarray] = []
+    all_detections: List[int] = []
+
+    for i in range(cfg.n_replicates):
+        rep_dir = output_root / f"rep_{i:04d}"
+        rep_dir.mkdir(parents=True, exist_ok=True)
 
         # Read collision track for this replicate
         col_track_file = rep_dir / "collision_track.h5"
