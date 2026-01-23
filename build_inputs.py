@@ -152,19 +152,33 @@ def build_inputs(input_dir: Path) -> None:
     # =============================================================================
     # Plots: Create a plot object
     # =============================================================================
-    # plot = openmc.Plot()
-    # plot.filename = "geometry_debug"
-    # plot.origin = (0, 0, 0)
-    # plot.width = (60.0, 60.0)  # Total width/height in cm
-    # plot.pixels = (1000, 1000)  # Resolution
-    # plot.color_by = "material"
-    # # plot.colors = {be: "lightgrey", hdpe: "blue", cadmium: "red", he3: "orange"}
-    # plot.colors = {be: "lightgrey", hdpe: "blue", he3: "orange"}
-    # # Create a Plots collection and export
-    # plots = openmc.Plots([plot])
-    # plots.export_to_xml(path=f"{input_dir}/plots.xml")
-    # # Generate the plot (.png file)
-    # openmc.plot_geometry()
+    plots_list = []
+
+    # Radial cross-section at z=0
+    p_xy = openmc.Plot()
+    p_xy.filename = "geom_xy_z0"
+    p_xy.basis = "xy"
+    p_xy.origin = (0, 0, 0)  # z=0 slice
+    p_xy.width = (60.0, 60.0)
+    p_xy.pixels = (1000, 1000)
+    p_xy.color_by = "material"
+    p_xy.colors = {be: "lightgrey", hdpe: "lightblue", cd: "red", he3: "orange"}
+    plots_list.append(p_xy)
+
+    # Longitudinal bisection through axis (xz plane at y=0)
+    p_xz = openmc.Plot()
+    p_xz.filename = "geom_xz_y0"
+    p_xz.basis = "xz"
+    p_xz.origin = (0, 0, 0)  # y=0 slice
+    p_xz.width = (60.0, 100.0)  # taller to see full height; tune as needed
+    p_xz.pixels = (1000, 1600)
+    p_xz.color_by = "material"
+    p_xz.colors = {be: "lightgrey", hdpe: "lightblue", cd: "red", he3: "orange"}
+    plots_list.append(p_xz)
+
+    plots = openmc.Plots(plots_list)
+    plots.export_to_xml(path=str(input_dir / "plots.xml"))
+    openmc.plot_geometry(path_input=str(input_dir))
 
     # =============================================================================
     # Tallies: Leakage current on Be surface

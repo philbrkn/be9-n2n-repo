@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Proper tau extraction from detector response tally
+Tau extraction from detector response tally
 """
 
 from pathlib import Path
@@ -23,7 +23,9 @@ def fit_single_exponential(t, y, yerr, t_fit_start=10e-6, t_fit_end=200e-6):
     def model(t, A, tau, B):
         return A * np.exp(-t / tau) + B
 
-    B_guess = np.mean(y_fit[-10:])
+    # guard in case window has fewer than 10 bins
+    k = min(10, len(y_fit))
+    B_guess = np.mean(y_fit[-k:])
     A_guess = np.max(y_fit) - B_guess
 
     signal = np.maximum(y_fit - B_guess, 1e-30)
@@ -134,7 +136,21 @@ def fit_double_exponential(t, y, yerr, t_fit_start=10e-6, t_fit_end=300e-6):
     }
 
 
-def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
+def add_fit_window(ax, t_start_s, t_end_s, label="fit window"):
+    ax.axvline(t_start_s * 1e6, linestyle="--", linewidth=1)
+    ax.axvline(t_end_s * 1e6, linestyle="--", linewidth=1)
+    ax.axvspan(t_start_s * 1e6, t_end_s * 1e6, alpha=0.08, label=label)
+
+
+def add_background(ax, t, fit, color_style=":"):
+    # horizontal background line at B across the full x-range
+    if fit:
+        ax.axhline(
+            fit["B"], linestyle=color_style, linewidth=1.5, label="B (background)"
+        )
+
+
+def plot_fits(t, counts, yerr, single_fit, double_fit, filename="tau_extraction.png"):
     """Create comprehensive diagnostic plots"""
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
@@ -142,7 +158,6 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
 
     # 1. Linear scale with both fits
     ax = axes[0, 0]
-    ax.plot(t_us, counts, "k.", markersize=2, alpha=0.5, label="Data")
 
     if single_fit:
         t_plot = np.linspace(t[0], t[-1], 500)
@@ -151,9 +166,11 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
             single_fit["model"](t_plot, *single_fit["popt"]),
             "r-",
             linewidth=2,
+            zorder=2,
             label=f"Single: τ={single_fit['tau'] * 1e6:.1f}±{single_fit['tau_err'] * 1e6:.1f} μs",
         )
-
+        add_fit_window(ax, *single_fit["fit_range"], label="single fit window")
+        add_background(ax, t, single_fit)
     if double_fit:
         t_plot = np.linspace(t[0], t[-1], 500)
         ax.plot(
@@ -161,8 +178,12 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
             double_fit["model"](t_plot, *double_fit["popt"]),
             "b-",
             linewidth=2,
+            zorder=2,
             label=f"Double: τ1={double_fit['tau1'] * 1e6:.1f}, τ2={double_fit['tau2'] * 1e6:.1f} μs",
         )
+        add_fit_window(ax, *double_fit["fit_range"], label="double fit window")
+
+    ax.plot(t_us, counts, "k.", markersize=3, alpha=0.8, zorder=5, label="Data")
 
     ax.set_xlabel("Time (μs)")
     ax.set_ylabel("Counts")
@@ -172,8 +193,6 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
 
     # 2. Log scale
     ax = axes[0, 1]
-    ax.semilogy(t_us, counts, "k.", markersize=2, alpha=0.5, label="Data")
-
     if single_fit:
         t_plot = np.linspace(t[0], t[-1], 500)
         ax.semilogy(
@@ -183,7 +202,6 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
             linewidth=2,
             label="Single exp fit",
         )
-
     if double_fit:
         t_plot = np.linspace(t[0], t[-1], 500)
         ax.semilogy(
@@ -193,6 +211,7 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
             linewidth=2,
             label="Double exp fit",
         )
+    ax.semilogy(t_us, counts, "k.", markersize=2, alpha=0.5, label="Data")
 
     ax.set_xlabel("Time (μs)")
     ax.set_ylabel("Counts (log)")
@@ -200,14 +219,22 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
     ax.legend()
     ax.grid(True, alpha=0.3)
 
+    # Helper: safe sigma handling (prevent division by zero)
+    def safe_sigma(sig):
+        sig = sig.copy()
+        good = sig > 0
+        sig[~good] = np.min(sig[good]) if np.any(good) else 1.0
+        return sig
+
     # 3. Residuals - Single exponential
     if single_fit:
         ax = axes[1, 0]
         mask = (t >= single_fit["fit_range"][0]) & (t <= single_fit["fit_range"][1])
         t_fit = t[mask]
         residuals = counts[mask] - single_fit["model"](t_fit, *single_fit["popt"])
-        uncertainties = np.sqrt(counts[mask])
-        normalized_residuals = residuals / uncertainties
+
+        sigma = safe_sigma(yerr[mask])
+        normalized_residuals = residuals / sigma
 
         ax.plot(t_fit * 1e6, normalized_residuals, "r.", markersize=3)
         ax.axhline(0, color="k", linestyle="--", linewidth=1)
@@ -224,8 +251,8 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
         mask = (t >= double_fit["fit_range"][0]) & (t <= double_fit["fit_range"][1])
         t_fit = t[mask]
         residuals = counts[mask] - double_fit["model"](t_fit, *double_fit["popt"])
-        uncertainties = np.sqrt(counts[mask])
-        normalized_residuals = residuals / uncertainties
+        sigma = safe_sigma(yerr[mask])
+        normalized_residuals = residuals / sigma
 
         ax.plot(t_fit * 1e6, normalized_residuals, "b.", markersize=3)
         ax.axhline(0, color="k", linestyle="--", linewidth=1)
@@ -246,8 +273,8 @@ def plot_fits(t, counts, single_fit, double_fit, filename="tau_extraction.png"):
 # =============================================================================
 if __name__ == "__main__":
     settings = openmc.Settings()
-    settings.batches = 10
-    settings.particles = 100000
+    settings.batches = 20
+    settings.particles = 10000000
 
     # Pulsed source configuration
     BURST_DURATION = 1e-6  # 1 μs burst
@@ -276,10 +303,9 @@ if __name__ == "__main__":
         path="inputs/geometry.xml", materials="inputs/materials.xml"
     )
     he3_cell = [c for c in geom.get_all_cells().values() if c.name == "He3_detector"][0]
-    he3_cell_id = he3_cell.id
     tallies = openmc.Tallies()
 
-    # Detector response vs time (key for tau extraction)
+    # Detector response vs time
     det_response = openmc.Tally(name="detector_response")
     he3_filter = openmc.CellFilter([he3_cell])
     det_response.filters = [he3_filter, time_filter]
@@ -293,9 +319,11 @@ if __name__ == "__main__":
     print(f"  Measurement time: {MEASUREMENT_TIME * 1e6:.2f} μs")
     print(f"  Time bin width: {(T_TOTAL / 500) * 1e6:.3f} μs")
 
-    base_dir = Path(__file__).parent.resolve()
+    base_dir = Path(__file__).parent.parent.resolve()
     input_dir = base_dir / "inputs"
     output_dir = base_dir / "outputs"
+
+    # RUN OPENMC
     openmc.run(output=False, cwd=output_dir, path_input=input_dir)
 
     # Load results
@@ -309,10 +337,8 @@ if __name__ == "__main__":
     t_high = det_df["time high [s]"].values
     t_centers = (t_low + t_high) / 2
 
-    y = det_df["mean"].values
-    yerr = det_df["std. dev."].values  # OpenMC uncertainty of mean estimator
-
     counts = det_df["mean"].values
+    yerr = det_df["std. dev."].values  # OpenMC uncertainty of mean estimator
 
     # Scale counts to get actual rate (counts per time bin)
     dt = t_high[0] - t_low[0]
@@ -325,7 +351,7 @@ if __name__ == "__main__":
     print("\n1. SINGLE EXPONENTIAL FIT")
     print("-" * 70)
     single_fit = fit_single_exponential(
-        t_centers, y, yerr, t_fit_start=20e-6, t_fit_end=200e-6
+        t_centers, counts, yerr, t_fit_start=100e-6, t_fit_end=300e-6
     )
 
     if single_fit:
@@ -336,13 +362,13 @@ if __name__ == "__main__":
         print(f"  B (background) = {single_fit['B']:.2e}")
         print(f"  χ²/dof = {single_fit['chi2_reduced']:.3f}")
         if single_fit["chi2_reduced"] > 2:
-            print("  ⚠ Poor fit (χ²/dof > 2), try double exponential")
+            print("    Poor fit (χ²/dof > 2), try double exponential")
 
     # Fit double exponential
     print("\n2. DOUBLE EXPONENTIAL FIT")
     print("-" * 70)
     double_fit = fit_double_exponential(
-        t_centers, y, yerr, t_fit_start=20e-6, t_fit_end=300e-6
+        t_centers, counts, yerr, t_fit_start=20e-6, t_fit_end=300e-6
     )
     if double_fit:
         print(
@@ -357,7 +383,7 @@ if __name__ == "__main__":
         print(f"  χ²/dof = {double_fit['chi2_reduced']:.3f}")
 
     # Create diagnostic plots
-    plot_fits(t_centers, counts, single_fit, double_fit)
+    plot_fits(t_centers, counts, yerr, single_fit, double_fit)
 
     # Model selection
     print("\n3. MODEL SELECTION")

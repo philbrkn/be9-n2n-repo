@@ -36,6 +36,9 @@ if __name__ == "__main__":
     for density in densities:
         openmc.reset_auto_ids()
 
+        # Create a per-scale folder so scale points don't overwrite each other
+        scale_dir = output_root / f"scale_{density:.4f}"
+        scale_dir.mkdir(parents=True, exist_ok=True)
         # Replicate runner config
         cfg = ReplicateConfig(
             n_replicates=N_REPS,
@@ -51,7 +54,7 @@ if __name__ == "__main__":
         # Run replicates into outputs/scale_1.10/rep_XXXX/
         r_mean, r_std, r_sem, all_r, all_det = run_independent_replicates(
             input_dir=input_dir,
-            output_root=output_root,
+            output_root=scale_dir,
             cfg=cfg,
         )
 

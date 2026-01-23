@@ -20,7 +20,8 @@ if __name__ == "__main__":
     GATE = 32e-6
     PREDELAY = 4e-6
     DELAY = 1000e-6
-    scales = [0.8, 0.9, 1.0, 1.1, 1.2]
+    # scales = [0.8, 0.9, 1.0, 1.1, 1.2]
+    scales = [0.0003, 0.0004, 0.0005, 0.0006, 0.0007]  # g/cm³
 
     # Replicate runner config
     cfg = ReplicateConfig(
@@ -43,7 +44,7 @@ if __name__ == "__main__":
 
     for scale in scales:
         # Create a per-scale folder so scale points don't overwrite each other
-        scale_dir = output_root / f"scale_{scale:.2f}"
+        scale_dir = output_root / f"scale_{scale:.4f}"
         scale_dir.mkdir(parents=True, exist_ok=True)
 
         # Run replicates into outputs/scale_1.10/rep_XXXX/
@@ -114,7 +115,7 @@ if __name__ == "__main__":
     # Sensitivity: (dr/r) / (dXS/XS) at nominal
     r_nominal = r1_means[2]  # this is where scale=1.0
     sem_nominal = r1_sems[2]
-    S = slope / r_nominal  # dr/dXS normalized
+    S = slope * scales[2] / r_nominal  # dr/dXS normalized
 
     print(f"Sensitivity coefficient S = {S:.3f}")
     print(f"Interpretation: 1% change in (n,2n) causes {S:.2f}% change in r[1]")
@@ -126,7 +127,7 @@ if __name__ == "__main__":
     print(
         f"A shift register measurement of r[1] with {precision * 100:.2f}% precision"
         f" (achievable with {N_REPS} replicates of {N_PARTICLES} particles) "
-        f"can constrain the Be-9 (n,2n) cross section to ±{constraint * 100:.2f}%."
+        f"can constrain the Be-9 (n,2n) cross section to ±{constraint * 100:.4f}%."
     )
 
     # Plot

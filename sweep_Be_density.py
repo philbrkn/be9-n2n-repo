@@ -48,10 +48,13 @@ if __name__ == "__main__":
             be_density=density,
         )
 
+        # Create a per-scale folder so scale points don't overwrite each other
+        scale_dir = output_root / f"scale_{density:.2f}"
+        scale_dir.mkdir(parents=True, exist_ok=True)
         # Run replicates into outputs/scale_1.10/rep_XXXX/
         r_mean, r_std, r_sem, all_r, all_det = run_independent_replicates(
             input_dir=input_dir,
-            output_root=output_root,
+            output_root=scale_dir,
             cfg=cfg,
         )
 

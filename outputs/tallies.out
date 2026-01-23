@@ -1,0 +1,1503 @@
+ ==================>     TALLY 1: DETECTOR_RESPONSE     <===================
+
+ Cell 4
+   Time [0, 1.002e-06)
+     Total Material
+       Absorption Rate                      0.00309752 +/- 6.23053e-06
+   Time [1.002e-06, 2.004e-06)
+     Total Material
+       Absorption Rate                      0.00680197 +/- 1.18274e-05
+   Time [2.004e-06, 3.0060000000000005e-06)
+     Total Material
+       Absorption Rate                      0.00687666 +/- 1.57607e-05
+   Time [3.0060000000000005e-06, 4.008e-06)
+     Total Material
+       Absorption Rate                      0.00677971 +/- 1.97863e-05
+   Time [4.008e-06, 5.01e-06)
+     Total Material
+       Absorption Rate                      0.00662483 +/- 2.19373e-05
+   Time [5.01e-06, 6.012000000000001e-06)
+     Total Material
+       Absorption Rate                      0.00646767 +/- 2.27115e-05
+   Time [6.012000000000001e-06, 7.014000000000001e-06)
+     Total Material
+       Absorption Rate                      0.00629526 +/- 1.45702e-05
+   Time [7.014000000000001e-06, 8.016e-06)
+     Total Material
+       Absorption Rate                      0.0061173 +/- 1.36946e-05
+   Time [8.016e-06, 9.018e-06)
+     Total Material
+       Absorption Rate                      0.00595179 +/- 1.60135e-05
+   Time [9.018e-06, 1.002e-05)
+     Total Material
+       Absorption Rate                      0.0057872 +/- 1.42357e-05
+   Time [1.002e-05, 1.1022e-05)
+     Total Material
+       Absorption Rate                      0.00564442 +/- 1.42553e-05
+   Time [1.1022e-05, 1.2024000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00551519 +/- 1.72152e-05
+   Time [1.2024000000000002e-05, 1.3026000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00537329 +/- 2.09844e-05
+   Time [1.3026000000000002e-05, 1.4028000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00522179 +/- 1.8888e-05
+   Time [1.4028000000000002e-05, 1.5030000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00510168 +/- 1.65418e-05
+   Time [1.5030000000000002e-05, 1.6032e-05)
+     Total Material
+       Absorption Rate                      0.00496698 +/- 1.65675e-05
+   Time [1.6032e-05, 1.7034000000000003e-05)
+     Total Material
+       Absorption Rate                      0.00485067 +/- 1.29037e-05
+   Time [1.7034000000000003e-05, 1.8036e-05)
+     Total Material
+       Absorption Rate                      0.0047265 +/- 1.44291e-05
+   Time [1.8036e-05, 1.9038000000000003e-05)
+     Total Material
+       Absorption Rate                      0.00461932 +/- 1.70961e-05
+   Time [1.9038000000000003e-05, 2.004e-05)
+     Total Material
+       Absorption Rate                      0.00450929 +/- 1.53805e-05
+   Time [2.004e-05, 2.1042000000000003e-05)
+     Total Material
+       Absorption Rate                      0.00438855 +/- 1.4331e-05
+   Time [2.1042000000000003e-05, 2.2044e-05)
+     Total Material
+       Absorption Rate                      0.00429569 +/- 1.35724e-05
+   Time [2.2044e-05, 2.3046000000000003e-05)
+     Total Material
+       Absorption Rate                      0.00421305 +/- 1.21234e-05
+   Time [2.3046000000000003e-05, 2.4048000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00412522 +/- 1.21222e-05
+   Time [2.4048000000000004e-05, 2.5050000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00402898 +/- 1.4224e-05
+   Time [2.5050000000000002e-05, 2.6052000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00394959 +/- 1.39664e-05
+   Time [2.6052000000000004e-05, 2.7054000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00387726 +/- 1.35958e-05
+   Time [2.7054000000000002e-05, 2.8056000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00378518 +/- 1.4649e-05
+   Time [2.8056000000000004e-05, 2.9058000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00368337 +/- 1.46412e-05
+   Time [2.9058000000000002e-05, 3.0060000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00360135 +/- 1.40048e-05
+   Time [3.0060000000000004e-05, 3.1062e-05)
+     Total Material
+       Absorption Rate                      0.00352702 +/- 1.22741e-05
+   Time [3.1062e-05, 3.2064e-05)
+     Total Material
+       Absorption Rate                      0.00343636 +/- 1.15414e-05
+   Time [3.2064e-05, 3.3066000000000005e-05)
+     Total Material
+       Absorption Rate                      0.00334699 +/- 1.25059e-05
+   Time [3.3066000000000005e-05, 3.4068000000000007e-05)
+     Total Material
+       Absorption Rate                      0.00326829 +/- 1.53143e-05
+   Time [3.4068000000000007e-05, 3.507e-05)
+     Total Material
+       Absorption Rate                      0.00319655 +/- 1.61888e-05
+   Time [3.507e-05, 3.6072e-05)
+     Total Material
+       Absorption Rate                      0.00313978 +/- 1.38718e-05
+   Time [3.6072e-05, 3.7074000000000005e-05)
+     Total Material
+       Absorption Rate                      0.00307797 +/- 1.21754e-05
+   Time [3.7074000000000005e-05, 3.8076000000000006e-05)
+     Total Material
+       Absorption Rate                      0.00301141 +/- 1.1472e-05
+   Time [3.8076000000000006e-05, 3.9078e-05)
+     Total Material
+       Absorption Rate                      0.00295619 +/- 9.71667e-06
+   Time [3.9078e-05, 4.008e-05)
+     Total Material
+       Absorption Rate                      0.00289628 +/- 9.79567e-06
+   Time [4.008e-05, 4.1082000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00283964 +/- 1.00935e-05
+   Time [4.1082000000000004e-05, 4.2084000000000006e-05)
+     Total Material
+       Absorption Rate                      0.00278515 +/- 1.07712e-05
+   Time [4.2084000000000006e-05, 4.308600000000001e-05)
+     Total Material
+       Absorption Rate                      0.00273374 +/- 1.08742e-05
+   Time [4.308600000000001e-05, 4.4088e-05)
+     Total Material
+       Absorption Rate                      0.0026713 +/- 9.869e-06
+   Time [4.4088e-05, 4.5090000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00261416 +/- 9.83424e-06
+   Time [4.5090000000000004e-05, 4.6092000000000005e-05)
+     Total Material
+       Absorption Rate                      0.00256685 +/- 1.28348e-05
+   Time [4.6092000000000005e-05, 4.709400000000001e-05)
+     Total Material
+       Absorption Rate                      0.00251905 +/- 1.14842e-05
+   Time [4.709400000000001e-05, 4.809600000000001e-05)
+     Total Material
+       Absorption Rate                      0.00247673 +/- 1.1516e-05
+   Time [4.809600000000001e-05, 4.9098e-05)
+     Total Material
+       Absorption Rate                      0.00243136 +/- 1.30593e-05
+   Time [4.9098e-05, 5.0100000000000005e-05)
+     Total Material
+       Absorption Rate                      0.00239175 +/- 1.21618e-05
+   Time [5.0100000000000005e-05, 5.1102000000000006e-05)
+     Total Material
+       Absorption Rate                      0.00235142 +/- 1.19351e-05
+   Time [5.1102000000000006e-05, 5.210400000000001e-05)
+     Total Material
+       Absorption Rate                      0.00231544 +/- 1.27411e-05
+   Time [5.210400000000001e-05, 5.3106e-05)
+     Total Material
+       Absorption Rate                      0.00226794 +/- 1.14766e-05
+   Time [5.3106e-05, 5.4108000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00221515 +/- 1.24447e-05
+   Time [5.4108000000000004e-05, 5.5110000000000006e-05)
+     Total Material
+       Absorption Rate                      0.00215657 +/- 9.58721e-06
+   Time [5.5110000000000006e-05, 5.611200000000001e-05)
+     Total Material
+       Absorption Rate                      0.00210798 +/- 9.28113e-06
+   Time [5.611200000000001e-05, 5.711400000000001e-05)
+     Total Material
+       Absorption Rate                      0.0020764 +/- 9.31504e-06
+   Time [5.711400000000001e-05, 5.8116000000000004e-05)
+     Total Material
+       Absorption Rate                      0.00202369 +/- 1.01045e-05
+   Time [5.8116000000000004e-05, 5.9118000000000006e-05)
+     Total Material
+       Absorption Rate                      0.00197745 +/- 1.04986e-05
+   Time [5.9118000000000006e-05, 6.012000000000001e-05)
+     Total Material
+       Absorption Rate                      0.00193506 +/- 1.15072e-05
+   Time [6.012000000000001e-05, 6.1122e-05)
+     Total Material
+       Absorption Rate                      0.00190193 +/- 1.14735e-05
+   Time [6.1122e-05, 6.2124e-05)
+     Total Material
+       Absorption Rate                      0.00186447 +/- 1.04615e-05
+   Time [6.2124e-05, 6.3126e-05)
+     Total Material
+       Absorption Rate                      0.00183323 +/- 1.06542e-05
+   Time [6.3126e-05, 6.4128e-05)
+     Total Material
+       Absorption Rate                      0.00180101 +/- 9.6849e-06
+   Time [6.4128e-05, 6.513000000000001e-05)
+     Total Material
+       Absorption Rate                      0.00177481 +/- 8.9903e-06
+   Time [6.513000000000001e-05, 6.613200000000001e-05)
+     Total Material
+       Absorption Rate                      0.00173975 +/- 7.70862e-06
+   Time [6.613200000000001e-05, 6.713400000000001e-05)
+     Total Material
+       Absorption Rate                      0.00169581 +/- 8.68046e-06
+   Time [6.713400000000001e-05, 6.813600000000001e-05)
+     Total Material
+       Absorption Rate                      0.0016641 +/- 9.09327e-06
+   Time [6.813600000000001e-05, 6.9138e-05)
+     Total Material
+       Absorption Rate                      0.00163906 +/- 6.91641e-06
+   Time [6.9138e-05, 7.014e-05)
+     Total Material
+       Absorption Rate                      0.00160715 +/- 5.87456e-06
+   Time [7.014e-05, 7.1142e-05)
+     Total Material
+       Absorption Rate                      0.00158044 +/- 6.53449e-06
+   Time [7.1142e-05, 7.2144e-05)
+     Total Material
+       Absorption Rate                      0.00154975 +/- 6.70191e-06
+   Time [7.2144e-05, 7.314600000000001e-05)
+     Total Material
+       Absorption Rate                      0.00152646 +/- 6.69321e-06
+   Time [7.314600000000001e-05, 7.414800000000001e-05)
+     Total Material
+       Absorption Rate                      0.00150301 +/- 7.39819e-06
+   Time [7.414800000000001e-05, 7.515000000000001e-05)
+     Total Material
+       Absorption Rate                      0.00146783 +/- 8.14393e-06
+   Time [7.515000000000001e-05, 7.615200000000001e-05)
+     Total Material
+       Absorption Rate                      0.0014367 +/- 8.28195e-06
+   Time [7.615200000000001e-05, 7.715400000000001e-05)
+     Total Material
+       Absorption Rate                      0.00141027 +/- 8.48119e-06
+   Time [7.715400000000001e-05, 7.8156e-05)
+     Total Material
+       Absorption Rate                      0.00138464 +/- 9.78625e-06
+   Time [7.8156e-05, 7.9158e-05)
+     Total Material
+       Absorption Rate                      0.00135819 +/- 1.02208e-05
+   Time [7.9158e-05, 8.016e-05)
+     Total Material
+       Absorption Rate                      0.00133794 +/- 7.8884e-06
+   Time [8.016e-05, 8.1162e-05)
+     Total Material
+       Absorption Rate                      0.00131802 +/- 6.85298e-06
+   Time [8.1162e-05, 8.216400000000001e-05)
+     Total Material
+       Absorption Rate                      0.00129423 +/- 6.54052e-06
+   Time [8.216400000000001e-05, 8.316600000000001e-05)
+     Total Material
+       Absorption Rate                      0.00126622 +/- 5.45949e-06
+   Time [8.316600000000001e-05, 8.416800000000001e-05)
+     Total Material
+       Absorption Rate                      0.00122968 +/- 6.02218e-06
+   Time [8.416800000000001e-05, 8.517000000000001e-05)
+     Total Material
+       Absorption Rate                      0.00121001 +/- 7.10864e-06
+   Time [8.517000000000001e-05, 8.617200000000001e-05)
+     Total Material
+       Absorption Rate                      0.00119356 +/- 6.5536e-06
+   Time [8.617200000000001e-05, 8.7174e-05)
+     Total Material
+       Absorption Rate                      0.00117592 +/- 7.11809e-06
+   Time [8.7174e-05, 8.8176e-05)
+     Total Material
+       Absorption Rate                      0.00115322 +/- 7.6887e-06
+   Time [8.8176e-05, 8.9178e-05)
+     Total Material
+       Absorption Rate                      0.00112888 +/- 7.42755e-06
+   Time [8.9178e-05, 9.018000000000001e-05)
+     Total Material
+       Absorption Rate                      0.00111001 +/- 7.92781e-06
+   Time [9.018000000000001e-05, 9.118200000000001e-05)
+     Total Material
+       Absorption Rate                      0.00109281 +/- 7.34083e-06
+   Time [9.118200000000001e-05, 9.218400000000001e-05)
+     Total Material
+       Absorption Rate                      0.00107589 +/- 7.43519e-06
+   Time [9.218400000000001e-05, 9.318600000000001e-05)
+     Total Material
+       Absorption Rate                      0.00105572 +/- 7.34714e-06
+   Time [9.318600000000001e-05, 9.418800000000001e-05)
+     Total Material
+       Absorption Rate                      0.00103448 +/- 5.03064e-06
+   Time [9.418800000000001e-05, 9.519000000000002e-05)
+     Total Material
+       Absorption Rate                      0.00101192 +/- 6.23104e-06
+   Time [9.519000000000002e-05, 9.619200000000002e-05)
+     Total Material
+       Absorption Rate                      0.000991472 +/- 6.60878e-06
+   Time [9.619200000000002e-05, 9.7194e-05)
+     Total Material
+       Absorption Rate                      0.000976539 +/- 5.44742e-06
+   Time [9.7194e-05, 9.8196e-05)
+     Total Material
+       Absorption Rate                      0.000959229 +/- 5.01438e-06
+   Time [9.8196e-05, 9.919800000000001e-05)
+     Total Material
+       Absorption Rate                      0.000939788 +/- 4.66854e-06
+   Time [9.919800000000001e-05, 0.00010020000000000001)
+     Total Material
+       Absorption Rate                      0.000923867 +/- 3.54909e-06
+   Time [0.00010020000000000001, 0.00010120200000000001)
+     Total Material
+       Absorption Rate                      0.00091351 +/- 3.645e-06
+   Time [0.00010120200000000001, 0.00010220400000000001)
+     Total Material
+       Absorption Rate                      0.000894292 +/- 5.48846e-06
+   Time [0.00010220400000000001, 0.00010320600000000001)
+     Total Material
+       Absorption Rate                      0.000878796 +/- 6.81806e-06
+   Time [0.00010320600000000001, 0.00010420800000000002)
+     Total Material
+       Absorption Rate                      0.000865006 +/- 7.29975e-06
+   Time [0.00010420800000000002, 0.00010521000000000002)
+     Total Material
+       Absorption Rate                      0.000847541 +/- 7.31336e-06
+   Time [0.00010521000000000002, 0.000106212)
+     Total Material
+       Absorption Rate                      0.000830543 +/- 7.61829e-06
+   Time [0.000106212, 0.00010721400000000001)
+     Total Material
+       Absorption Rate                      0.000817073 +/- 7.86552e-06
+   Time [0.00010721400000000001, 0.00010821600000000001)
+     Total Material
+       Absorption Rate                      0.000800393 +/- 7.48864e-06
+   Time [0.00010821600000000001, 0.00010921800000000001)
+     Total Material
+       Absorption Rate                      0.000783203 +/- 7.93258e-06
+   Time [0.00010921800000000001, 0.00011022000000000001)
+     Total Material
+       Absorption Rate                      0.000771503 +/- 8.50916e-06
+   Time [0.00011022000000000001, 0.00011122200000000001)
+     Total Material
+       Absorption Rate                      0.000760403 +/- 7.49596e-06
+   Time [0.00011122200000000001, 0.00011222400000000002)
+     Total Material
+       Absorption Rate                      0.000750676 +/- 8.57735e-06
+   Time [0.00011222400000000002, 0.00011322600000000002)
+     Total Material
+       Absorption Rate                      0.000738823 +/- 7.28425e-06
+   Time [0.00011322600000000002, 0.00011422800000000002)
+     Total Material
+       Absorption Rate                      0.000727555 +/- 5.51933e-06
+   Time [0.00011422800000000002, 0.00011523)
+     Total Material
+       Absorption Rate                      0.000714295 +/- 5.6052e-06
+   Time [0.00011523, 0.00011623200000000001)
+     Total Material
+       Absorption Rate                      0.0007008 +/- 4.33143e-06
+   Time [0.00011623200000000001, 0.00011723400000000001)
+     Total Material
+       Absorption Rate                      0.000689246 +/- 3.40953e-06
+   Time [0.00011723400000000001, 0.00011823600000000001)
+     Total Material
+       Absorption Rate                      0.00067552 +/- 3.87752e-06
+   Time [0.00011823600000000001, 0.00011923800000000001)
+     Total Material
+       Absorption Rate                      0.000660237 +/- 4.85153e-06
+   Time [0.00011923800000000001, 0.00012024000000000001)
+     Total Material
+       Absorption Rate                      0.000647587 +/- 4.29438e-06
+   Time [0.00012024000000000001, 0.00012124200000000002)
+     Total Material
+       Absorption Rate                      0.00063965 +/- 4.94252e-06
+   Time [0.00012124200000000002, 0.000122244)
+     Total Material
+       Absorption Rate                      0.000631756 +/- 4.93096e-06
+   Time [0.000122244, 0.000123246)
+     Total Material
+       Absorption Rate                      0.000620354 +/- 5.91546e-06
+   Time [0.000123246, 0.000124248)
+     Total Material
+       Absorption Rate                      0.000609861 +/- 6.59175e-06
+   Time [0.000124248, 0.00012525)
+     Total Material
+       Absorption Rate                      0.000596763 +/- 7.19123e-06
+   Time [0.00012525, 0.000126252)
+     Total Material
+       Absorption Rate                      0.00058405 +/- 6.22809e-06
+   Time [0.000126252, 0.000127254)
+     Total Material
+       Absorption Rate                      0.000575803 +/- 5.9564e-06
+   Time [0.000127254, 0.000128256)
+     Total Material
+       Absorption Rate                      0.000568165 +/- 5.57152e-06
+   Time [0.000128256, 0.00012925800000000002)
+     Total Material
+       Absorption Rate                      0.000561869 +/- 5.54732e-06
+   Time [0.00012925800000000002, 0.00013026000000000002)
+     Total Material
+       Absorption Rate                      0.000552201 +/- 4.76181e-06
+   Time [0.00013026000000000002, 0.00013126200000000002)
+     Total Material
+       Absorption Rate                      0.000543627 +/- 4.26359e-06
+   Time [0.00013126200000000002, 0.00013226400000000002)
+     Total Material
+       Absorption Rate                      0.000529608 +/- 5.03983e-06
+   Time [0.00013226400000000002, 0.00013326600000000002)
+     Total Material
+       Absorption Rate                      0.000519147 +/- 4.69994e-06
+   Time [0.00013326600000000002, 0.00013426800000000002)
+     Total Material
+       Absorption Rate                      0.000509024 +/- 4.75556e-06
+   Time [0.00013426800000000002, 0.00013527000000000002)
+     Total Material
+       Absorption Rate                      0.000501475 +/- 4.70227e-06
+   Time [0.00013527000000000002, 0.00013627200000000003)
+     Total Material
+       Absorption Rate                      0.000498103 +/- 5.00572e-06
+   Time [0.00013627200000000003, 0.00013727400000000003)
+     Total Material
+       Absorption Rate                      0.000489372 +/- 5.18086e-06
+   Time [0.00013727400000000003, 0.000138276)
+     Total Material
+       Absorption Rate                      0.000479816 +/- 4.99581e-06
+   Time [0.000138276, 0.000139278)
+     Total Material
+       Absorption Rate                      0.000473887 +/- 4.94178e-06
+   Time [0.000139278, 0.00014028)
+     Total Material
+       Absorption Rate                      0.000469097 +/- 5.95332e-06
+   Time [0.00014028, 0.000141282)
+     Total Material
+       Absorption Rate                      0.000463228 +/- 5.69939e-06
+   Time [0.000141282, 0.000142284)
+     Total Material
+       Absorption Rate                      0.000452196 +/- 5.07575e-06
+   Time [0.000142284, 0.000143286)
+     Total Material
+       Absorption Rate                      0.000443854 +/- 4.89502e-06
+   Time [0.000143286, 0.000144288)
+     Total Material
+       Absorption Rate                      0.000435832 +/- 5.04041e-06
+   Time [0.000144288, 0.00014529)
+     Total Material
+       Absorption Rate                      0.000432281 +/- 3.82474e-06
+   Time [0.00014529, 0.00014629200000000001)
+     Total Material
+       Absorption Rate                      0.000428234 +/- 3.3334e-06
+   Time [0.00014629200000000001, 0.00014729400000000002)
+     Total Material
+       Absorption Rate                      0.000420478 +/- 4.37679e-06
+   Time [0.00014729400000000002, 0.00014829600000000002)
+     Total Material
+       Absorption Rate                      0.000411873 +/- 4.06992e-06
+   Time [0.00014829600000000002, 0.00014929800000000002)
+     Total Material
+       Absorption Rate                      0.00040401 +/- 3.26816e-06
+   Time [0.00014929800000000002, 0.00015030000000000002)
+     Total Material
+       Absorption Rate                      0.000397798 +/- 3.27051e-06
+   Time [0.00015030000000000002, 0.00015130200000000002)
+     Total Material
+       Absorption Rate                      0.000391467 +/- 4.02906e-06
+   Time [0.00015130200000000002, 0.00015230400000000002)
+     Total Material
+       Absorption Rate                      0.000386011 +/- 4.45583e-06
+   Time [0.00015230400000000002, 0.00015330600000000003)
+     Total Material
+       Absorption Rate                      0.000381395 +/- 3.49202e-06
+   Time [0.00015330600000000003, 0.00015430800000000003)
+     Total Material
+       Absorption Rate                      0.00037806 +/- 3.42147e-06
+   Time [0.00015430800000000003, 0.00015531000000000003)
+     Total Material
+       Absorption Rate                      0.000371807 +/- 3.74218e-06
+   Time [0.00015531000000000003, 0.000156312)
+     Total Material
+       Absorption Rate                      0.000368163 +/- 3.99439e-06
+   Time [0.000156312, 0.000157314)
+     Total Material
+       Absorption Rate                      0.000365208 +/- 3.78159e-06
+   Time [0.000157314, 0.000158316)
+     Total Material
+       Absorption Rate                      0.000358642 +/- 3.72717e-06
+   Time [0.000158316, 0.000159318)
+     Total Material
+       Absorption Rate                      0.000351279 +/- 4.64038e-06
+   Time [0.000159318, 0.00016032)
+     Total Material
+       Absorption Rate                      0.000343275 +/- 4.47324e-06
+   Time [0.00016032, 0.000161322)
+     Total Material
+       Absorption Rate                      0.000334066 +/- 4.92593e-06
+   Time [0.000161322, 0.000162324)
+     Total Material
+       Absorption Rate                      0.000332994 +/- 4.61385e-06
+   Time [0.000162324, 0.00016332600000000001)
+     Total Material
+       Absorption Rate                      0.000330273 +/- 5.23852e-06
+   Time [0.00016332600000000001, 0.00016432800000000002)
+     Total Material
+       Absorption Rate                      0.0003267 +/- 5.09814e-06
+   Time [0.00016432800000000002, 0.00016533000000000002)
+     Total Material
+       Absorption Rate                      0.000322811 +/- 4.98269e-06
+   Time [0.00016533000000000002, 0.00016633200000000002)
+     Total Material
+       Absorption Rate                      0.000320539 +/- 5.00954e-06
+   Time [0.00016633200000000002, 0.00016733400000000002)
+     Total Material
+       Absorption Rate                      0.000314444 +/- 4.82803e-06
+   Time [0.00016733400000000002, 0.00016833600000000002)
+     Total Material
+       Absorption Rate                      0.00031026 +/- 4.71328e-06
+   Time [0.00016833600000000002, 0.00016933800000000002)
+     Total Material
+       Absorption Rate                      0.000304669 +/- 4.39634e-06
+   Time [0.00016933800000000002, 0.00017034000000000003)
+     Total Material
+       Absorption Rate                      0.000302846 +/- 4.05986e-06
+   Time [0.00017034000000000003, 0.00017134200000000003)
+     Total Material
+       Absorption Rate                      0.000296565 +/- 3.97243e-06
+   Time [0.00017134200000000003, 0.00017234400000000003)
+     Total Material
+       Absorption Rate                      0.00029143 +/- 4.27156e-06
+   Time [0.00017234400000000003, 0.00017334600000000003)
+     Total Material
+       Absorption Rate                      0.000289216 +/- 4.96706e-06
+   Time [0.00017334600000000003, 0.000174348)
+     Total Material
+       Absorption Rate                      0.000281622 +/- 5.01005e-06
+   Time [0.000174348, 0.00017535)
+     Total Material
+       Absorption Rate                      0.000276476 +/- 4.75e-06
+   Time [0.00017535, 0.000176352)
+     Total Material
+       Absorption Rate                      0.000272652 +/- 3.99308e-06
+   Time [0.000176352, 0.000177354)
+     Total Material
+       Absorption Rate                      0.000269312 +/- 4.26946e-06
+   Time [0.000177354, 0.000178356)
+     Total Material
+       Absorption Rate                      0.0002654 +/- 3.95069e-06
+   Time [0.000178356, 0.000179358)
+     Total Material
+       Absorption Rate                      0.00026093 +/- 4.38939e-06
+   Time [0.000179358, 0.00018036000000000001)
+     Total Material
+       Absorption Rate                      0.000255271 +/- 4.02326e-06
+   Time [0.00018036000000000001, 0.00018136200000000002)
+     Total Material
+       Absorption Rate                      0.000250659 +/- 3.54971e-06
+   Time [0.00018136200000000002, 0.00018236400000000002)
+     Total Material
+       Absorption Rate                      0.000250554 +/- 3.14351e-06
+   Time [0.00018236400000000002, 0.00018336600000000002)
+     Total Material
+       Absorption Rate                      0.000249246 +/- 2.81912e-06
+   Time [0.00018336600000000002, 0.00018436800000000002)
+     Total Material
+       Absorption Rate                      0.000247396 +/- 3.1364e-06
+   Time [0.00018436800000000002, 0.00018537000000000002)
+     Total Material
+       Absorption Rate                      0.000245714 +/- 3.25618e-06
+   Time [0.00018537000000000002, 0.00018637200000000002)
+     Total Material
+       Absorption Rate                      0.000240164 +/- 3.37431e-06
+   Time [0.00018637200000000002, 0.00018737400000000003)
+     Total Material
+       Absorption Rate                      0.00023837 +/- 3.33498e-06
+   Time [0.00018737400000000003, 0.00018837600000000003)
+     Total Material
+       Absorption Rate                      0.000237012 +/- 2.97596e-06
+   Time [0.00018837600000000003, 0.00018937800000000003)
+     Total Material
+       Absorption Rate                      0.00023013 +/- 3.16373e-06
+   Time [0.00018937800000000003, 0.00019038000000000003)
+     Total Material
+       Absorption Rate                      0.000225715 +/- 3.28446e-06
+   Time [0.00019038000000000003, 0.00019138200000000003)
+     Total Material
+       Absorption Rate                      0.00022465 +/- 3.44958e-06
+   Time [0.00019138200000000003, 0.00019238400000000003)
+     Total Material
+       Absorption Rate                      0.000225016 +/- 2.95214e-06
+   Time [0.00019238400000000003, 0.000193386)
+     Total Material
+       Absorption Rate                      0.000223485 +/- 2.61426e-06
+   Time [0.000193386, 0.000194388)
+     Total Material
+       Absorption Rate                      0.000219263 +/- 3.37982e-06
+   Time [0.000194388, 0.00019539)
+     Total Material
+       Absorption Rate                      0.000215474 +/- 3.33055e-06
+   Time [0.00019539, 0.000196392)
+     Total Material
+       Absorption Rate                      0.000211781 +/- 2.77887e-06
+   Time [0.000196392, 0.00019739400000000001)
+     Total Material
+       Absorption Rate                      0.000208314 +/- 2.57265e-06
+   Time [0.00019739400000000001, 0.00019839600000000002)
+     Total Material
+       Absorption Rate                      0.000203493 +/- 2.25754e-06
+   Time [0.00019839600000000002, 0.00019939800000000002)
+     Total Material
+       Absorption Rate                      0.000199551 +/- 2.54425e-06
+   Time [0.00019939800000000002, 0.00020040000000000002)
+     Total Material
+       Absorption Rate                      0.000198609 +/- 2.88744e-06
+   Time [0.00020040000000000002, 0.00020140200000000002)
+     Total Material
+       Absorption Rate                      0.000198776 +/- 3.3297e-06
+   Time [0.00020140200000000002, 0.00020240400000000002)
+     Total Material
+       Absorption Rate                      0.000195072 +/- 3.12556e-06
+   Time [0.00020240400000000002, 0.00020340600000000002)
+     Total Material
+       Absorption Rate                      0.000192981 +/- 2.7715e-06
+   Time [0.00020340600000000002, 0.00020440800000000003)
+     Total Material
+       Absorption Rate                      0.000186574 +/- 2.64418e-06
+   Time [0.00020440800000000003, 0.00020541000000000003)
+     Total Material
+       Absorption Rate                      0.000183398 +/- 2.33737e-06
+   Time [0.00020541000000000003, 0.00020641200000000003)
+     Total Material
+       Absorption Rate                      0.000179446 +/- 3.06442e-06
+   Time [0.00020641200000000003, 0.00020741400000000003)
+     Total Material
+       Absorption Rate                      0.000176799 +/- 2.93585e-06
+   Time [0.00020741400000000003, 0.00020841600000000003)
+     Total Material
+       Absorption Rate                      0.000174768 +/- 2.7492e-06
+   Time [0.00020841600000000003, 0.00020941800000000003)
+     Total Material
+       Absorption Rate                      0.000175473 +/- 3.04647e-06
+   Time [0.00020941800000000003, 0.00021042000000000004)
+     Total Material
+       Absorption Rate                      0.000175051 +/- 3.56337e-06
+   Time [0.00021042000000000004, 0.000211422)
+     Total Material
+       Absorption Rate                      0.000171847 +/- 3.78291e-06
+   Time [0.000211422, 0.000212424)
+     Total Material
+       Absorption Rate                      0.000170832 +/- 3.86286e-06
+   Time [0.000212424, 0.000213426)
+     Total Material
+       Absorption Rate                      0.000167164 +/- 4.06067e-06
+   Time [0.000213426, 0.00021442800000000001)
+     Total Material
+       Absorption Rate                      0.000162139 +/- 3.92576e-06
+   Time [0.00021442800000000001, 0.00021543000000000002)
+     Total Material
+       Absorption Rate                      0.000159003 +/- 3.12182e-06
+   Time [0.00021543000000000002, 0.00021643200000000002)
+     Total Material
+       Absorption Rate                      0.000158272 +/- 2.65805e-06
+   Time [0.00021643200000000002, 0.00021743400000000002)
+     Total Material
+       Absorption Rate                      0.000156815 +/- 2.9245e-06
+   Time [0.00021743400000000002, 0.00021843600000000002)
+     Total Material
+       Absorption Rate                      0.000157544 +/- 3.10222e-06
+   Time [0.00021843600000000002, 0.00021943800000000002)
+     Total Material
+       Absorption Rate                      0.000155366 +/- 2.92268e-06
+   Time [0.00021943800000000002, 0.00022044000000000002)
+     Total Material
+       Absorption Rate                      0.000152647 +/- 2.57955e-06
+   Time [0.00022044000000000002, 0.00022144200000000003)
+     Total Material
+       Absorption Rate                      0.000147825 +/- 2.63873e-06
+   Time [0.00022144200000000003, 0.00022244400000000003)
+     Total Material
+       Absorption Rate                      0.000143333 +/- 2.8765e-06
+   Time [0.00022244400000000003, 0.00022344600000000003)
+     Total Material
+       Absorption Rate                      0.000142542 +/- 2.76017e-06
+   Time [0.00022344600000000003, 0.00022444800000000003)
+     Total Material
+       Absorption Rate                      0.000142551 +/- 3.00955e-06
+   Time [0.00022444800000000003, 0.00022545000000000003)
+     Total Material
+       Absorption Rate                      0.000138496 +/- 2.50524e-06
+   Time [0.00022545000000000003, 0.00022645200000000003)
+     Total Material
+       Absorption Rate                      0.000137406 +/- 2.25819e-06
+   Time [0.00022645200000000003, 0.00022745400000000004)
+     Total Material
+       Absorption Rate                      0.000137984 +/- 2.38258e-06
+   Time [0.00022745400000000004, 0.00022845600000000004)
+     Total Material
+       Absorption Rate                      0.000137899 +/- 2.73704e-06
+   Time [0.00022845600000000004, 0.000229458)
+     Total Material
+       Absorption Rate                      0.000135417 +/- 2.70888e-06
+   Time [0.000229458, 0.00023046)
+     Total Material
+       Absorption Rate                      0.000133728 +/- 2.76539e-06
+   Time [0.00023046, 0.00023146200000000001)
+     Total Material
+       Absorption Rate                      0.000131212 +/- 2.87079e-06
+   Time [0.00023146200000000001, 0.00023246400000000002)
+     Total Material
+       Absorption Rate                      0.000128907 +/- 2.46638e-06
+   Time [0.00023246400000000002, 0.00023346600000000002)
+     Total Material
+       Absorption Rate                      0.00012886 +/- 3.24124e-06
+   Time [0.00023346600000000002, 0.00023446800000000002)
+     Total Material
+       Absorption Rate                      0.000127261 +/- 3.24946e-06
+   Time [0.00023446800000000002, 0.00023547000000000002)
+     Total Material
+       Absorption Rate                      0.000125594 +/- 2.9864e-06
+   Time [0.00023547000000000002, 0.00023647200000000002)
+     Total Material
+       Absorption Rate                      0.00012288 +/- 2.63054e-06
+   Time [0.00023647200000000002, 0.00023747400000000002)
+     Total Material
+       Absorption Rate                      0.000122397 +/- 2.44777e-06
+   Time [0.00023747400000000002, 0.00023847600000000003)
+     Total Material
+       Absorption Rate                      0.000119998 +/- 2.15367e-06
+   Time [0.00023847600000000003, 0.00023947800000000003)
+     Total Material
+       Absorption Rate                      0.000118295 +/- 2.03473e-06
+   Time [0.00023947800000000003, 0.00024048000000000003)
+     Total Material
+       Absorption Rate                      0.000116108 +/- 2.23961e-06
+   Time [0.00024048000000000003, 0.00024148200000000003)
+     Total Material
+       Absorption Rate                      0.000112987 +/- 2.1549e-06
+   Time [0.00024148200000000003, 0.00024248400000000003)
+     Total Material
+       Absorption Rate                      0.000111616 +/- 2.4467e-06
+   Time [0.00024248400000000003, 0.00024348600000000003)
+     Total Material
+       Absorption Rate                      0.000108866 +/- 2.76925e-06
+   Time [0.00024348600000000003, 0.000244488)
+     Total Material
+       Absorption Rate                      0.000107695 +/- 2.24715e-06
+   Time [0.000244488, 0.00024549)
+     Total Material
+       Absorption Rate                      0.000108264 +/- 2.16218e-06
+   Time [0.00024549, 0.000246492)
+     Total Material
+       Absorption Rate                      0.000109771 +/- 2.06197e-06
+   Time [0.000246492, 0.000247494)
+     Total Material
+       Absorption Rate                      0.000109787 +/- 1.85651e-06
+   Time [0.000247494, 0.000248496)
+     Total Material
+       Absorption Rate                      0.000108376 +/- 2.35991e-06
+   Time [0.000248496, 0.000249498)
+     Total Material
+       Absorption Rate                      0.00010586 +/- 2.45747e-06
+   Time [0.000249498, 0.0002505)
+     Total Material
+       Absorption Rate                      0.000106132 +/- 1.95524e-06
+   Time [0.0002505, 0.000251502)
+     Total Material
+       Absorption Rate                      0.000104176 +/- 1.82411e-06
+   Time [0.000251502, 0.000252504)
+     Total Material
+       Absorption Rate                      0.000101783 +/- 1.75137e-06
+   Time [0.000252504, 0.000253506)
+     Total Material
+       Absorption Rate                      9.94254e-05 +/- 1.50318e-06
+   Time [0.000253506, 0.000254508)
+     Total Material
+       Absorption Rate                      9.86995e-05 +/- 2.01935e-06
+   Time [0.000254508, 0.00025551)
+     Total Material
+       Absorption Rate                      9.84334e-05 +/- 2.11573e-06
+   Time [0.00025551, 0.000256512)
+     Total Material
+       Absorption Rate                      0.000100431 +/- 2.32014e-06
+   Time [0.000256512, 0.00025751400000000003)
+     Total Material
+       Absorption Rate                      9.93965e-05 +/- 2.7585e-06
+   Time [0.00025751400000000003, 0.00025851600000000003)
+     Total Material
+       Absorption Rate                      9.74624e-05 +/- 2.50269e-06
+   Time [0.00025851600000000003, 0.00025951800000000003)
+     Total Material
+       Absorption Rate                      9.69239e-05 +/- 2.43082e-06
+   Time [0.00025951800000000003, 0.00026052000000000003)
+     Total Material
+       Absorption Rate                      9.57378e-05 +/- 2.06376e-06
+   Time [0.00026052000000000003, 0.00026152200000000003)
+     Total Material
+       Absorption Rate                      9.13592e-05 +/- 1.60159e-06
+   Time [0.00026152200000000003, 0.00026252400000000004)
+     Total Material
+       Absorption Rate                      9.0485e-05 +/- 1.78091e-06
+   Time [0.00026252400000000004, 0.00026352600000000004)
+     Total Material
+       Absorption Rate                      9.14302e-05 +/- 1.46921e-06
+   Time [0.00026352600000000004, 0.00026452800000000004)
+     Total Material
+       Absorption Rate                      8.88416e-05 +/- 1.47671e-06
+   Time [0.00026452800000000004, 0.00026553000000000004)
+     Total Material
+       Absorption Rate                      8.85317e-05 +/- 1.74076e-06
+   Time [0.00026553000000000004, 0.00026653200000000004)
+     Total Material
+       Absorption Rate                      8.98607e-05 +/- 1.99642e-06
+   Time [0.00026653200000000004, 0.00026753400000000004)
+     Total Material
+       Absorption Rate                      9.00008e-05 +/- 2.21411e-06
+   Time [0.00026753400000000004, 0.00026853600000000005)
+     Total Material
+       Absorption Rate                      8.89231e-05 +/- 2.21366e-06
+   Time [0.00026853600000000005, 0.00026953800000000005)
+     Total Material
+       Absorption Rate                      8.7991e-05 +/- 2.36232e-06
+   Time [0.00026953800000000005, 0.00027054000000000005)
+     Total Material
+       Absorption Rate                      8.63774e-05 +/- 2.6067e-06
+   Time [0.00027054000000000005, 0.00027154200000000005)
+     Total Material
+       Absorption Rate                      8.55931e-05 +/- 2.49187e-06
+   Time [0.00027154200000000005, 0.00027254400000000005)
+     Total Material
+       Absorption Rate                      8.56319e-05 +/- 2.44898e-06
+   Time [0.00027254400000000005, 0.00027354600000000005)
+     Total Material
+       Absorption Rate                      8.20037e-05 +/- 2.31672e-06
+   Time [0.00027354600000000005, 0.00027454800000000006)
+     Total Material
+       Absorption Rate                      8.1286e-05 +/- 2.2043e-06
+   Time [0.00027454800000000006, 0.00027555)
+     Total Material
+       Absorption Rate                      8.13403e-05 +/- 1.84325e-06
+   Time [0.00027555, 0.000276552)
+     Total Material
+       Absorption Rate                      8.17892e-05 +/- 2.13174e-06
+   Time [0.000276552, 0.000277554)
+     Total Material
+       Absorption Rate                      8.00796e-05 +/- 2.49386e-06
+   Time [0.000277554, 0.000278556)
+     Total Material
+       Absorption Rate                      7.98381e-05 +/- 2.41077e-06
+   Time [0.000278556, 0.000279558)
+     Total Material
+       Absorption Rate                      7.89768e-05 +/- 2.19783e-06
+   Time [0.000279558, 0.00028056)
+     Total Material
+       Absorption Rate                      7.76433e-05 +/- 2.62369e-06
+   Time [0.00028056, 0.000281562)
+     Total Material
+       Absorption Rate                      7.70138e-05 +/- 2.21492e-06
+   Time [0.000281562, 0.000282564)
+     Total Material
+       Absorption Rate                      7.36678e-05 +/- 1.79933e-06
+   Time [0.000282564, 0.000283566)
+     Total Material
+       Absorption Rate                      7.22276e-05 +/- 1.97304e-06
+   Time [0.000283566, 0.000284568)
+     Total Material
+       Absorption Rate                      7.08957e-05 +/- 2.1992e-06
+   Time [0.000284568, 0.00028557)
+     Total Material
+       Absorption Rate                      7.07767e-05 +/- 2.53889e-06
+   Time [0.00028557, 0.000286572)
+     Total Material
+       Absorption Rate                      7.01407e-05 +/- 2.14941e-06
+   Time [0.000286572, 0.000287574)
+     Total Material
+       Absorption Rate                      6.97514e-05 +/- 1.83015e-06
+   Time [0.000287574, 0.000288576)
+     Total Material
+       Absorption Rate                      6.94228e-05 +/- 2.2416e-06
+   Time [0.000288576, 0.000289578)
+     Total Material
+       Absorption Rate                      6.81913e-05 +/- 2.33257e-06
+   Time [0.000289578, 0.00029058)
+     Total Material
+       Absorption Rate                      6.931e-05 +/- 2.39493e-06
+   Time [0.00029058, 0.00029158200000000003)
+     Total Material
+       Absorption Rate                      6.87344e-05 +/- 2.15997e-06
+   Time [0.00029158200000000003, 0.00029258400000000003)
+     Total Material
+       Absorption Rate                      6.61703e-05 +/- 2.02923e-06
+   Time [0.00029258400000000003, 0.00029358600000000003)
+     Total Material
+       Absorption Rate                      6.35669e-05 +/- 1.92316e-06
+   Time [0.00029358600000000003, 0.00029458800000000003)
+     Total Material
+       Absorption Rate                      6.4489e-05 +/- 1.77137e-06
+   Time [0.00029458800000000003, 0.00029559000000000003)
+     Total Material
+       Absorption Rate                      6.51055e-05 +/- 1.77601e-06
+   Time [0.00029559000000000003, 0.00029659200000000004)
+     Total Material
+       Absorption Rate                      6.41184e-05 +/- 2.26228e-06
+   Time [0.00029659200000000004, 0.00029759400000000004)
+     Total Material
+       Absorption Rate                      6.24529e-05 +/- 2.02989e-06
+   Time [0.00029759400000000004, 0.00029859600000000004)
+     Total Material
+       Absorption Rate                      6.06719e-05 +/- 1.91821e-06
+   Time [0.00029859600000000004, 0.00029959800000000004)
+     Total Material
+       Absorption Rate                      6.04526e-05 +/- 1.65185e-06
+   Time [0.00029959800000000004, 0.00030060000000000004)
+     Total Material
+       Absorption Rate                      6.07968e-05 +/- 1.80103e-06
+   Time [0.00030060000000000004, 0.00030160200000000004)
+     Total Material
+       Absorption Rate                      6.01367e-05 +/- 1.97013e-06
+   Time [0.00030160200000000004, 0.00030260400000000005)
+     Total Material
+       Absorption Rate                      5.98002e-05 +/- 1.96219e-06
+   Time [0.00030260400000000005, 0.00030360600000000005)
+     Total Material
+       Absorption Rate                      5.95322e-05 +/- 2.08923e-06
+   Time [0.00030360600000000005, 0.00030460800000000005)
+     Total Material
+       Absorption Rate                      5.71463e-05 +/- 2.05591e-06
+   Time [0.00030460800000000005, 0.00030561000000000005)
+     Total Material
+       Absorption Rate                      5.59484e-05 +/- 1.51193e-06
+   Time [0.00030561000000000005, 0.00030661200000000005)
+     Total Material
+       Absorption Rate                      5.59533e-05 +/- 1.37935e-06
+   Time [0.00030661200000000005, 0.00030761400000000005)
+     Total Material
+       Absorption Rate                      5.49982e-05 +/- 1.62987e-06
+   Time [0.00030761400000000005, 0.00030861600000000006)
+     Total Material
+       Absorption Rate                      5.43275e-05 +/- 1.6206e-06
+   Time [0.00030861600000000006, 0.00030961800000000006)
+     Total Material
+       Absorption Rate                      5.29793e-05 +/- 1.42847e-06
+   Time [0.00030961800000000006, 0.00031062000000000006)
+     Total Material
+       Absorption Rate                      5.19198e-05 +/- 1.73496e-06
+   Time [0.00031062000000000006, 0.000311622)
+     Total Material
+       Absorption Rate                      5.26189e-05 +/- 1.82441e-06
+   Time [0.000311622, 0.000312624)
+     Total Material
+       Absorption Rate                      5.16277e-05 +/- 1.76315e-06
+   Time [0.000312624, 0.000313626)
+     Total Material
+       Absorption Rate                      5.16012e-05 +/- 1.40247e-06
+   Time [0.000313626, 0.000314628)
+     Total Material
+       Absorption Rate                      5.08537e-05 +/- 1.30203e-06
+   Time [0.000314628, 0.00031563)
+     Total Material
+       Absorption Rate                      5.08676e-05 +/- 1.73144e-06
+   Time [0.00031563, 0.000316632)
+     Total Material
+       Absorption Rate                      4.92321e-05 +/- 1.46667e-06
+   Time [0.000316632, 0.000317634)
+     Total Material
+       Absorption Rate                      4.99102e-05 +/- 1.55314e-06
+   Time [0.000317634, 0.000318636)
+     Total Material
+       Absorption Rate                      4.84635e-05 +/- 1.41022e-06
+   Time [0.000318636, 0.000319638)
+     Total Material
+       Absorption Rate                      4.91837e-05 +/- 1.38414e-06
+   Time [0.000319638, 0.00032064)
+     Total Material
+       Absorption Rate                      4.89732e-05 +/- 1.3159e-06
+   Time [0.00032064, 0.000321642)
+     Total Material
+       Absorption Rate                      4.76278e-05 +/- 8.7497e-07
+   Time [0.000321642, 0.000322644)
+     Total Material
+       Absorption Rate                      4.93762e-05 +/- 1.281e-06
+   Time [0.000322644, 0.000323646)
+     Total Material
+       Absorption Rate                      5.11378e-05 +/- 1.46312e-06
+   Time [0.000323646, 0.000324648)
+     Total Material
+       Absorption Rate                      5.04063e-05 +/- 1.33857e-06
+   Time [0.000324648, 0.00032565000000000003)
+     Total Material
+       Absorption Rate                      4.99719e-05 +/- 1.34514e-06
+   Time [0.00032565000000000003, 0.00032665200000000003)
+     Total Material
+       Absorption Rate                      4.91789e-05 +/- 1.43408e-06
+   Time [0.00032665200000000003, 0.00032765400000000003)
+     Total Material
+       Absorption Rate                      4.68554e-05 +/- 1.27957e-06
+   Time [0.00032765400000000003, 0.00032865600000000003)
+     Total Material
+       Absorption Rate                      4.48456e-05 +/- 1.54499e-06
+   Time [0.00032865600000000003, 0.00032965800000000003)
+     Total Material
+       Absorption Rate                      4.49155e-05 +/- 1.63858e-06
+   Time [0.00032965800000000003, 0.00033066000000000004)
+     Total Material
+       Absorption Rate                      4.47466e-05 +/- 1.54785e-06
+   Time [0.00033066000000000004, 0.00033166200000000004)
+     Total Material
+       Absorption Rate                      4.47993e-05 +/- 1.58651e-06
+   Time [0.00033166200000000004, 0.00033266400000000004)
+     Total Material
+       Absorption Rate                      4.34885e-05 +/- 1.67744e-06
+   Time [0.00033266400000000004, 0.00033366600000000004)
+     Total Material
+       Absorption Rate                      4.34142e-05 +/- 1.73212e-06
+   Time [0.00033366600000000004, 0.00033466800000000004)
+     Total Material
+       Absorption Rate                      4.37135e-05 +/- 1.72888e-06
+   Time [0.00033466800000000004, 0.00033567000000000004)
+     Total Material
+       Absorption Rate                      4.33358e-05 +/- 1.72578e-06
+   Time [0.00033567000000000004, 0.00033667200000000005)
+     Total Material
+       Absorption Rate                      4.23074e-05 +/- 1.76206e-06
+   Time [0.00033667200000000005, 0.00033767400000000005)
+     Total Material
+       Absorption Rate                      4.3104e-05 +/- 1.61634e-06
+   Time [0.00033767400000000005, 0.00033867600000000005)
+     Total Material
+       Absorption Rate                      4.2668e-05 +/- 1.40417e-06
+   Time [0.00033867600000000005, 0.00033967800000000005)
+     Total Material
+       Absorption Rate                      4.22591e-05 +/- 1.15788e-06
+   Time [0.00033967800000000005, 0.00034068000000000005)
+     Total Material
+       Absorption Rate                      4.08113e-05 +/- 1.12842e-06
+   Time [0.00034068000000000005, 0.00034168200000000005)
+     Total Material
+       Absorption Rate                      3.99874e-05 +/- 1.12363e-06
+   Time [0.00034168200000000005, 0.00034268400000000005)
+     Total Material
+       Absorption Rate                      3.97713e-05 +/- 1.12634e-06
+   Time [0.00034268400000000005, 0.00034368600000000006)
+     Total Material
+       Absorption Rate                      4.03984e-05 +/- 1.35127e-06
+   Time [0.00034368600000000006, 0.00034468800000000006)
+     Total Material
+       Absorption Rate                      4.09511e-05 +/- 1.47748e-06
+   Time [0.00034468800000000006, 0.00034569000000000006)
+     Total Material
+       Absorption Rate                      3.96577e-05 +/- 1.54271e-06
+   Time [0.00034569000000000006, 0.00034669200000000006)
+     Total Material
+       Absorption Rate                      3.83283e-05 +/- 1.46513e-06
+   Time [0.00034669200000000006, 0.00034769400000000006)
+     Total Material
+       Absorption Rate                      3.8071e-05 +/- 1.62858e-06
+   Time [0.00034769400000000006, 0.000348696)
+     Total Material
+       Absorption Rate                      3.73389e-05 +/- 1.61564e-06
+   Time [0.000348696, 0.000349698)
+     Total Material
+       Absorption Rate                      3.70806e-05 +/- 1.59357e-06
+   Time [0.000349698, 0.0003507)
+     Total Material
+       Absorption Rate                      3.70971e-05 +/- 1.68523e-06
+   Time [0.0003507, 0.000351702)
+     Total Material
+       Absorption Rate                      3.65341e-05 +/- 1.08109e-06
+   Time [0.000351702, 0.000352704)
+     Total Material
+       Absorption Rate                      3.53193e-05 +/- 1.33068e-06
+   Time [0.000352704, 0.000353706)
+     Total Material
+       Absorption Rate                      3.53862e-05 +/- 1.52404e-06
+   Time [0.000353706, 0.000354708)
+     Total Material
+       Absorption Rate                      3.43706e-05 +/- 1.35787e-06
+   Time [0.000354708, 0.00035571)
+     Total Material
+       Absorption Rate                      3.38245e-05 +/- 1.38795e-06
+   Time [0.00035571, 0.000356712)
+     Total Material
+       Absorption Rate                      3.49044e-05 +/- 1.19579e-06
+   Time [0.000356712, 0.000357714)
+     Total Material
+       Absorption Rate                      3.40934e-05 +/- 1.10694e-06
+   Time [0.000357714, 0.000358716)
+     Total Material
+       Absorption Rate                      3.35929e-05 +/- 1.10496e-06
+   Time [0.000358716, 0.00035971800000000003)
+     Total Material
+       Absorption Rate                      3.33071e-05 +/- 1.06828e-06
+   Time [0.00035971800000000003, 0.00036072000000000003)
+     Total Material
+       Absorption Rate                      3.29157e-05 +/- 9.86195e-07
+   Time [0.00036072000000000003, 0.00036172200000000003)
+     Total Material
+       Absorption Rate                      3.29084e-05 +/- 1.18864e-06
+   Time [0.00036172200000000003, 0.00036272400000000003)
+     Total Material
+       Absorption Rate                      3.23489e-05 +/- 1.24741e-06
+   Time [0.00036272400000000003, 0.00036372600000000003)
+     Total Material
+       Absorption Rate                      3.19958e-05 +/- 1.16146e-06
+   Time [0.00036372600000000003, 0.00036472800000000004)
+     Total Material
+       Absorption Rate                      3.16198e-05 +/- 1.1019e-06
+   Time [0.00036472800000000004, 0.00036573000000000004)
+     Total Material
+       Absorption Rate                      3.13899e-05 +/- 8.28521e-07
+   Time [0.00036573000000000004, 0.00036673200000000004)
+     Total Material
+       Absorption Rate                      3.10129e-05 +/- 7.64948e-07
+   Time [0.00036673200000000004, 0.00036773400000000004)
+     Total Material
+       Absorption Rate                      3.08147e-05 +/- 1.22868e-06
+   Time [0.00036773400000000004, 0.00036873600000000004)
+     Total Material
+       Absorption Rate                      3.0156e-05 +/- 1.48581e-06
+   Time [0.00036873600000000004, 0.00036973800000000004)
+     Total Material
+       Absorption Rate                      3.04911e-05 +/- 1.35639e-06
+   Time [0.00036973800000000004, 0.00037074000000000005)
+     Total Material
+       Absorption Rate                      3.01464e-05 +/- 1.2015e-06
+   Time [0.00037074000000000005, 0.00037174200000000005)
+     Total Material
+       Absorption Rate                      2.96439e-05 +/- 1.18099e-06
+   Time [0.00037174200000000005, 0.00037274400000000005)
+     Total Material
+       Absorption Rate                      2.88931e-05 +/- 1.23547e-06
+   Time [0.00037274400000000005, 0.00037374600000000005)
+     Total Material
+       Absorption Rate                      2.83045e-05 +/- 1.08511e-06
+   Time [0.00037374600000000005, 0.00037474800000000005)
+     Total Material
+       Absorption Rate                      2.84935e-05 +/- 1.02652e-06
+   Time [0.00037474800000000005, 0.00037575000000000005)
+     Total Material
+       Absorption Rate                      2.75871e-05 +/- 1.06322e-06
+   Time [0.00037575000000000005, 0.00037675200000000005)
+     Total Material
+       Absorption Rate                      2.71397e-05 +/- 9.97773e-07
+   Time [0.00037675200000000005, 0.00037775400000000006)
+     Total Material
+       Absorption Rate                      2.71049e-05 +/- 1.10805e-06
+   Time [0.00037775400000000006, 0.00037875600000000006)
+     Total Material
+       Absorption Rate                      2.65701e-05 +/- 1.2927e-06
+   Time [0.00037875600000000006, 0.00037975800000000006)
+     Total Material
+       Absorption Rate                      2.7726e-05 +/- 1.18437e-06
+   Time [0.00037975800000000006, 0.00038076000000000006)
+     Total Material
+       Absorption Rate                      2.81366e-05 +/- 1.12542e-06
+   Time [0.00038076000000000006, 0.00038176200000000006)
+     Total Material
+       Absorption Rate                      2.85098e-05 +/- 1.05317e-06
+   Time [0.00038176200000000006, 0.00038276400000000006)
+     Total Material
+       Absorption Rate                      2.8234e-05 +/- 1.14208e-06
+   Time [0.00038276400000000006, 0.00038376600000000007)
+     Total Material
+       Absorption Rate                      2.75835e-05 +/- 1.10093e-06
+   Time [0.00038376600000000007, 0.00038476800000000007)
+     Total Material
+       Absorption Rate                      2.78542e-05 +/- 1.21241e-06
+   Time [0.00038476800000000007, 0.00038577)
+     Total Material
+       Absorption Rate                      2.85095e-05 +/- 1.48152e-06
+   Time [0.00038577, 0.000386772)
+     Total Material
+       Absorption Rate                      2.74742e-05 +/- 1.49517e-06
+   Time [0.000386772, 0.000387774)
+     Total Material
+       Absorption Rate                      2.64892e-05 +/- 1.6807e-06
+   Time [0.000387774, 0.000388776)
+     Total Material
+       Absorption Rate                      2.63426e-05 +/- 1.62103e-06
+   Time [0.000388776, 0.000389778)
+     Total Material
+       Absorption Rate                      2.55289e-05 +/- 1.61585e-06
+   Time [0.000389778, 0.00039078)
+     Total Material
+       Absorption Rate                      2.54955e-05 +/- 1.65261e-06
+   Time [0.00039078, 0.000391782)
+     Total Material
+       Absorption Rate                      2.64136e-05 +/- 1.56014e-06
+   Time [0.000391782, 0.000392784)
+     Total Material
+       Absorption Rate                      2.61998e-05 +/- 1.46145e-06
+   Time [0.000392784, 0.00039378600000000003)
+     Total Material
+       Absorption Rate                      2.52726e-05 +/- 1.6276e-06
+   Time [0.00039378600000000003, 0.00039478800000000003)
+     Total Material
+       Absorption Rate                      2.55266e-05 +/- 1.48087e-06
+   Time [0.00039478800000000003, 0.00039579000000000003)
+     Total Material
+       Absorption Rate                      2.502e-05 +/- 1.21808e-06
+   Time [0.00039579000000000003, 0.00039679200000000003)
+     Total Material
+       Absorption Rate                      2.64869e-05 +/- 1.28273e-06
+   Time [0.00039679200000000003, 0.00039779400000000003)
+     Total Material
+       Absorption Rate                      2.67589e-05 +/- 1.12815e-06
+   Time [0.00039779400000000003, 0.00039879600000000004)
+     Total Material
+       Absorption Rate                      2.56163e-05 +/- 1.01668e-06
+   Time [0.00039879600000000004, 0.00039979800000000004)
+     Total Material
+       Absorption Rate                      2.58297e-05 +/- 1.21929e-06
+   Time [0.00039979800000000004, 0.00040080000000000004)
+     Total Material
+       Absorption Rate                      2.48957e-05 +/- 1.42491e-06
+   Time [0.00040080000000000004, 0.00040180200000000004)
+     Total Material
+       Absorption Rate                      2.4217e-05 +/- 1.36397e-06
+   Time [0.00040180200000000004, 0.00040280400000000004)
+     Total Material
+       Absorption Rate                      2.35644e-05 +/- 1.4072e-06
+   Time [0.00040280400000000004, 0.00040380600000000004)
+     Total Material
+       Absorption Rate                      2.31053e-05 +/- 1.1743e-06
+   Time [0.00040380600000000004, 0.00040480800000000004)
+     Total Material
+       Absorption Rate                      2.35686e-05 +/- 1.07942e-06
+   Time [0.00040480800000000004, 0.00040581000000000005)
+     Total Material
+       Absorption Rate                      2.37916e-05 +/- 1.0371e-06
+   Time [0.00040581000000000005, 0.00040681200000000005)
+     Total Material
+       Absorption Rate                      2.30199e-05 +/- 9.1162e-07
+   Time [0.00040681200000000005, 0.00040781400000000005)
+     Total Material
+       Absorption Rate                      2.22677e-05 +/- 7.38388e-07
+   Time [0.00040781400000000005, 0.00040881600000000005)
+     Total Material
+       Absorption Rate                      2.15971e-05 +/- 5.4852e-07
+   Time [0.00040881600000000005, 0.00040981800000000005)
+     Total Material
+       Absorption Rate                      2.1372e-05 +/- 7.98424e-07
+   Time [0.00040981800000000005, 0.00041082000000000005)
+     Total Material
+       Absorption Rate                      2.22184e-05 +/- 1.03244e-06
+   Time [0.00041082000000000005, 0.00041182200000000006)
+     Total Material
+       Absorption Rate                      2.33846e-05 +/- 1.20862e-06
+   Time [0.00041182200000000006, 0.00041282400000000006)
+     Total Material
+       Absorption Rate                      2.31148e-05 +/- 1.11353e-06
+   Time [0.00041282400000000006, 0.00041382600000000006)
+     Total Material
+       Absorption Rate                      2.3132e-05 +/- 1.07046e-06
+   Time [0.00041382600000000006, 0.00041482800000000006)
+     Total Material
+       Absorption Rate                      2.29206e-05 +/- 8.73198e-07
+   Time [0.00041482800000000006, 0.00041583000000000006)
+     Total Material
+       Absorption Rate                      2.22752e-05 +/- 1.05102e-06
+   Time [0.00041583000000000006, 0.00041683200000000006)
+     Total Material
+       Absorption Rate                      2.16983e-05 +/- 9.03247e-07
+   Time [0.00041683200000000006, 0.00041783400000000007)
+     Total Material
+       Absorption Rate                      2.04694e-05 +/- 8.61818e-07
+   Time [0.00041783400000000007, 0.00041883600000000007)
+     Total Material
+       Absorption Rate                      2.07093e-05 +/- 9.41982e-07
+   Time [0.00041883600000000007, 0.00041983800000000007)
+     Total Material
+       Absorption Rate                      2.09578e-05 +/- 1.05586e-06
+   Time [0.00041983800000000007, 0.00042084000000000007)
+     Total Material
+       Absorption Rate                      2.06044e-05 +/- 1.0321e-06
+   Time [0.00042084000000000007, 0.000421842)
+     Total Material
+       Absorption Rate                      1.97138e-05 +/- 1.18881e-06
+   Time [0.000421842, 0.000422844)
+     Total Material
+       Absorption Rate                      2.00459e-05 +/- 1.05706e-06
+   Time [0.000422844, 0.000423846)
+     Total Material
+       Absorption Rate                      1.95475e-05 +/- 9.11213e-07
+   Time [0.000423846, 0.000424848)
+     Total Material
+       Absorption Rate                      1.89646e-05 +/- 9.86703e-07
+   Time [0.000424848, 0.00042585)
+     Total Material
+       Absorption Rate                      2.00482e-05 +/- 9.36708e-07
+   Time [0.00042585, 0.000426852)
+     Total Material
+       Absorption Rate                      2.01769e-05 +/- 7.18885e-07
+   Time [0.000426852, 0.00042785400000000003)
+     Total Material
+       Absorption Rate                      1.96416e-05 +/- 5.07106e-07
+   Time [0.00042785400000000003, 0.00042885600000000003)
+     Total Material
+       Absorption Rate                      1.86241e-05 +/- 8.00267e-07
+   Time [0.00042885600000000003, 0.00042985800000000003)
+     Total Material
+       Absorption Rate                      1.76923e-05 +/- 7.99803e-07
+   Time [0.00042985800000000003, 0.00043086000000000003)
+     Total Material
+       Absorption Rate                      1.72388e-05 +/- 1.05733e-06
+   Time [0.00043086000000000003, 0.00043186200000000003)
+     Total Material
+       Absorption Rate                      1.75011e-05 +/- 1.08557e-06
+   Time [0.00043186200000000003, 0.00043286400000000004)
+     Total Material
+       Absorption Rate                      1.82333e-05 +/- 9.87183e-07
+   Time [0.00043286400000000004, 0.00043386600000000004)
+     Total Material
+       Absorption Rate                      1.78856e-05 +/- 9.09536e-07
+   Time [0.00043386600000000004, 0.00043486800000000004)
+     Total Material
+       Absorption Rate                      1.79447e-05 +/- 8.47367e-07
+   Time [0.00043486800000000004, 0.00043587000000000004)
+     Total Material
+       Absorption Rate                      1.80847e-05 +/- 1.01214e-06
+   Time [0.00043587000000000004, 0.00043687200000000004)
+     Total Material
+       Absorption Rate                      1.83987e-05 +/- 1.20885e-06
+   Time [0.00043687200000000004, 0.00043787400000000004)
+     Total Material
+       Absorption Rate                      1.77976e-05 +/- 1.17116e-06
+   Time [0.00043787400000000004, 0.00043887600000000004)
+     Total Material
+       Absorption Rate                      1.71012e-05 +/- 1.30455e-06
+   Time [0.00043887600000000004, 0.00043987800000000005)
+     Total Material
+       Absorption Rate                      1.78529e-05 +/- 1.11483e-06
+   Time [0.00043987800000000005, 0.00044088000000000005)
+     Total Material
+       Absorption Rate                      1.7646e-05 +/- 7.01191e-07
+   Time [0.00044088000000000005, 0.00044188200000000005)
+     Total Material
+       Absorption Rate                      1.737e-05 +/- 7.3511e-07
+   Time [0.00044188200000000005, 0.00044288400000000005)
+     Total Material
+       Absorption Rate                      1.82372e-05 +/- 8.43057e-07
+   Time [0.00044288400000000005, 0.00044388600000000005)
+     Total Material
+       Absorption Rate                      1.9219e-05 +/- 8.26598e-07
+   Time [0.00044388600000000005, 0.00044488800000000005)
+     Total Material
+       Absorption Rate                      1.87616e-05 +/- 9.41233e-07
+   Time [0.00044488800000000005, 0.00044589000000000006)
+     Total Material
+       Absorption Rate                      1.76863e-05 +/- 9.99026e-07
+   Time [0.00044589000000000006, 0.00044689200000000006)
+     Total Material
+       Absorption Rate                      1.66569e-05 +/- 9.85724e-07
+   Time [0.00044689200000000006, 0.00044789400000000006)
+     Total Material
+       Absorption Rate                      1.62821e-05 +/- 8.39965e-07
+   Time [0.00044789400000000006, 0.00044889600000000006)
+     Total Material
+       Absorption Rate                      1.60801e-05 +/- 8.55136e-07
+   Time [0.00044889600000000006, 0.00044989800000000006)
+     Total Material
+       Absorption Rate                      1.71116e-05 +/- 7.00639e-07
+   Time [0.00044989800000000006, 0.00045090000000000006)
+     Total Material
+       Absorption Rate                      1.80274e-05 +/- 7.15097e-07
+   Time [0.00045090000000000006, 0.00045190200000000007)
+     Total Material
+       Absorption Rate                      1.76464e-05 +/- 6.95836e-07
+   Time [0.00045190200000000007, 0.00045290400000000007)
+     Total Material
+       Absorption Rate                      1.72316e-05 +/- 8.46314e-07
+   Time [0.00045290400000000007, 0.00045390600000000007)
+     Total Material
+       Absorption Rate                      1.62216e-05 +/- 9.33674e-07
+   Time [0.00045390600000000007, 0.00045490800000000007)
+     Total Material
+       Absorption Rate                      1.57774e-05 +/- 1.06555e-06
+   Time [0.00045490800000000007, 0.00045591000000000007)
+     Total Material
+       Absorption Rate                      1.46492e-05 +/- 1.00279e-06
+   Time [0.00045591000000000007, 0.0004569120000000001)
+     Total Material
+       Absorption Rate                      1.44879e-05 +/- 1.00518e-06
+   Time [0.0004569120000000001, 0.0004579140000000001)
+     Total Material
+       Absorption Rate                      1.44816e-05 +/- 9.35976e-07
+   Time [0.0004579140000000001, 0.000458916)
+     Total Material
+       Absorption Rate                      1.4944e-05 +/- 8.54816e-07
+   Time [0.000458916, 0.000459918)
+     Total Material
+       Absorption Rate                      1.52172e-05 +/- 9.53349e-07
+   Time [0.000459918, 0.00046092)
+     Total Material
+       Absorption Rate                      1.53576e-05 +/- 1.00898e-06
+   Time [0.00046092, 0.000461922)
+     Total Material
+       Absorption Rate                      1.51452e-05 +/- 1.05146e-06
+   Time [0.000461922, 0.00046292400000000003)
+     Total Material
+       Absorption Rate                      1.45745e-05 +/- 1.02149e-06
+   Time [0.00046292400000000003, 0.00046392600000000003)
+     Total Material
+       Absorption Rate                      1.41434e-05 +/- 9.42855e-07
+   Time [0.00046392600000000003, 0.00046492800000000003)
+     Total Material
+       Absorption Rate                      1.4202e-05 +/- 8.54256e-07
+   Time [0.00046492800000000003, 0.00046593000000000003)
+     Total Material
+       Absorption Rate                      1.41433e-05 +/- 1.09224e-06
+   Time [0.00046593000000000003, 0.00046693200000000003)
+     Total Material
+       Absorption Rate                      1.40408e-05 +/- 1.15019e-06
+   Time [0.00046693200000000003, 0.00046793400000000004)
+     Total Material
+       Absorption Rate                      1.42447e-05 +/- 1.26477e-06
+   Time [0.00046793400000000004, 0.00046893600000000004)
+     Total Material
+       Absorption Rate                      1.38422e-05 +/- 1.06044e-06
+   Time [0.00046893600000000004, 0.00046993800000000004)
+     Total Material
+       Absorption Rate                      1.3869e-05 +/- 9.85895e-07
+   Time [0.00046993800000000004, 0.00047094000000000004)
+     Total Material
+       Absorption Rate                      1.40892e-05 +/- 8.73912e-07
+   Time [0.00047094000000000004, 0.00047194200000000004)
+     Total Material
+       Absorption Rate                      1.25626e-05 +/- 8.73523e-07
+   Time [0.00047194200000000004, 0.00047294400000000004)
+     Total Material
+       Absorption Rate                      1.18246e-05 +/- 7.16486e-07
+   Time [0.00047294400000000004, 0.00047394600000000005)
+     Total Material
+       Absorption Rate                      1.18889e-05 +/- 8.15096e-07
+   Time [0.00047394600000000005, 0.00047494800000000005)
+     Total Material
+       Absorption Rate                      1.19289e-05 +/- 1.01001e-06
+   Time [0.00047494800000000005, 0.00047595000000000005)
+     Total Material
+       Absorption Rate                      1.22255e-05 +/- 9.54769e-07
+   Time [0.00047595000000000005, 0.00047695200000000005)
+     Total Material
+       Absorption Rate                      1.24591e-05 +/- 8.14821e-07
+   Time [0.00047695200000000005, 0.00047795400000000005)
+     Total Material
+       Absorption Rate                      1.2187e-05 +/- 9.68483e-07
+   Time [0.00047795400000000005, 0.00047895600000000005)
+     Total Material
+       Absorption Rate                      1.18818e-05 +/- 9.85564e-07
+   Time [0.00047895600000000005, 0.00047995800000000006)
+     Total Material
+       Absorption Rate                      1.16467e-05 +/- 8.82242e-07
+   Time [0.00047995800000000006, 0.00048096000000000006)
+     Total Material
+       Absorption Rate                      1.15433e-05 +/- 8.41602e-07
+   Time [0.00048096000000000006, 0.00048196200000000006)
+     Total Material
+       Absorption Rate                      1.16415e-05 +/- 8.36776e-07
+   Time [0.00048196200000000006, 0.00048296400000000006)
+     Total Material
+       Absorption Rate                      1.17642e-05 +/- 9.16065e-07
+   Time [0.00048296400000000006, 0.00048396600000000006)
+     Total Material
+       Absorption Rate                      1.15611e-05 +/- 8.76582e-07
+   Time [0.00048396600000000006, 0.00048496800000000006)
+     Total Material
+       Absorption Rate                      1.13609e-05 +/- 8.38316e-07
+   Time [0.00048496800000000006, 0.00048597000000000007)
+     Total Material
+       Absorption Rate                      1.0833e-05 +/- 8.03431e-07
+   Time [0.00048597000000000007, 0.00048697200000000007)
+     Total Material
+       Absorption Rate                      1.02393e-05 +/- 8.32892e-07
+   Time [0.00048697200000000007, 0.00048797400000000007)
+     Total Material
+       Absorption Rate                      1.0187e-05 +/- 8.70578e-07
+   Time [0.00048797400000000007, 0.000488976)
+     Total Material
+       Absorption Rate                      1.04156e-05 +/- 8.65957e-07
+   Time [0.000488976, 0.0004899780000000001)
+     Total Material
+       Absorption Rate                      1.10187e-05 +/- 7.97121e-07
+   Time [0.0004899780000000001, 0.00049098)
+     Total Material
+       Absorption Rate                      1.1086e-05 +/- 7.90536e-07
+   Time [0.00049098, 0.0004919820000000001)
+     Total Material
+       Absorption Rate                      1.115e-05 +/- 7.71996e-07
+   Time [0.0004919820000000001, 0.000492984)
+     Total Material
+       Absorption Rate                      1.06602e-05 +/- 7.87418e-07
+   Time [0.000492984, 0.0004939860000000001)
+     Total Material
+       Absorption Rate                      1.07547e-05 +/- 6.85721e-07
+   Time [0.0004939860000000001, 0.000494988)
+     Total Material
+       Absorption Rate                      1.08628e-05 +/- 6.76195e-07
+   Time [0.000494988, 0.0004959900000000001)
+     Total Material
+       Absorption Rate                      1.01287e-05 +/- 6.68735e-07
+   Time [0.0004959900000000001, 0.000496992)
+     Total Material
+       Absorption Rate                      9.50232e-06 +/- 5.28259e-07
+   Time [0.000496992, 0.0004979940000000001)
+     Total Material
+       Absorption Rate                      9.66013e-06 +/- 5.4694e-07
+   Time [0.0004979940000000001, 0.000498996)
+     Total Material
+       Absorption Rate                      9.48986e-06 +/- 6.50117e-07
+   Time [0.000498996, 0.0004999980000000001)
+     Total Material
+       Absorption Rate                      9.48544e-06 +/- 7.26382e-07
+   Time [0.0004999980000000001, 0.000501)
+     Total Material
+       Absorption Rate                      9.9385e-06 +/- 6.94399e-07

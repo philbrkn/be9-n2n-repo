@@ -13,7 +13,7 @@
     <sab name="c_H_in_CH2"/>
   </material>
   <material id="3" name="He3">
-    <density value="0.0003" units="g/cm3"/>
+    <density value="0.0005" units="g/cm3"/>
     <nuclide name="He3" ao="1.0"/>
   </material>
   <material id="4" name="Cd">

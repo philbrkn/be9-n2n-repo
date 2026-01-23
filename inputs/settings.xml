@@ -3,22 +3,8 @@
   <run_mode>fixed source</run_mode>
   <particles>100000</particles>
   <batches>1</batches>
-  <source type="independent" strength="1.0" particle="neutron">
-    <space type="point">
-      <parameters>0 0 0</parameters>
-    </space>
-    <angle type="isotropic"/>
-    <energy type="normal" parameters="14100000.0 50000.0"/>
-    <time type="uniform" parameters="0.0 3.3333333333333335"/>
-  </source>
   <output>
     <path>.</path>
     <tallies>false</tallies>
   </output>
-  <collision_track>
-    <cell_ids>4</cell_ids>
-    <max_collisions>50000</max_collisions>
-    <max_collision_track_files>100</max_collision_track_files>
-  </collision_track>
-  <seed>21345</seed>
 </settings>
