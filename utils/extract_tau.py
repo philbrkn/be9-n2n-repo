@@ -8,6 +8,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import openmc
+from build_complex_input import create_geometry
 from scipy.optimize import curve_fit
 
 
@@ -273,8 +274,8 @@ def plot_fits(t, counts, yerr, single_fit, double_fit, filename="tau_extraction.
 # =============================================================================
 if __name__ == "__main__":
     settings = openmc.Settings()
-    settings.batches = 20
-    settings.particles = 10000000
+    settings.batches = 10
+    settings.particles = 100000
 
     # Pulsed source configuration
     BURST_DURATION = 1e-6  # 1 μs burst
@@ -299,15 +300,13 @@ if __name__ == "__main__":
     time_bins = np.linspace(0, T_TOTAL, 501)  # ~1 μs per bin
     time_filter = openmc.TimeFilter(time_bins)
 
-    geom = openmc.Geometry.from_xml(
-        path="inputs/geometry.xml", materials="inputs/materials.xml"
-    )
-    he3_cell = [c for c in geom.get_all_cells().values() if c.name == "He3_detector"][0]
+    geo = create_geometry(input_dir=Path("inputs"))
+    he3_cells = geo["cells"]["he3"]
     tallies = openmc.Tallies()
 
     # Detector response vs time
     det_response = openmc.Tally(name="detector_response")
-    he3_filter = openmc.CellFilter([he3_cell])
+    he3_filter = openmc.CellFilter(he3_cells)
     det_response.filters = [he3_filter, time_filter]
     det_response.scores = ["absorption"]
     tallies.append(det_response)
@@ -351,7 +350,7 @@ if __name__ == "__main__":
     print("\n1. SINGLE EXPONENTIAL FIT")
     print("-" * 70)
     single_fit = fit_single_exponential(
-        t_centers, counts, yerr, t_fit_start=100e-6, t_fit_end=300e-6
+        t_centers, counts, yerr, t_fit_start=10e-6, t_fit_end=300e-6
     )
 
     if single_fit:
@@ -368,7 +367,7 @@ if __name__ == "__main__":
     print("\n2. DOUBLE EXPONENTIAL FIT")
     print("-" * 70)
     double_fit = fit_double_exponential(
-        t_centers, counts, yerr, t_fit_start=20e-6, t_fit_end=300e-6
+        t_centers, counts, yerr, t_fit_start=10e-6, t_fit_end=300e-6
     )
     if double_fit:
         print(

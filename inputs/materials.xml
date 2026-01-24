@@ -13,7 +13,7 @@
     <sab name="c_H_in_CH2"/>
   </material>
   <material id="3" name="He3">
-    <density value="0.0005" units="g/cm3"/>
+    <density value="0.0003" units="g/cm3"/>
     <nuclide name="He3" ao="1.0"/>
   </material>
   <material id="4" name="Cd">
@@ -26,5 +26,16 @@
     <nuclide name="Cd113" ao="0.12227"/>
     <nuclide name="Cd114" ao="0.28754"/>
     <nuclide name="Cd116" ao="0.07512"/>
+  </material>
+  <material id="5" name="air">
+    <density value="0.001225" units="g/cm3"/>
+    <nuclide name="N14" ao="0.7771428600000001"/>
+    <nuclide name="N15" ao="0.00285714"/>
+    <nuclide name="O16" ao="0.209500326"/>
+    <nuclide name="O17" ao="7.959e-05"/>
+    <nuclide name="O18" ao="0.00042008399999999993"/>
+    <nuclide name="Ar36" ao="3.336e-05"/>
+    <nuclide name="Ar38" ao="6.29e-06"/>
+    <nuclide name="Ar40" ao="0.00996035"/>
   </material>
 </materials>

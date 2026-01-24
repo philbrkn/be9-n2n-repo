@@ -690,5 +690,5 @@
   <library materials="Cf" path="endf-b8.0-hdf5/endfb-viii.0-hdf5/photon/Cf.h5" type="photon"/>
   <library materials="Es" path="endf-b8.0-hdf5/endfb-viii.0-hdf5/photon/Es.h5" type="photon"/>
   <library materials="Fm" path="endf-b8.0-hdf5/endfb-viii.0-hdf5/photon/Fm.h5" type="photon"/>
-  <library materials="Be9" path="n2n/inputs/Be9_scaled_1.20.h5" type="neutron"/>
+  <library materials="Be9" path="n2n/inputs/Be9_scaled_0.90.h5" type="neutron"/>
 </cross_sections>

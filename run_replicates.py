@@ -18,6 +18,7 @@ from utils.analyze_sr import (
     sr_counts,
     sr_counts_delayed,
 )
+from utils.build_complex_input import create_geometry
 
 
 @dataclass(frozen=True)
@@ -26,14 +27,16 @@ class ReplicateConfig:
     particles_per_rep: int = 100_000
     base_seed: Optional[int] = 12345
 
-    be_radius = 9
+    be_radius: float = 9
     be_density: float = 1.85
     he_density: float = 0.0005
+
+    n_tubes: int = 20
+    # (later) he3_radius: float = 1.5, he3_radial_pos: float = 15.0
 
     gate: float = 32e-6
     predelay: float = 4e-6
     delay: float = 1000e-6
-
     rate: float = 3e4  # neutrons/sec for source time window T=N/rate
 
     max_collisions: Optional[int] = None
@@ -48,68 +51,13 @@ def run_independent_replicates(
     output_root = Path(output_root)
     output_root.mkdir(parents=True, exist_ok=True)
 
-    # Materials
-    be = openmc.Material(name="beryllium")
-    be.add_nuclide("Be9", 1.0)
-    be.set_density("g/cm3", cfg.be_density)
-    hdpe = openmc.Material(name="polyethylene")
-    hdpe.add_element("C", 1.0)
-    hdpe.add_element("H", 2.0)
-    hdpe.set_density("g/cm3", 0.95)
-    hdpe.add_s_alpha_beta("c_H_in_CH2")  # thermal scattering
-    he3 = openmc.Material(name="He3")
-    he3.add_nuclide("He3", 1.0)
-    he3.set_density("g/cm3", cfg.he_density)  # this is a rough value
-    cd = openmc.Material(name="Cd")
-    cd.add_element("Cd", 1.0)
-    cd.set_density("g/cm3", 8.65)
-    materials = openmc.Materials([be, hdpe, he3, cd])
-    materials.export_to_xml(path=str(input_dir / "materials.xml"))
+    # Build per-run template XMLs here (unique per sweep point if output_root is)
+    template_dir = output_root / "_template"
+    template_dir.mkdir(parents=True, exist_ok=True)
 
-    # Geometry: Be cylinder (Basu et al. dimensions)
-    BE_RADIUS = 9.0  # cm
-    BE_HALF_HEIGHT = 32.5  # cm
-    HE3_INNER_R = 12.0  # He-3 annulus inner radius
-    HE3_OUTER_R = 13.0  # He-3 annulus outer radius (1 cm thick)
-    OUTER_RADIUS = 25.0  # cm total
-    OUTER_HALF_HEIGHT = 40.0  # cm
-    CD_THICKNESS = 0.1  # 1mm lining
-    CD_RADIUS = BE_RADIUS + CD_THICKNESS
+    geo = create_geometry(template_dir, cfg)
+    he3_cell_ids = geo["he3_cell_ids"]
 
-    be_radius = openmc.ZCylinder(r=BE_RADIUS)
-    be_top = openmc.ZPlane(z0=BE_HALF_HEIGHT)
-    be_bot = openmc.ZPlane(z0=-BE_HALF_HEIGHT)
-    cd_radius = openmc.ZCylinder(r=CD_RADIUS)
-    he3_inner = openmc.ZCylinder(r=HE3_INNER_R)
-    he3_outer = openmc.ZCylinder(r=HE3_OUTER_R)
-    outer_cyl = openmc.ZCylinder(r=OUTER_RADIUS, boundary_type="vacuum")
-    outer_top = openmc.ZPlane(z0=OUTER_HALF_HEIGHT, boundary_type="vacuum")
-    outer_bot = openmc.ZPlane(z0=-OUTER_HALF_HEIGHT, boundary_type="vacuum")
-
-    be_cell = openmc.Cell(name="beryllium")
-    be_cell.fill = be
-    be_cell.region = -be_radius & -be_top & +be_bot
-    cd_cell = openmc.Cell(name="cadmium_lining")
-    cd_cell.fill = cd
-    cd_cell.region = +be_radius & -cd_radius & -be_top & +be_bot
-    poly_inner_cell = openmc.Cell(name="poly_inner")
-    poly_inner_cell.fill = hdpe
-    poly_inner_cell.region = (
-        -he3_inner & -outer_top & +outer_bot & ~(-cd_radius & -be_top & +be_bot)
-    )
-    he3_cell = openmc.Cell(name="He3_detector")
-    he3_cell.fill = he3
-    he3_cell.region = +he3_inner & -he3_outer & -outer_top & +outer_bot
-    poly_outer_cell = openmc.Cell(name="poly_outer")
-    poly_outer_cell.fill = hdpe
-    poly_outer_cell.region = +he3_outer & -outer_cyl & -outer_top & +outer_bot
-    universe = openmc.Universe(
-        cells=[be_cell, cd_cell, poly_inner_cell, he3_cell, poly_outer_cell]
-    )
-    geometry = openmc.Geometry(universe)
-    geometry.export_to_xml(path=str(input_dir / "geometry.xml"))
-
-    he3_cell_id = he3_cell.id
     if cfg.base_seed is None:
         base_seed = int(time.time() * 1000) % 2**31
     else:
@@ -123,8 +71,8 @@ def run_independent_replicates(
         rep_dir.mkdir(parents=True, exist_ok=True)
 
         # Copy constant XMLs into each rep dir
-        for name in ("materials.xml", "geometry.xml", "tallies.xml"):
-            src = input_dir / name
+        for name in ("materials.xml", "geometry.xml"):
+            src = template_dir / name
             if src.exists():
                 shutil.copy2(src, rep_dir / name)
 
@@ -141,7 +89,7 @@ def run_independent_replicates(
             else cfg.particles_per_rep
         )
         settings.collision_track = {
-            "cell_ids": [he3_cell_id],
+            "cell_ids": he3_cell_ids,
             "max_collisions": int(max_coll),
         }
         T = cfg.particles_per_rep / cfg.rate
@@ -152,6 +100,8 @@ def run_independent_replicates(
             time=openmc.stats.Uniform(0.0, T),
         )
         settings.export_to_xml(path=str(rep_dir / "settings.xml"))
+
+        # remove tallies
 
         # Run using rep_dir for both cwd and input
         openmc.run(output=False, cwd=str(rep_dir), path_input=str(rep_dir))
@@ -248,9 +198,9 @@ if __name__ == "__main__":
 
     cfg = ReplicateConfig(
         n_replicates=10,
-        particles_per_rep=100_000,
+        particles_per_rep=1000_000,
         base_seed=12345,
-        gate=32e-6,
+        gate=85e-6,
         predelay=4e-6,
         delay=1000e-6,
         rate=3e4,
@@ -270,4 +220,3 @@ if __name__ == "__main__":
     print("-" * 50)
     for i in range(min(5, len(r_mean))):
         print(f"{i:>3} | {r_mean[i]:>12.6f} | {r_std[i]:>12.6f} | {r_sem[i]:>12.6f}")
-

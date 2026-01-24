@@ -20,8 +20,8 @@ if __name__ == "__main__":
     GATE = 32e-6
     PREDELAY = 4e-6
     DELAY = 1000e-6
-    # scales = [0.8, 0.9, 1.0, 1.1, 1.2]
-    scales = [0.0003, 0.0004, 0.0005, 0.0006, 0.0007]  # g/cm³
+    scales = [0.8, 0.9, 1.0, 1.1, 1.2]
+    # scales = [0.0003, 0.0004, 0.0005, 0.0006, 0.0007]  # g/cm³
 
     # Replicate runner config
     cfg = ReplicateConfig(
@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     for scale in scales:
         # Create a per-scale folder so scale points don't overwrite each other
-        scale_dir = output_root / f"scale_{scale:.4f}"
+        scale_dir = output_root / f"scale_{scale:.2f}"
         scale_dir.mkdir(parents=True, exist_ok=True)
 
         # Run replicates into outputs/scale_1.10/rep_XXXX/
