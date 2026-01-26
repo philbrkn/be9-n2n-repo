@@ -48,8 +48,8 @@ if __name__ == "__main__":
     output_root = base_dir / "outputs"
 
     base_cfg = ReplicateConfig(
-        n_replicates=10,
-        particles_per_rep=1_000_000,
+        n_replicates=20,
+        particles_per_rep=5_000_000,
         gate=85e-6,
         predelay=4e-6,
         delay=1000e-6,

@@ -13,8 +13,8 @@ if __name__ == "__main__":
 
     base_cfg = ReplicateConfig(
         n_replicates=10,
-        particles_per_rep=1_000_0,
-        gate=32e-6,
+        particles_per_rep=1_000_000,
+        gate=85e-6,
         predelay=4e-6,
         delay=1000e-6,
         rate=3e4,

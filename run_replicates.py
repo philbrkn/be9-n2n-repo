@@ -34,7 +34,7 @@ class ReplicateConfig:
     n_tubes: int = 20
     # (later) he3_radius: float = 1.5, he3_radial_pos: float = 15.0
 
-    gate: float = 32e-6
+    gate: float = 85e-6
     predelay: float = 4e-6
     delay: float = 1000e-6
     rate: float = 3e4  # neutrons/sec for source time window T=N/rate
@@ -92,6 +92,9 @@ def run_independent_replicates(
             "cell_ids": he3_cell_ids,
             "max_collisions": int(max_coll),
         }
+        settings.track = [
+            (1, 1, i) for i in range(1, settings.particles)
+        ]  # (batch, gen, part)
         T = cfg.particles_per_rep / cfg.rate
         settings.source = openmc.IndependentSource(
             space=openmc.stats.Point((0, 0, 0)),
@@ -145,6 +148,7 @@ def analyze_independent_replicates(
     input_dir: Path,
     output_root: Path,
     cfg: ReplicateConfig,
+    log: bool = False,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[np.ndarray], List[int]]:
     output_root = Path(output_root)
     output_root.mkdir(parents=True, exist_ok=True)
@@ -156,6 +160,8 @@ def analyze_independent_replicates(
         rep_dir = output_root / f"rep_{i:04d}"
         rep_dir.mkdir(parents=True, exist_ok=True)
 
+        if log:
+            print(f"Running in replicate directory {rep_dir}")
         # Read collision track for this replicate
         col_track_file = rep_dir / "collision_track.h5"
         collision_tracks = openmc.read_collision_track_hdf5(str(col_track_file))
@@ -198,7 +204,7 @@ if __name__ == "__main__":
 
     cfg = ReplicateConfig(
         n_replicates=10,
-        particles_per_rep=1000_000,
+        particles_per_rep=100_000,
         base_seed=12345,
         gate=85e-6,
         predelay=4e-6,
@@ -210,6 +216,7 @@ if __name__ == "__main__":
         input_dir=input_dir,
         output_root=output_root,
         cfg=cfg,
+        log=True,
     )
 
     print("\n" + "=" * 60)

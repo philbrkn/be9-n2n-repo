@@ -12,8 +12,8 @@ if __name__ == "__main__":
     output_root = base_dir / "outputs"
 
     base_cfg = ReplicateConfig(
-        n_replicates=10,
-        particles_per_rep=1_000_000,
+        n_replicates=20,
+        particles_per_rep=5_000_000,
         gate=85e-6,
         predelay=4e-6,
         delay=1000e-6,
@@ -21,15 +21,15 @@ if __name__ == "__main__":
         base_seed=123456,
     )
 
-    source_rates = [1e4, 3e4, 5e4, 1e5, 2e5, 3e5]
+    radii = [7.0, 8.0, 9.0, 10.0, 11.0]
 
     results = run_sweep(
         input_dir=input_dir,
         output_root=output_root,
         base_cfg=base_cfg,
-        param_name="rate",
-        values=source_rates,
-        label_fmt="rate_{:.0f}",
+        param_name="be_radius",
+        values=radii,
+        label_fmt="be_radius_{:.1f}cm",
     )
 
     # plotting (unchanged logic, just read from results["values"] etc.)
@@ -43,7 +43,7 @@ if __name__ == "__main__":
         ax.errorbar(
             vals, means, yerr=sems, fmt="o-", capsize=5, capthick=2, markersize=8
         )
-        ax.set_xlabel("Source rate (neutrons / s)")
+        ax.set_xlabel("Be radius (cm)")
         ax.set_ylabel(f"r[{idx}]")
         ax.grid(True, alpha=0.3)
 
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     # ax.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig("figures/source_rate_sensitivity_results.png", dpi=300)
+    plt.savefig("figures/be_radius_sensitivity_results.png", dpi=300)
