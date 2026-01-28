@@ -47,14 +47,16 @@ if __name__ == "__main__":
     input_dir = base_dir / "inputs"
     output_root = base_dir / "outputs"
 
+    PARTICLES_PER_REP = 100_000_000
     base_cfg = ReplicateConfig(
-        n_replicates=20,
-        particles_per_rep=5_000_000,
+        n_replicates=1,
+        particles_per_rep=PARTICLES_PER_REP,
         gate=85e-6,
         predelay=4e-6,
         delay=1000e-6,
         rate=3e4,
         base_seed=123456,
+        max_collisions=0.4 * PARTICLES_PER_REP,
     )
 
     scales = [0.8, 0.9, 1.0, 1.1, 1.2]

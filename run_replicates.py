@@ -46,6 +46,7 @@ def run_independent_replicates(
     input_dir: Path,
     output_root: Path,
     cfg: ReplicateConfig,
+    log: bool = False,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[np.ndarray], List[int]]:
     input_dir = Path(input_dir)
     output_root = Path(output_root)
@@ -70,6 +71,9 @@ def run_independent_replicates(
         rep_dir = output_root / f"rep_{i:04d}"
         rep_dir.mkdir(parents=True, exist_ok=True)
 
+        if log:
+            start_time = time.perf_counter()
+            print(f"Running in replicate directory {rep_dir}")
         # Copy constant XMLs into each rep dir
         for name in ("materials.xml", "geometry.xml"):
             src = template_dir / name
@@ -92,9 +96,9 @@ def run_independent_replicates(
             "cell_ids": he3_cell_ids,
             "max_collisions": int(max_coll),
         }
-        settings.track = [
-            (1, 1, i) for i in range(1, settings.particles)
-        ]  # (batch, gen, part)
+        # settings.track = [
+        #     (1, 1, i) for i in range(1, settings.particles)
+        # ]  # (batch, gen, part)
         T = cfg.particles_per_rep / cfg.rate
         settings.source = openmc.IndependentSource(
             space=openmc.stats.Point((0, 0, 0)),
@@ -128,6 +132,8 @@ def run_independent_replicates(
         try:
             r = get_measured_multiplicity_causal(rplusa_dist, a_dist)
             all_r.append(r)
+            if log:
+                print(f"   took {time.perf_counter() - start_time:.2f} seconds")
         except Exception as e:
             print(f"[rep {i:04d}] deconvolution failed: {e}")
 
@@ -203,9 +209,9 @@ if __name__ == "__main__":
     output_root = base_dir / "outputs"
 
     cfg = ReplicateConfig(
-        n_replicates=10,
-        particles_per_rep=100_000,
-        base_seed=12345,
+        n_replicates=50,
+        particles_per_rep=10_000_000,
+        base_seed=12346,
         gate=85e-6,
         predelay=4e-6,
         delay=1000e-6,
