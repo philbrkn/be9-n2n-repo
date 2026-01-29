@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -53,7 +54,7 @@ if __name__ == "__main__":
     output_root = base_dir / "outputs"
 
     PREDELAY = 4e-6
-    GATE = 85e-6
+    GATE = 28e-6
     DELAY = 1000e-6
     MAX_K = 4  # r_0 through r_3
 
@@ -66,6 +67,8 @@ if __name__ == "__main__":
     # Collect results from each replicate
     all_r_full = []
     all_r_bootstrap_std = []
+
+    start_time = time.perf_counter()
 
     for rep in rep_dirs:
         h5 = rep / "collision_track.h5"
@@ -99,6 +102,13 @@ if __name__ == "__main__":
 
     all_r_full = np.array(all_r_full)  # shape: (n_reps, MAX_K)
     all_r_bootstrap_std = np.array(all_r_bootstrap_std)
+    np.savez(
+        output_root / "bootstrap_validation.npz",
+        all_r_full=all_r_full,  # (50, 4) = 200 floats
+        all_r_bootstrap_std=all_r_bootstrap_std,  # (50, 4) = 200 floats
+        # If we want full bootstrap distributions for Fig 2 style plots:
+        # arr=arr,  # (1000, 4) = 4000 floats per replicate, maybe skip
+    )
 
     # Validation: compare true inter-run variance to bootstrap estimate
     true_std = np.std(all_r_full, axis=0, ddof=1)
@@ -124,3 +134,5 @@ if __name__ == "__main__":
     fig2 = plot_validation_figure(
         all_r_full, all_r_bootstrap_std, k_index=2, label="Triples"
     )
+
+    print(f"Boot strapping took {time.perf_counter() - start_time:.2f} seconds.")

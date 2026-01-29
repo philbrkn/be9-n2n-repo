@@ -1,17 +1,18 @@
-# run_replicates.py
-# Runs N independent OpenMC replicates into outputs/rep_XXXX/
-# Uses base XML in ./inputs but writes per-replicate settings.xml and runs in per-rep dir.
-
 from __future__ import annotations
 
+import os
+
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+
+
 import multiprocessing as mp
-import shutil
-import time
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
 from math import ceil
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import openmc
@@ -21,7 +22,12 @@ from utils.analyze_sr import (
     sr_counts,
     sr_counts_delayed,
 )
-from utils.build_complex_input import create_geometry
+
+# Worker globals
+_SEGMENTS = None
+_SR = None
+_SEG_DUR = None
+_SEED = None
 
 
 @dataclass(frozen=True)
@@ -52,114 +58,6 @@ class ReplicateConfig:
     max_collisions: Optional[int] = None
 
 
-def run_independent_replicates(
-    input_dir: Path,
-    output_root: Path,
-    cfg: ReplicateConfig,
-    log: bool = False,
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[np.ndarray], List[int]]:
-    input_dir = Path(input_dir)
-    output_root = Path(output_root)
-    output_root.mkdir(parents=True, exist_ok=True)
-
-    # Build per-run template XMLs here (unique per sweep point if output_root is)
-    template_dir = output_root / "_template"
-    template_dir.mkdir(parents=True, exist_ok=True)
-
-    geo = create_geometry(template_dir, cfg)
-    he3_cell_ids = geo["he3_cell_ids"]
-
-    if cfg.base_seed is None:
-        base_seed = int(time.time() * 1000) % 2**31
-    else:
-        base_seed = cfg.base_seed
-
-    all_r: List[np.ndarray] = []
-    all_detections: List[int] = []
-
-    for i in range(cfg.n_replicates):
-        rep_dir = output_root / f"rep_{i:04d}"
-        rep_dir.mkdir(parents=True, exist_ok=True)
-
-        if log:
-            start_time = time.perf_counter()
-            print(f"Running in replicate directory {rep_dir}")
-        # Copy constant XMLs into each rep dir
-        for name in ("materials.xml", "geometry.xml"):
-            src = template_dir / name
-            if src.exists():
-                shutil.copy2(src, rep_dir / name)
-
-        # Load settings template and override per-rep values
-        settings = openmc.Settings.from_xml(path=str(input_dir / "settings.xml"))
-        settings.seed = base_seed + i * 1000
-        settings.particles = cfg.particles_per_rep
-        settings.batches = 1
-        settings.run_mode = "fixed source"
-        settings.output = {"path": ".", "tallies": False}
-        max_coll = (
-            cfg.max_collisions
-            if cfg.max_collisions is not None
-            else cfg.particles_per_rep
-        )
-        settings.collision_track = {
-            "cell_ids": he3_cell_ids,
-            "max_collisions": int(max_coll),
-        }
-        # settings.track = [
-        #     (1, 1, i) for i in range(1, settings.particles)
-        # ]  # (batch, gen, part)
-        T = cfg.particles_per_rep / cfg.rate
-        settings.source = openmc.IndependentSource(
-            space=openmc.stats.Point((0, 0, 0)),
-            energy=openmc.stats.Normal(mean_value=14.1e6, std_dev=5.0e4),
-            angle=openmc.stats.Isotropic(),
-            time=openmc.stats.Uniform(0.0, T),
-        )
-        settings.export_to_xml(path=str(rep_dir / "settings.xml"))
-
-        # remove tallies
-
-        # Run using rep_dir for both cwd and input
-        openmc.run(output=False, cwd=str(rep_dir), path_input=str(rep_dir))
-
-        # Read collision track for this replicate
-        col_track_file = rep_dir / "collision_track.h5"
-        collision_tracks = openmc.read_collision_track_hdf5(str(col_track_file))
-
-        # Keep your current choice; validate MT mapping separately
-        absorption_events = collision_tracks[collision_tracks["event_mt"] == 101]
-        detection_times = np.sort(absorption_events["time"])
-        all_detections.append(int(len(detection_times)))
-
-        # SR analysis
-        rplusa_counts = sr_counts(detection_times, cfg.predelay, cfg.gate)
-        a_counts = sr_counts_delayed(detection_times, cfg.predelay, cfg.gate, cfg.delay)
-
-        rplusa_dist = np.bincount(rplusa_counts)
-        a_dist = np.bincount(a_counts, minlength=len(rplusa_dist))
-
-        try:
-            r = get_measured_multiplicity_causal(rplusa_dist, a_dist)
-            all_r.append(r)
-            if log:
-                print(f"   took {time.perf_counter() - start_time:.2f} seconds")
-        except Exception as e:
-            print(f"[rep {i:04d}] deconvolution failed: {e}")
-
-    if not all_r:
-        raise RuntimeError("No successful replicates (all deconvolutions failed).")
-
-    max_len = max(len(r) for r in all_r)
-    r_padded = np.array([np.pad(r, (0, max_len - len(r))) for r in all_r])
-
-    r_mean = r_padded.mean(axis=0)
-    r_std = r_padded.std(axis=0, ddof=0)
-    r_sem = r_std / np.sqrt(len(all_r))
-
-    return r_mean, r_std, r_sem, all_r, all_detections
-
-
 def analyze_with_bootstrap_histograms(
     collision_track_path: Path,
     sr: SRParams,
@@ -170,16 +68,6 @@ def analyze_with_bootstrap_histograms(
     gap_between_blocks: float | None = None,
 ):
     """
-    LIST-mode block bootstrap:
-      1) split detection event times into contiguous time blocks
-      2) bootstrap by resampling blocks with replacement
-      3) create synthetic pulse train by concatenating selected blocks
-      4) compute SR histograms and deconvolve for each replicate
-
-    gap_between_blocks:
-      If None, uses 0.0 (no gap).
-      Recommended: set to something > sr.delay + sr.predelay + sr.gate to
-      eliminate any cross-block coincidence effects.
 
     segment_duration: seconds per segment (should be >> tau, << total time)
     tau is around 1e-4 seconds, time is 3e4 seconds
@@ -419,44 +307,39 @@ def analyze_with_bootstrap(
     return r_full, r_mean, r_std, arr
 
 
-def _process_single_bootstrap(
-    b: int,
-    segments: List[np.ndarray],
-    segment_duration: float,
-    sr: SRParams,
-    seed: int,
-):
-    """Worker function for a single bootstrap sample."""
-    rng = np.random.default_rng(seed + b)  # Unique seed per bootstrap
-    n_segments = len(segments)
+def _init_worker(segments, sr, segment_duration, seed):
+    global _SEGMENTS, _SR, _SEG_DUR, _SEED
+    _SEGMENTS = segments
+    _SR = sr
+    _SEG_DUR = segment_duration
+    _SEED = seed
 
-    idx = rng.integers(0, n_segments, size=n_segments)
 
-    synthetic_train = []
-    current_offset = 0.0
+def _worker_bootstrap(b: int):
+    rng = np.random.default_rng(_SEED + b)
+    n_seg = len(_SEGMENTS)
+    idx = rng.integers(0, n_seg, size=n_seg)
+
+    parts = []
+    offset = 0.0
     for j in idx:
-        seg = segments[j]
-        if len(seg) > 0:
-            synthetic_train.append(seg + current_offset)
-        current_offset += segment_duration
+        seg = _SEGMENTS[j]
+        if seg.size:
+            parts.append(seg + offset)
+        offset += _SEG_DUR  # No sort needed since offsets are monotonic
 
-    if len(synthetic_train) == 0:
+    if not parts:
         return None
 
-    synthetic_times = np.concatenate(synthetic_train)
-    # synthetic_times = np.sort(synthetic_times)
-    # optional debug
-    # assert np.all(synthetic_times[1:] >= synthetic_times[:-1])
+    times = np.concatenate(parts)  # Already sorted
 
-    rplusa_counts = sr_counts(synthetic_times, sr.predelay, sr.gate)
-    a_counts = sr_counts_delayed(synthetic_times, sr.predelay, sr.gate, sr.delay)
-
-    rplusa_dist = np.bincount(rplusa_counts)
-    a_dist = np.bincount(a_counts, minlength=len(rplusa_dist))
+    rplusa = sr_counts(times, _SR.predelay, _SR.gate)
+    a = sr_counts_delayed(times, _SR.predelay, _SR.gate, _SR.delay)
+    rplusa_dist = np.bincount(rplusa)
+    a_dist = np.bincount(a, minlength=len(rplusa_dist))
 
     try:
-        r = get_measured_multiplicity_causal(rplusa_dist, a_dist)
-        return r
+        return get_measured_multiplicity_causal(rplusa_dist, a_dist)
     except Exception:
         return None
 
@@ -486,61 +369,51 @@ def analyze_with_bootstrap_parallel(
     n_segments = int(ceil(total_time / segment_duration))
 
     events_per_segment = len(detection_times) / n_segments
-    print(f"There are {events_per_segment} events per segment (should be >1000)")
+    print(f"There are {events_per_segment:.2f} events per segment (should be >1000)")
     print(f"Total detection time {total_time:.2f} seconds")
-    print(f"Using {n_segments} segments of {segment_duration:.2f} s")
 
     # Vectorized segmentation (much faster than loop)
     segment_edges = t_min + np.arange(n_segments + 1) * segment_duration
     segment_edges[-1] = t_max + 1e-12
     cuts = np.searchsorted(detection_times, segment_edges)
-    segments = []
-    for i in range(n_segments):
-        seg = detection_times[cuts[i] : cuts[i + 1]] - segment_edges[i]
-        segments.append(seg)
-        if (i + 1) % 500 == 0:
-            print(f"Completed {i + 1}/{n_segments} segment constructions")
-    # print(f"Built {n_segments} segments")
+    segments = [
+        detection_times[cuts[i] : cuts[i + 1]] - segment_edges[i]
+        for i in range(n_segments)
+    ]
+    print(f"Using {n_segments} segments of {segment_duration:.2f} s")
+    # segments = []
+    # for i in range(n_segments):
+    #     seg = detection_times[cuts[i] : cuts[i + 1]] - segment_edges[i]
+    #     segments.append(seg)
+    #     if (i + 1) % 500 == 0:
+    #         print(f"Completed {i + 1}/{n_segments} segment constructions")
 
     # Parallel bootstrap
     print(f"Starting parallel bootstrap with {n_workers} workers...")
     boots = []
-    failures = 0
+    with ProcessPoolExecutor(
+        max_workers=n_workers,
+        initializer=_init_worker,
+        initargs=(segments, sr, segment_duration, seed),
+    ) as ex:
+        results = ex.map(_worker_bootstrap, range(n_bootstrap), chunksize=20)
+        boots = [r for r in results if r is not None]
 
-    with ProcessPoolExecutor(max_workers=n_workers) as executor:
-        futures = {
-            executor.submit(
-                _process_single_bootstrap, b, segments, segment_duration, sr, seed
-            ): b
-            for b in range(n_bootstrap)
-        }
-
-        for i, future in enumerate(as_completed(futures)):
-            result = future.result()
-            if result is not None:
-                boots.append(result)
-            else:
-                failures += 1
-
-            if (i + 1) % 100 == 0:
-                print(f"Completed {i + 1}/{n_bootstrap} bootstrap samples")
-
-    print(f"There were {failures} deconvolution failures during bootstrapping.")
+    print(f"Completed {len(boots)}/{n_bootstrap} bootstrap samples")
 
     # Compute statistics
     L = max(len(r) for r in boots)
     arr = np.array([np.pad(r, (0, L - len(r))) for r in boots], dtype=float)
-
     r_mean = arr.mean(axis=0)
     r_std = arr.std(axis=0, ddof=1)
 
     # Point estimate from full data
-    rplusa_counts_full = sr_counts(detection_times, sr.predelay, sr.gate)
-    a_counts_full = sr_counts_delayed(detection_times, sr.predelay, sr.gate, sr.delay)
-    rplusa_dist_full = np.bincount(rplusa_counts_full)
-    a_dist_full = np.bincount(a_counts_full, minlength=len(rplusa_dist_full))
-    r_full = get_measured_multiplicity_causal(rplusa_dist_full, a_dist_full)
-
+    rplusa_full = sr_counts(detection_times, sr.predelay, sr.gate)
+    a_full = sr_counts_delayed(detection_times, sr.predelay, sr.gate, sr.delay)
+    r_full = get_measured_multiplicity_causal(
+        np.bincount(rplusa_full),
+        np.bincount(a_full, minlength=len(np.bincount(rplusa_full))),
+    )
     return r_full, r_mean, r_std, arr
 
 
@@ -559,23 +432,8 @@ if __name__ == "__main__":
         rate=3e4,
     )
 
-    # r_mean, r_std, r_sem, all_r, all_det = run_independent_replicates(
-    #     input_dir=input_dir,
-    #     output_root=output_root,
-    #     cfg=cfg,
-    #     log=True,
-    # )
-
     col_track_file = output_root / "rep_0000" / "collision_track.h5"
     sr = SRParams(predelay=cfg.predelay, gate=cfg.gate, delay=cfg.delay)
-    # r_full, r_mean, r_std, arr = analyze_with_bootstrap(
-    #     col_track_file,
-    #     sr,
-    #     n_bootstrap=200,
-    #     segment_duration=1.0,
-    #     progress_every=100,
-    #     seed=12345,
-    # )
     r_full, r_mean, r_std, arr = analyze_with_bootstrap_parallel(
         col_track_file,
         sr,
@@ -584,7 +442,6 @@ if __name__ == "__main__":
         seed=12346,
         n_workers=32,
     )
-
     print("\nidx |   r_full | boot_mean | boot_std")
     print("-" * 45)
     K = 6
