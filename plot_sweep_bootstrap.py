@@ -347,7 +347,7 @@ def main() -> None:
     N_PARTICLES = 1e6
 
     PREDELAY = 4e-6
-    GATE = 85e-6
+    GATE = 28e-6
     DELAY = 1000e-6
 
     MAX_RK = 3
@@ -382,9 +382,9 @@ def main() -> None:
             str(h5),
             sr,
             n_bootstrap=500,
-            segment_duration=1.0,
+            segment_duration=10.0,
             seed=12346,
-            n_workers=32,
+            n_workers=10,
         )
 
         r_means.append(r_mean)
@@ -446,4 +446,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    import multiprocessing as mp
+
+    mp.set_start_method("fork", force=True)
     main()

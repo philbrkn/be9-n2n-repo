@@ -1,7 +1,111 @@
 # analyze_sr.py
 # Pure analysis utilities
 
+from dataclasses import dataclass
+
+import numba
 import numpy as np
+
+
+@dataclass(frozen=True)
+class SRParams:
+    predelay: float
+    gate: float
+    delay: float
+
+
+@numba.njit
+def _search_right(a, x):
+    """
+    returns first index where times[idx]>x
+    """
+    lo, hi = 0, a.size
+    while lo < hi:
+        mid = (lo + hi) >> 1
+        if a[mid] <= x:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
+
+
+@numba.njit
+def sr_histograms_twoptr(times, predelay, gate, delay, cap):
+    n = times.size
+    rplusa_hist = np.zeros(cap + 1, dtype=np.int64)
+    a_hist = np.zeros(cap + 1, dtype=np.int64)
+
+    # R+A window pointers
+    L1 = 0
+    R1 = 0
+
+    # A (delayed) window pointers
+    L2 = 0
+    R2 = 0
+
+    for i in range(n):
+        t = times[i]
+
+        # R+A window: (t + predelay, t + predelay + gate]
+        target_L1 = t + predelay
+        target_R1 = t + predelay + gate
+
+        # Advance L1 until times[L1] > target_L1
+        while L1 < n and times[L1] <= target_L1:
+            L1 += 1
+        # Advance R1 until times[R1] > target_R1
+        while R1 < n and times[R1] <= target_R1:
+            R1 += 1
+
+        c1 = R1 - L1
+        if c1 > cap:
+            c1 = cap
+        rplusa_hist[c1] += 1
+
+        # A window: (t + delay + predelay, t + delay + predelay + gate]
+        target_L2 = t + delay + predelay
+        target_R2 = t + delay + predelay + gate
+
+        while L2 < n and times[L2] <= target_L2:
+            L2 += 1
+        while R2 < n and times[R2] <= target_R2:
+            R2 += 1
+
+        c2 = R2 - L2
+        if c2 > cap:
+            c2 = cap
+        a_hist[c2] += 1
+
+    return rplusa_hist, a_hist
+
+
+@numba.njit
+def sr_histograms(times, predelay, gate, delay, cap):
+    # cap is the maximum count represented; overflow goes into cap
+    n = times.size
+    rplusa_hist = np.zeros(cap + 1, dtype=np.int64)
+    a_hist = np.zeros(cap + 1, dtype=np.int64)
+
+    for i in range(n):
+        t = times[i]
+
+        # R+A
+        left = _search_right(times, t + predelay)
+        right = _search_right(times, t + predelay + gate)
+        c1 = right - left
+        if c1 > cap:
+            c1 = cap
+        rplusa_hist[c1] += 1
+
+        # A (delayed)
+        left = _search_right(times, t + delay + predelay)
+        right = _search_right(times, t + delay + predelay + gate)
+        c2 = right - left
+        if c2 > cap:
+            c2 = cap
+        a_hist[c2] += 1
+
+    return rplusa_hist, a_hist
 
 
 def get_measured_multiplicity_causal(rplusa_dist, a_dist):
@@ -45,4 +149,3 @@ def sr_counts_delayed(times, predelay, gate, delay):
     left = np.searchsorted(t, t + delay + predelay, side="right")
     right = np.searchsorted(t, t + delay + predelay + gate, side="right")
     return (right - left).astype(np.int64)
-

@@ -51,7 +51,7 @@ if __name__ == "__main__":
     base_cfg = ReplicateConfig(
         n_replicates=1,
         particles_per_rep=PARTICLES_PER_REP,
-        gate=85e-6,
+        gate=28e-6,
         predelay=4e-6,
         delay=1000e-6,
         rate=3e4,
@@ -59,7 +59,8 @@ if __name__ == "__main__":
         max_collisions=0.4 * PARTICLES_PER_REP,
     )
 
-    scales = [0.8, 0.9, 1.0, 1.1, 1.2]
+    # scales = [0.8, 0.9, 1.0, 1.1, 1.2]
+    scales = [0.9]
 
     results = run_sweep(
         input_dir=input_dir,
