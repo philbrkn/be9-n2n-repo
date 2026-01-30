@@ -101,26 +101,33 @@ def _init_worker_shm(shm_name, shape, dtype, offsets, sr, seg_dur, seed):
 
 
 def _worker_bootstrap_shm(b: int):
-    # Access shared array (no copy)
     all_times = np.ndarray(_SHAPE, dtype=_DTYPE, buffer=_SHM.buf)
 
     rng = np.random.default_rng(_SEED + b)
-    n_seg = len(_OFFSETS)
+    n_seg = _OFFSETS.shape[0]  # make _OFFSETS a (n_seg,2) int64 array
     idx = rng.integers(0, n_seg, size=n_seg)
 
-    parts = []
-    offset = 0.0
+    # pass 1: total length
+    total = 0
     for j in idx:
-        start, end = _OFFSETS[j]
-        seg = all_times[start:end]  # View into shared memory
-        if seg.size:
-            parts.append(seg + offset)  # Only this creates a copy
-        offset += _SEG_DUR
-
-    if not parts:
+        s, e = _OFFSETS[j]
+        total += e - s
+    if total == 0:
         return None
 
-    times = np.concatenate(parts)
+    # allocate once
+    times = np.empty(total, dtype=all_times.dtype)
+
+    # pass 2: fill
+    pos = 0
+    offset = 0.0
+    for j in idx:
+        s, e = _OFFSETS[j]
+        m = e - s
+        if m:
+            times[pos : pos + m] = all_times[s:e] + offset
+            pos += m
+        offset += _SEG_DUR
 
     rplusa_dist, a_dist = sr_histograms_twoptr(
         times, _SR.predelay, _SR.gate, _SR.delay, cap=64
@@ -152,15 +159,12 @@ def analyze_with_bootstrap_parallel(
     """
     LIST-mode block bootstrap with parallel execution.
     """
+    start_time = time.perf_counter()
     if n_workers is None:
         n_workers = mp.cpu_count()
 
-    stop = start_mem_sampler(2.0)
-
     # Load detection times
-    log_mem("start")
     ct = openmc.read_collision_track_hdf5(str(collision_track_path))
-    log_mem("after read")
 
     absorption_events = ct[ct["event_mt"] == 101]
     detection_times = np.sort(absorption_events["time"])
@@ -174,7 +178,6 @@ def analyze_with_bootstrap_parallel(
     r_full = get_measured_multiplicity_causal(rplusa_dist_full, a_dist_full)
 
     del ct, absorption_events  # Free memory
-    log_mem("after detection_times")
 
     t_min = float(detection_times.min())
     t_max = float(detection_times.max())
@@ -197,13 +200,6 @@ def analyze_with_bootstrap_parallel(
 
     offsets = np.column_stack([cuts[:-1], cuts[1:]]).astype(np.int64)
 
-    # segments = [
-    #     detection_times[cuts[i] : cuts[i + 1]] - segment_edges[i]
-    #     for i in range(n_segments)
-    # ]
-
-    log_mem("after segments")
-
     # Create shared memory
     shm = shared_memory.SharedMemory(create=True, size=normalized.nbytes)
     shm_array = np.ndarray(normalized.shape, dtype=normalized.dtype, buffer=shm.buf)
@@ -218,16 +214,11 @@ def analyze_with_bootstrap_parallel(
         f"Starting parallel bootstrap with {n_workers} workers and chunk size {chunk_size}..."
     )
 
-    # boots = []
-    # with ProcessPoolExecutor(
-    #     max_workers=n_workers,
-    #     initializer=_init_worker,
-    #     initargs=(segments, sr, segment_duration, seed),
-    # ) as ex:
-    #     (log_mem("pool started"),)
-    #     results = ex.map(_worker_bootstrap, range(n_bootstrap), chunksize=20)
-    #     boots = [r for r in results if r is not None]
-    #
+    # TIMING
+    print(f"bootstrapping pre loop took {time.perf_counter() - start_time:.3f} seconds")
+    start_time = time.perf_counter()
+
+    # START PARALLELIZER
     try:
         with ProcessPoolExecutor(
             max_workers=n_workers,
@@ -249,10 +240,11 @@ def analyze_with_bootstrap_parallel(
     finally:
         shm.close()
         shm.unlink()
-    print(f"Completed {len(boots)}/{n_bootstrap} bootstrap samples")
 
-    log_mem("after pool")
-    stop.set()
+    # TIMING
+    print(f"bootstrapping loop took {time.perf_counter() - start_time:.3f} seconds")
+
+    print(f"Completed {len(boots)}/{n_bootstrap} bootstrap samples")
 
     # Compute statistics
     L = max(len(r) for r in boots)
@@ -280,7 +272,7 @@ if __name__ == "__main__":
         col_track_file,
         sr,
         n_bootstrap=100,
-        segment_duration=10.0,
+        segment_duration=1.0,
         seed=12346,
         n_workers=32,
         chunk_size=1,

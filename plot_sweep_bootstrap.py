@@ -327,14 +327,14 @@ def plot_results_overlay(
 
 def main() -> None:
     OUTPUT_ROOT = Path("outputs")
-
+    #
     # PATTERN = "be_radius_*"
     # FIG_PATH = Path("figures/be_radius_plot.png")
     # X_LABEL = "be radius"
 
-    PATTERN = "n2n_scale_*"
-    FIG_PATH = Path("figures/n2n_scale_plot.png")
-    X_LABEL = "n,2n scale factor"
+    # PATTERN = "n2n_scale_*"
+    # FIG_PATH = Path("figures/n2n_scale_plot.png")
+    # X_LABEL = "n,2n scale factor"
 
     # PATTERN = "rate_*"
     # FIG_PATH = Path("figures/source_rate_plot.png")
@@ -344,7 +344,7 @@ def main() -> None:
     # FIG_PATH = Path("figures/he_density_plot.png")
     # X_LABEL = "he density"
 
-    N_PARTICLES = 1e6
+    N_PARTICLES = 1e8
 
     PREDELAY = 4e-6
     GATE = 28e-6
@@ -384,7 +384,7 @@ def main() -> None:
             n_bootstrap=500,
             segment_duration=10.0,
             seed=12346,
-            n_workers=10,
+            n_workers=32,
         )
 
         r_means.append(r_mean)
