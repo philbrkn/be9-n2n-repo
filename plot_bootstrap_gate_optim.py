@@ -36,17 +36,18 @@ data1 = np.load(output_root / "gate_optimization_results1.npy", allow_pickle=Tru
 
 # Convert the 0-d array back into your list of dictionaries
 results = data.tolist()
-results1 = data1.tolist()
-combined_raw = results + results1
-# This keeps the LAST instance of any duplicate gate found.
-merged_dict = {r["gate"]: r for r in combined_raw}
-# Sort by gate width so the plot lines don't zig-zag
-sorted_gates = sorted(merged_dict.keys())
-results = [merged_dict[g] for g in sorted_gates]
+# results1 = data1.tolist()
+# combined_raw = results + results1
+# # This keeps the LAST instance of any duplicate gate found.
+# merged_dict = {r["gate"]: r for r in combined_raw}
+# # Sort by gate width so the plot lines don't zig-zag
+# sorted_gates = sorted(merged_dict.keys())
+# results = [merged_dict[g] for g in sorted_gates]
 
 # Quick check
 print(f"Loaded {len(results)} gate results.")
 print(f"First gate width: {results[0]['gate']}")
+
 
 gates_tau = [r["gate_over_tau"] for r in results]
 
@@ -54,16 +55,23 @@ r0_unc = [(r["r_std"][0] / abs(r["r_full"][0]) * 100) for r in results]
 r1_unc = [r["rel_unc_r1"] * 100 for r in results]
 r2_unc = [r["rel_unc_r2"] * 100 for r in results]
 
+print(f"minimum for r1 uncertainty {gates_tau[np.argmin(r1_unc)]} {np.min(r1_unc):.2f}")
+print(f"minimum for r2 uncertainty {gates_tau[np.argmin(r2_unc)]} {np.min(r2_unc):.2f}")
+print(
+    f"r1 minimum for r2 uncertainty {gates_tau[np.argmin(r1_unc)]} {r2_unc[np.argmin(r1_unc)]:.2f}"
+)
+
+
 fig, ax = plt.subplots(figsize=(7, 5))
 
 # ax.plot(gates_tau, r0_unc, "o-", color=data_color, label="Rel. Unc. $r_0$", alpha=1)
-ax.plot(gates_tau, r1_unc, "o-", color=data_color, label="Rel. Unc. $r_1$", linewidth=2)
-# ax.plot(gates_tau, r2_unc, "o-", color=data_color, label="Rel. Unc. $r_2$", alpha=1)
+# ax.plot(gates_tau, r1_unc, "o-", color=data_color, label="Rel. Unc. $r_1$", linewidth=2)
+ax.plot(gates_tau, r2_unc, "o-", color=data_color, label="Rel. Unc. $r_2$", alpha=1)
 
 ax.axvline(0.4, ls="--", color=mean_color, alpha=0.5, label="Optimal: 0.4τ")
 
 ax.set_xlabel("Gate width (τ)", fontsize=12)
-ax.set_ylabel("Relative uncertainty on $r_1$ (%)", fontsize=12)
+ax.set_ylabel("Relative uncertainty on $r_2$ (%)", fontsize=12)
 # ax.set_title("Gate Width Optimization for Be(n,2n) System")
 
 ax.legend()

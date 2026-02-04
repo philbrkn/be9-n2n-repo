@@ -5,8 +5,7 @@ import openmc
 
 from utils.analyze_sr import (
     get_measured_multiplicity_causal,
-    sr_counts,
-    sr_counts_delayed,
+    sr_histograms_twoptr,
 )
 
 
@@ -132,12 +131,12 @@ def r_pred_from_Ps(Ps, epsilon, predelay, gate_width, tau):
 if __name__ == "__main__":
     tracks = openmc.Tracks("outputs/tracks.h5")
     SOURCE_RATE = 3e4  # maximum value from srinivasan paper
-    GATE = 80e-6
+    GATE = 28e-6
     PREDELAY = 4e-6
     DELAY = 1000e-6
 
     DETECTOR_EFFICIENCY = 0.3344
-    TAU = 80e-6
+    TAU = 68e-6
 
     ### DEBUG ###
     for i, tr in enumerate(tracks[:5]):
@@ -166,17 +165,9 @@ if __name__ == "__main__":
     detection_times = detector_event_times_from_tracks(tracks, he3_cell_id)
 
     # shift register analysis
-    rplusa_counts = sr_counts(detection_times, PREDELAY, GATE)
-    a_counts = sr_counts_delayed(detection_times, PREDELAY, GATE, DELAY)
-    rplusa_dist = np.bincount(rplusa_counts)
-    a_dist = np.bincount(a_counts, minlength=len(rplusa_dist))
-    # print("R+A Coincidence distribution:")
-    # for n, count in enumerate(rplusa_dist):
-    #     print(f"  {n} coincidences: {count}")
-    # print("\nA (Accidental) distribution:")
-    # for n, count in enumerate(a_dist):
-    #     print(f"  {n} coincidences: {count}")
-
+    rplusa_dist, a_dist = sr_histograms_twoptr(
+        detection_times, PREDELAY, GATE, DELAY, cap=64
+    )
     # Measured SR real distribution from pulse train
     r_measured = get_measured_multiplicity_causal(rplusa_dist, a_dist)
 

@@ -13,15 +13,15 @@ if __name__ == "__main__":
 
     base_cfg = ReplicateConfig(
         n_replicates=1,
-        particles_per_rep=100_000_000,
-        gate=28e-6,
+        particles_per_rep=10_000_000,
+        gate=50e-6,
         predelay=4e-6,
         delay=1000e-6,
         rate=3e4,
         base_seed=123456,
     )
 
-    source_rates = [1e4, 3e4, 5e4, 1e5, 2e5, 3e5]
+    source_rates = [1e4, 3e4, 5e4, 1e5, 2e5]  # , 3e5]
 
     results = run_sweep(
         input_dir=input_dir,

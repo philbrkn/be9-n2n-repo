@@ -15,21 +15,6 @@ class SRParams:
 
 
 @numba.njit
-def _search_right(a, x):
-    """
-    returns first index where times[idx]>x
-    """
-    lo, hi = 0, a.size
-    while lo < hi:
-        mid = (lo + hi) >> 1
-        if a[mid] <= x:
-            lo = mid + 1
-        else:
-            hi = mid
-    return lo
-
-
-@numba.njit
 def sr_histograms_twoptr(times, predelay, gate, delay, cap):
     n = times.size
     rplusa_hist = np.zeros(cap + 1, dtype=np.int64)
@@ -77,6 +62,21 @@ def sr_histograms_twoptr(times, predelay, gate, delay, cap):
         a_hist[c2] += 1
 
     return rplusa_hist, a_hist
+
+
+@numba.njit
+def _search_right(a, x):
+    """
+    returns first index where times[idx]>x
+    """
+    lo, hi = 0, a.size
+    while lo < hi:
+        mid = (lo + hi) >> 1
+        if a[mid] <= x:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
 
 
 @numba.njit

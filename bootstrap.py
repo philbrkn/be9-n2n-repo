@@ -259,7 +259,7 @@ if __name__ == "__main__":
     input_dir = base_dir / "inputs"
     output_root = base_dir / "outputs"
 
-    GATE = 85e-6
+    GATE = 28e-6
     PREDELAY = 4e-6
     DELAY = 1000e-6
 
@@ -271,9 +271,9 @@ if __name__ == "__main__":
     r_full, r_mean, r_std, arr = analyze_with_bootstrap_parallel(
         col_track_file,
         sr,
-        n_bootstrap=100,
+        n_bootstrap=200,
         segment_duration=1.0,
-        seed=12346,
+        seed=12345,
         n_workers=32,
         chunk_size=1,
     )

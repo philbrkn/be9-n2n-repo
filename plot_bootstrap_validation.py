@@ -25,14 +25,14 @@ def plot_validation_figure(all_r_full, all_r_bootstrap_std, k_index=1, label="Do
         }
     )
 
+    data_color = "#2E5090"  # Deep blue
+    mean_color = "#C1403D"  # Muted red
+
     n_reps = len(all_r_full)
     x = np.arange(1, n_reps + 1)  # Start from 1 instead of 0
     values = all_r_full[:, k_index]
     errors = all_r_bootstrap_std[:, k_index]
     mean_val = np.mean(values)
-
-    data_color = "#2E5090"  # Deep blue
-    mean_color = "#C1403D"  # Muted red
 
     fig, ax = plt.subplots(figsize=(8, 5))
 

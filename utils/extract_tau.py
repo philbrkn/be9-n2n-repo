@@ -3,13 +3,36 @@
 Tau extraction from detector response tally
 """
 
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
 import openmc
 from build_complex_input import create_geometry
 from scipy.optimize import curve_fit
+
+
+@dataclass(frozen=True)
+class ReplicateConfig:
+    n_replicates: int = 10
+    particles_per_rep: int = 100_000
+    base_seed: Optional[int] = 12345
+
+    be_radius: float = 9
+    be_density: float = 1.85
+    he_density: float = 0.0005
+
+    n_tubes: int = 20
+    # (later) he3_radius: float = 1.5, he3_radial_pos: float = 15.0
+
+    gate: float = 85e-6
+    predelay: float = 4e-6
+    delay: float = 1000e-6
+    rate: float = 3e4  # neutrons/sec for source time window T=N/rate
+
+    max_collisions: Optional[int] = None
 
 
 def fit_single_exponential(t, y, yerr, t_fit_start=10e-6, t_fit_end=200e-6):
@@ -273,13 +296,34 @@ def plot_fits(t, counts, yerr, single_fit, double_fit, filename="tau_extraction.
 # Main analysis
 # =============================================================================
 if __name__ == "__main__":
+    base_dir = Path(__file__).parent.parent.resolve()
+    input_dir = base_dir / "inputs"
+    output_dir = base_dir / "outputs"
+    input_dir = Path(input_dir)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    t_start = 4e-6
+    t_end = 32e-6
+    cfg = ReplicateConfig(
+        n_replicates=1,
+        particles_per_rep=1_000_000,
+        base_seed=12345,
+        gate=28e-6,
+        predelay=4e-6,
+        delay=1000e-6,
+        rate=3e4,
+    )
+
+    # 1. Create Geometry
+    geo = create_geometry(output_dir, cfg)
     settings = openmc.Settings()
     settings.batches = 10
     settings.particles = 100000
 
     # Pulsed source configuration
     BURST_DURATION = 1e-6  # 1 μs burst
-    MEASUREMENT_TIME = 500e-6  # Measure die-away for 500 μs
+    MEASUREMENT_TIME = 50e-6  # Measure die-away for 500 μs
     T_TOTAL = BURST_DURATION + MEASUREMENT_TIME
 
     # Source: neutron burst at t ≈ 0
@@ -300,7 +344,6 @@ if __name__ == "__main__":
     time_bins = np.linspace(0, T_TOTAL, 501)  # ~1 μs per bin
     time_filter = openmc.TimeFilter(time_bins)
 
-    geo = create_geometry(input_dir=Path("inputs"))
     he3_cells = geo["cells"]["he3"]
     tallies = openmc.Tallies()
 
@@ -350,7 +393,7 @@ if __name__ == "__main__":
     print("\n1. SINGLE EXPONENTIAL FIT")
     print("-" * 70)
     single_fit = fit_single_exponential(
-        t_centers, counts, yerr, t_fit_start=10e-6, t_fit_end=300e-6
+        t_centers, counts, yerr, t_fit_start=t_start, t_fit_end=t_end
     )
 
     if single_fit:
@@ -367,7 +410,7 @@ if __name__ == "__main__":
     print("\n2. DOUBLE EXPONENTIAL FIT")
     print("-" * 70)
     double_fit = fit_double_exponential(
-        t_centers, counts, yerr, t_fit_start=10e-6, t_fit_end=300e-6
+        t_centers, counts, yerr, t_fit_start=t_start, t_fit_end=t_end
     )
     if double_fit:
         print(

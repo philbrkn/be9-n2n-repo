@@ -9,7 +9,7 @@ from run_replicates import ReplicateConfig
 from utils.build_complex_input import create_geometry
 
 
-def run_dieaway_simulation(input_dir, output_dir, particles=100_000):
+def run_dieaway_simulation(input_dir, output_dir):
     """Runs a pulsed-source simulation to measure die-away."""
     input_dir = Path(input_dir)
     output_dir = Path(output_dir)
@@ -17,9 +17,9 @@ def run_dieaway_simulation(input_dir, output_dir, particles=100_000):
 
     cfg = ReplicateConfig(
         n_replicates=1,
-        particles_per_rep=100_000,
+        particles_per_rep=1_000_000,
         base_seed=12345,
-        gate=85e-6,
+        gate=28e-6,
         predelay=4e-6,
         delay=1000e-6,
         rate=3e4,
@@ -30,7 +30,7 @@ def run_dieaway_simulation(input_dir, output_dir, particles=100_000):
 
     # 2. Create Settings for a PULSE (t=0)
     settings = openmc.Settings()
-    settings.particles = particles
+    settings.particles = cfg.particles_per_rep
     settings.batches = 1
     settings.run_mode = "fixed source"
     settings.output = {"path": str(output_dir), "tallies": False}
@@ -38,7 +38,7 @@ def run_dieaway_simulation(input_dir, output_dir, particles=100_000):
     # Force specific cell IDs for recording tracks (from your geo function)
     settings.collision_track = {
         "cell_ids": geo["he3_cell_ids"],
-        "max_collisions": int(particles),
+        "max_collisions": int(cfg.particles_per_rep),
     }
 
     # === THE KEY CHANGE: Pulsed Source at t=0 ===
@@ -79,7 +79,7 @@ def analyze_dieaway(run_dir):
 
     # Select the "tail" region to fit (ignore the messy buildup at the start)
     # Visual inspection is best, but usually 50us to 500us is the sweet spot.
-    fit_mask = (bin_centers > 20e-6) & (bin_centers < 600e-6) & (hist > 0)
+    fit_mask = (bin_centers > 20e-6) & (bin_centers < 500e-6) & (hist > 0)
 
     x_data = bin_centers[fit_mask]
     y_data = hist[fit_mask]
@@ -97,18 +97,38 @@ def analyze_dieaway(run_dir):
 
     print(f"Calculated Die-Away Time (Tau): {tau * 1e6:.2f} microseconds")
 
+    plt.rcParams.update(
+        {
+            "font.size": 11,
+            "font.family": "serif",
+            "axes.labelsize": 12,
+            "axes.titlesize": 13,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
+            "legend.fontsize": 10,
+            "figure.dpi": 300,
+        }
+    )
+    data_color = "#2E5090"  # Deep blue
+    mean_color = "#C1403D"  # Muted red
     # Plot to verify
-    plt.semilogy(bin_centers * 1e6, hist, label="Simulated Data", color="blue")
+    plt.semilogy(bin_centers * 1e6, hist, label="Simulated Data", color=data_color)
     plt.semilogy(
         x_data * 1e6,
         np.exp(log_line(x_data, *popt)),
-        "r--",
         label=f"Fit (Tau={tau * 1e6:.1f} us)",
+        alpha=0.8,
+        color=mean_color,
+        linestyle="--",
     )
     plt.xlabel("Time (us)")
     plt.ylabel("Counts")
-    plt.legend()
-    plt.grid()
+
+    plt.legend(
+        frameon=True, fancybox=False, edgecolor="gray", framealpha=0.95, loc="best"
+    )
+    plt.grid(True, alpha=0.2, linestyle="-", linewidth=0.5)
+    # plt.set_axisbelow(True)
     plt.savefig("dieaway.png", dpi=300)
 
     return tau

@@ -56,11 +56,11 @@ if __name__ == "__main__":
         delay=1000e-6,
         rate=3e4,
         base_seed=123456,
-        max_collisions=0.4 * PARTICLES_PER_REP,
+        max_collisions=0.5 * PARTICLES_PER_REP,
     )
 
-    # scales = [0.8, 0.9, 1.0, 1.1, 1.2]
-    scales = [0.9]
+    scales = [0.8, 0.9, 1.0, 1.1, 1.2]
+    # scales = [0.9]
 
     results = run_sweep(
         input_dir=input_dir,

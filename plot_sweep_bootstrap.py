@@ -27,7 +27,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional, Sequence
+from typing import List, Sequence
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -74,10 +74,34 @@ def plot_sensitivity_results(
 ) -> None:
     fig, ax = plt.subplots(figsize=(8, 6))
 
+    plt.rcParams.update(
+        {
+            "font.size": 11,
+            "font.family": "serif",
+            "axes.labelsize": 12,
+            "axes.titlesize": 13,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
+            "legend.fontsize": 10,
+            "figure.dpi": 300,
+        }
+    )
+    data_color = "#2E5090"  # Deep blue
+    mean_color = "#C1403D"  # Muted red
+
     means = [r[which_r_k] if len(r) > which_r_k else np.nan for r in r_mean_list]
     sems = [s[which_r_k] if len(s) > which_r_k else np.nan for s in r_sem_list]
 
-    ax.errorbar(x, means, yerr=sems, fmt="o-", capsize=5, capthick=2, markersize=8)
+    ax.errorbar(
+        x,
+        means,
+        color=data_color,
+        yerr=sems,
+        fmt="o-",
+        capsize=5,
+        capthick=2,
+        markersize=8,
+    )
     ax.set_xlabel(xlabel)
     ax.set_ylabel(f"$r_{which_r_k}$")
     ax.grid(True, alpha=0.3)
@@ -101,15 +125,16 @@ def plot_sensitivity_results(
     # deltaXS / XS = (1/S) * (deltar[1]/r[1])
     precision = sem_nominal / r_nominal
     constraint = 1 / S * precision
-    print(
-        f"A shift register measurement of r[{which_r_k}] with {precision * 100:.2f}% precision"
-        f" (achievable with {N_REPS} replicates of {N_PARTICLES} particles) "
-        f"can constrain the Be-9 (n,2n) cross section to ±{constraint * 100:.4f}%."
-    )
+    # print(
+    #     f"A shift register measurement of r[{which_r_k}] with {precision * 100:.2f}% precision"
+    #     f" (achievable with {N_REPS} replicates of {N_PARTICLES} particles) "
+    #     f"can constrain the Be-9 (n,2n) cross section to ±{constraint * 100:.4f}%."
+    # )
     ax.plot(
         x,
         np.polyval(coeffs, x),
         "r--",
+        color=mean_color,
         linewidth=2,
         label=f"Linear fit (slope={slope:.4f})",
         zorder=2,
@@ -158,6 +183,7 @@ def plot_results(
 ) -> None:
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
+    data_color = "#2E5090"  # Deep blue
     # r[0], r[1], r[2] ... up to max_r_k shown in first panels
     for idx, ax in enumerate(axes.flat[:4]):
         if idx > max_r_k:
@@ -167,7 +193,18 @@ def plot_results(
         means = [r[idx] if len(r) > idx else np.nan for r in r_mean_list]
         sems = [s[idx] if len(s) > idx else np.nan for s in r_sem_list]
 
-        ax.errorbar(x, means, yerr=sems, fmt="o-", capsize=5, capthick=2, markersize=8)
+        ax.errorbar(
+            x,
+            means,
+            color=data_color,
+            yerr=sems,
+            fmt="o-",
+            capsize=4,
+            capthick=2,
+            markersize=4,
+        )
+        if xlabel == "he density" or "source rate":
+            ax.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
         ax.set_xlabel(xlabel)
         ax.set_ylabel(f"$r_{idx}$")
         ax.grid(True, alpha=0.3)
@@ -249,12 +286,8 @@ def plot_results_overlay(
     x: np.ndarray,
     r_mean_list: Sequence[np.ndarray],
     r_sem_list: Sequence[np.ndarray],
-    # det_mean: np.ndarray,
-    # det_sem: np.ndarray,
-    xlabel: str,
+    x_label: str,
     out_r: Path,
-    out_det: Optional[Path] = None,
-    max_r_k: int = 3,
 ) -> None:
     """
     One plot with multiple overlaid r_k curves vs x.
@@ -262,67 +295,53 @@ def plot_results_overlay(
     """
     out_r.parent.mkdir(parents=True, exist_ok=True)
 
-    # --- r_k overlay plot ---
-    plt.figure(figsize=(7.5, 5.0))
+    plt.rcParams.update(
+        {
+            "font.size": 11,
+            "font.family": "serif",
+            "axes.labelsize": 12,
+            "axes.titlesize": 13,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
+            "legend.fontsize": 10,
+            "figure.dpi": 300,
+        }
+    )
+    data_color = "#2E5090"  # Deep blue
+    mean_color = "#C1403D"  # Muted red
+    # Data
+    scale = x
+    r1 = [r[1] if len(r) > 1 else np.nan for r in r_mean_list]
+    r1_sem = [s[1] if len(s) > 1 else np.nan for s in r_sem_list]
+    r2 = [r[2] if len(r) > 2 else np.nan for r in r_mean_list]
+    r2_sem = [s[2] if len(s) > 2 else np.nan for s in r_sem_list]
 
-    # cmap = plt.get_cmap("plasma")
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
 
-    for k in range(max_r_k + 1):
-        means = np.array(
-            [r[k] if len(r) > k else np.nan for r in r_mean_list], dtype=float
-        )
-        sems = np.array(
-            [s[k] if len(s) > k else np.nan for s in r_sem_list], dtype=float
-        )
+    # r_1 panel
+    ax1.errorbar(
+        scale, r1, yerr=r1_sem, fmt="o-", capsize=4, markersize=4, color=data_color
+    )
+    ax1.set_xlabel(f"{x_label}")
+    ax1.set_ylabel("$r_1$ (doubles)")
+    ax1.axvline(1.0, ls="--", color="gray", alpha=0.5)
+    ax1.ticklabel_format(axis="y", style="sci", scilimits=(-2, -2))
+    ax1.grid(True, alpha=0.2, linestyle="-", linewidth=0.5)
+    ax1.set_axisbelow(True)
 
-        # skip if completely missing
-        if np.all(~np.isfinite(means)):
-            continue
+    # r_2 panel
+    ax2.errorbar(
+        scale, r2, yerr=r2_sem, fmt="o-", capsize=4, markersize=4, color=data_color
+    )
+    ax2.set_xlabel(f"{x_label}")
+    ax2.set_ylabel("$r_2$ (triples)")
+    ax2.axvline(1.0, ls="--", color="gray", alpha=0.5)
+    ax2.ticklabel_format(axis="y", style="sci", scilimits=(-3, -3))
+    ax2.grid(True, alpha=0.2, linestyle="-", linewidth=0.5)
+    ax2.set_axisbelow(True)
 
-        # color = cmap(k / max_r_k)
-        plt.errorbar(
-            x,
-            means,
-            yerr=sems,
-            fmt="o-",
-            # color=color,
-            capsize=4,
-            capthick=1.5,
-            markersize=6,
-            label=rf"$r_{k}$",
-        )
-
-    plt.yscale("log")
-    plt.ylabel(r"$r_k$ (log scale)")
-    plt.ylim(1e-5, 1.1)  # adjust floor to your noise level
-
-    # plt.ylabel(r"$r_k$")
-    plt.xlabel(xlabel)
-    plt.grid(True, alpha=0.3)
-    plt.legend(frameon=False)
     plt.tight_layout()
-    plt.savefig(out_r, dpi=300)
-    plt.close()
-
-    # --- detections plot (optional) ---
-    # if out_det is not None:
-    #     out_det.parent.mkdir(parents=True, exist_ok=True)
-    #     plt.figure(figsize=(7.5, 5.0))
-    #     plt.errorbar(
-    #         x,
-    #         det_mean,
-    #         yerr=det_sem,
-    #         fmt="s-",
-    #         capsize=4,
-    #         capthick=1.5,
-    #         markersize=6,
-    #     )
-    #     plt.xlabel(xlabel)
-    #     plt.ylabel("Detections per replicate")
-    #     plt.grid(True, alpha=0.3)
-    #     plt.tight_layout()
-    #     plt.savefig(out_det, dpi=300)
-    #     plt.close()
+    plt.savefig(f"{x_label}_sensitivity_r1_r2.png", dpi=300)
 
 
 def main() -> None:
@@ -332,9 +351,9 @@ def main() -> None:
     # FIG_PATH = Path("figures/be_radius_plot.png")
     # X_LABEL = "be radius"
 
-    # PATTERN = "n2n_scale_*"
-    # FIG_PATH = Path("figures/n2n_scale_plot.png")
-    # X_LABEL = "n,2n scale factor"
+    PATTERN = "n2n_scale_*"
+    FIG_PATH = Path("figures/n2n_scale_plot.png")
+    X_LABEL = "n,2n scale factor"
 
     # PATTERN = "rate_*"
     # FIG_PATH = Path("figures/source_rate_plot.png")
@@ -381,8 +400,8 @@ def main() -> None:
         r_full, r_mean, r_std, arr = analyze_with_bootstrap_parallel(
             str(h5),
             sr,
-            n_bootstrap=500,
-            segment_duration=10.0,
+            n_bootstrap=200,
+            segment_duration=1.0,
             seed=12346,
             n_workers=32,
         )
@@ -405,12 +424,8 @@ def main() -> None:
         x=xs_arr,
         r_mean_list=r_means,
         r_sem_list=r_sems,
-        # det_mean=det_means_arr,
-        # det_sem=det_sems_arr,
-        xlabel=X_LABEL,
+        x_label=X_LABEL,
         out_r=FIG_PATH,
-        max_r_k=MAX_RK,
-        # out_det=(FIG_PATH.parent / (FIG_PATH.stem + "_detections" + FIG_PATH.suffix)),
     )
     print_sweep_table(
         x=xs_arr,
@@ -421,16 +436,16 @@ def main() -> None:
         xlabel=X_LABEL,
         max_r_k=MAX_RK,
     )
-    # plot_sensitivity_results(
-    #     x=xs_arr,
-    #     r_mean_list=r_means,
-    #     r_sem_list=r_sems,
-    #     xlabel=X_LABEL,
-    #     out=Path("figures/n2n_sensitivity.png"),
-    #     which_r_k=1,
-    #     N_PARTICLES=5e6,
-    #     N_REPS=len(all_det),
-    # )
+    plot_sensitivity_results(
+        x=xs_arr,
+        r_mean_list=r_means,
+        r_sem_list=r_sems,
+        xlabel=X_LABEL,
+        out=Path("figures/n2n_sensitivity.png"),
+        which_r_k=1,
+        N_PARTICLES=1e8,
+        # N_REPS=len(all_det),
+    )
     plot_results(
         x=xs_arr,
         r_mean_list=r_means,

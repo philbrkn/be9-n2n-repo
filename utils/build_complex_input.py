@@ -159,7 +159,7 @@ def create_geometry(input_dir: Path, cfg) -> Dict[str, Any]:
     for cyl in he3_cyls:
         hdpe_region &= +cyl
 
-    hdpe_cell = openmc.Cell(fill=hdpe, region=hdpe_region)
+    hdpe_cell = openmc.Cell(fill=hdpe, region=hdpe_region, name="hdpe_cell")
     cells.append(hdpe_cell)
 
     # === CREATE GEOMETRY === #
