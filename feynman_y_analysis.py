@@ -21,10 +21,11 @@ def plot_inter_arrival_times(detection_times, plot_dir):
     plt.figure(figsize=(12, 4))
     plt.scatter(t, dt, s=0.1, alpha=0.3)
     plt.yscale("log")
-    plt.xlim(0, 10)
+    plt.xlim(10, 15)
+    plt.ylim(1e-6, 1e-3)
     plt.xlabel("Time (s)")
     plt.ylabel("Time until next count (s)")
-    plt.savefig(plot_dir / "inter_arrrival_times.png")
+    plt.savefig(plot_dir / "inter_arrrival_times.png", dpi=300)
 
 
 def plot_frequency_of_counts_histogram(rplusa_dist, max_counts=20):
@@ -156,7 +157,7 @@ if __name__ == "__main__":
     detection_times = np.sort(absorption_events["time"])
 
     # this is a bit of a useless plot with so much data:
-    # plot_inter_arrival_times(detection_times, plot_dir)
+    plot_inter_arrival_times(detection_times, plot_dir)
 
     gate_widths = [2e-6 * (2**n) for n in range(12)]  # 2, 4, 8, ... 1024 μs
     Y_arr = feynmann_y_analysis(

@@ -10,7 +10,7 @@ import numpy as np
 import openmc
 
 # from track_analyzing import Ps_truth_from_tracks, leakage_count_per_source_track
-from track_analyzing import r_pred_from_Ps
+from predicted_multiplicity import r_pred_from_Ps
 from utils.analyze_sr import get_measured_multiplicity_causal, sr_histograms_twoptr
 
 
