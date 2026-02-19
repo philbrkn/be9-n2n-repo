@@ -3,6 +3,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import openmc
+from exfor_data import get_data
 
 
 def create_and_run_model(
@@ -265,7 +266,7 @@ def frac_sigma(E):
 def plot_comparison(
     df_res, path, E_incident_MeV=None, angle=None, e_min=None, e_max=None
 ):
-    plt.figure(figsize=(5, 8))
+    plt.figure(figsize=(8, 5))
 
     # total = df_res[df_res["score"] == "nu-scatter"].copy()
     # total = df_res[df_res["score"] == "(n,2n)"].copy()
@@ -278,33 +279,42 @@ def plot_comparison(
     y = total["ddx"].to_numpy()  # mb/sr/MeV
     yerr = total["ddx_std_dev"].to_numpy()  # mb/sr/MeV
 
-    y_b = broaden_variable_gaussian(E_cent, y, frac_sigma)
+    # y_b = broaden_variable_gaussian(E_cent, y, frac_sigma)
+    y_b = y
 
-    plt.plot(E_cent, y_b, "-", label="MC (broadened)")
-    plt.errorbar(E_cent, y, yerr=yerr, fmt="k.", ms=3, alpha=0.4, label="MC (raw, ±1σ)")
+    plt.plot(E_low / 1e6, y_b, "-", label="MC")
+    # plt.step(E_low / 1e6, y, where="post", label="MC (binned)")
 
-    # if E_incident_MeV is not None or angle is not None:
-    #     e, y, yerr = get_data(E_incident_MeV, angle, source="auto")
-    #
-    #     mean_color = "#C1403D"  # Muted red
-    #     if yerr is not None:
-    #         plt.errorbar(
-    #             e,
-    #             y,
-    #             yerr=yerr,
-    #             fmt="s",
-    #             color=mean_color,
-    #             ms=5,
-    #             capsize=2,
-    #             label="Baba et al. (EXFOR)",
-    #             alpha=0.9,
-    #         )
-    #     else:
-    #         plt.plot(e, y, "-", label="ENDF/B-VIII.1", color=mean_color)
+    plt.errorbar(
+        E_low / 1e6, y, yerr=yerr, fmt="k.", ms=3, alpha=0.4, label="MC (raw, ±1σ)"
+    )
+
+    if E_incident_MeV is not None or angle is not None:
+        E_cent = np.arange(e_min, e_max, 0.0001)
+        result = get_data(E_incident_MeV, angle, E_cent, source="auto")
+
+        if result is not None:
+            e, y, yerr = result
+
+            mean_color = "#C1403D"  # Muted red
+            if yerr is not None:
+                plt.errorbar(
+                    e,
+                    y,
+                    yerr=yerr,
+                    fmt="s",
+                    color=mean_color,
+                    ms=5,
+                    capsize=2,
+                    label="Baba et al. (EXFOR)",
+                    alpha=0.9,
+                )
+            else:
+                plt.plot(e, y, "-", label="ENDF/B-VIII.1", color=mean_color)
 
     # plt.xlim(0, 4)
     plt.xlim(e_min, e_max)
-    plt.ylim(1e-1, 1e3)
+    plt.ylim(1e-2, 1e3)
     plt.yscale("log")
     plt.xlabel("Secondary Neutron Energy [MeV]")
     plt.ylabel("Cross Section [mb/sr/MeV]")
@@ -316,19 +326,19 @@ def plot_comparison(
 
 if __name__ == "__main__":
     base_dir = Path(__file__).parent.resolve()
-    INCIDENT_ENERGY = 5  # MeV
-    ANGLE = 60.0  # degrees
+    INCIDENT_ENERGY = 14.1  # MeV
+    ANGLE = 60  # degrees
     D_ANGLE = 1  # degrees
     THICKNESS = 0.1  # cm
 
     E_MIN = 0
-    E_MAX = 2.5
-    ENERGY_BINS = np.linspace(E_MIN, E_MAX, 500)
+    E_MAX = 9
+    ENERGY_BINS = np.arange(E_MIN, E_MAX, 0.1)
 
-    N_BATCHES = 10
+    N_BATCHES = 50
     N_PARTICLES = 10_000_000
 
-    run_dir = base_dir / f"run_{INCIDENT_ENERGY}MeV_{ANGLE}deg"
+    run_dir = base_dir / f"run_{INCIDENT_ENERGY:.2f}MeV_{ANGLE}deg"
 
     Nareal = get_Nareal(thickness=THICKNESS)
 

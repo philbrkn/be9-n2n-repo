@@ -1,0 +1,1797 @@
+ ======================>     TALLY 1: DDX_TALLY     <=======================
+
+ Surface 7
+   Polar Angle [1.038470904936626, 1.0559241974565692)
+     Outgoing Energy [0, 100000)
+       Total Material
+         Current                              4.261e-06 +/- 8.50965e-08
+     Outgoing Energy [100000, 200000)
+       Total Material
+         Current                              5.637e-06 +/- 1.03488e-07
+     Outgoing Energy [200000, 300000.00000000006)
+       Total Material
+         Current                              5.076e-06 +/- 9.45585e-08
+     Outgoing Energy [300000.00000000006, 400000)
+       Total Material
+         Current                              5.117e-06 +/- 8.93584e-08
+     Outgoing Energy [400000, 500000)
+       Total Material
+         Current                              5.73e-06 +/- 1.22591e-07
+     Outgoing Energy [500000, 600000.0000000001)
+       Total Material
+         Current                              5.573e-06 +/- 1.04766e-07
+     Outgoing Energy [600000.0000000001, 700000.0000000001)
+       Total Material
+         Current                              4.802e-06 +/- 9.95291e-08
+     Outgoing Energy [700000.0000000001, 800000)
+       Total Material
+         Current                              5.023e-06 +/- 9.93778e-08
+     Outgoing Energy [800000, 900000)
+       Total Material
+         Current                              3.916e-06 +/- 7.4989e-08
+     Outgoing Energy [900000, 1000000)
+       Total Material
+         Current                              3.772e-06 +/- 8.23031e-08
+     Outgoing Energy [1000000, 1100000)
+       Total Material
+         Current                              3.287e-06 +/- 6.28865e-08
+     Outgoing Energy [1100000, 1200000.0000000002)
+       Total Material
+         Current                              3.08e-06 +/- 7.76833e-08
+     Outgoing Energy [1200000.0000000002, 1300000)
+       Total Material
+         Current                              2.739e-06 +/- 5.79812e-08
+     Outgoing Energy [1300000, 1400000.0000000002)
+       Total Material
+         Current                              2.602e-06 +/- 7.58349e-08
+     Outgoing Energy [1400000.0000000002, 1500000)
+       Total Material
+         Current                              2.178e-06 +/- 7.62134e-08
+     Outgoing Energy [1500000, 1600000)
+       Total Material
+         Current                              2.356e-06 +/- 8.84635e-08
+     Outgoing Energy [1600000, 1700000.0000000002)
+       Total Material
+         Current                              2.134e-06 +/- 7.63376e-08
+     Outgoing Energy [1700000.0000000002, 1800000)
+       Total Material
+         Current                              2.125e-06 +/- 5.93717e-08
+     Outgoing Energy [1800000, 1900000.0000000002)
+       Total Material
+         Current                              2.057e-06 +/- 6.37119e-08
+     Outgoing Energy [1900000.0000000002, 2000000)
+       Total Material
+         Current                              1.989e-06 +/- 5.69154e-08
+     Outgoing Energy [2000000, 2100000)
+       Total Material
+         Current                              2.019e-06 +/- 6.0725e-08
+     Outgoing Energy [2100000, 2200000)
+       Total Material
+         Current                              1.964e-06 +/- 6.30685e-08
+     Outgoing Energy [2200000, 2300000.0000000005)
+       Total Material
+         Current                              1.669e-06 +/- 5.45836e-08
+     Outgoing Energy [2300000.0000000005, 2400000.0000000005)
+       Total Material
+         Current                              1.623e-06 +/- 5.08541e-08
+     Outgoing Energy [2400000.0000000005, 2500000)
+       Total Material
+         Current                              2.045e-06 +/- 7.18736e-08
+     Outgoing Energy [2500000, 2600000)
+       Total Material
+         Current                              2.092e-06 +/- 6.0396e-08
+     Outgoing Energy [2600000, 2700000)
+       Total Material
+         Current                              1.559e-06 +/- 5.4841e-08
+     Outgoing Energy [2700000, 2800000.0000000005)
+       Total Material
+         Current                              1.607e-06 +/- 4.82978e-08
+     Outgoing Energy [2800000.0000000005, 2900000.0000000005)
+       Total Material
+         Current                              1.155e-06 +/- 3.93636e-08
+     Outgoing Energy [2900000.0000000005, 3000000)
+       Total Material
+         Current                              1.058e-06 +/- 4.21455e-08
+     Outgoing Energy [3000000, 3100000)
+       Total Material
+         Current                              1.216e-06 +/- 5.35941e-08
+     Outgoing Energy [3100000, 3200000)
+       Total Material
+         Current                              1.302e-06 +/- 4.97742e-08
+     Outgoing Energy [3200000, 3300000.0000000005)
+       Total Material
+         Current                              1.252e-06 +/- 4.80213e-08
+     Outgoing Energy [3300000.0000000005, 3400000.0000000005)
+       Total Material
+         Current                              1.14e-06 +/- 4.73804e-08
+     Outgoing Energy [3400000.0000000005, 3500000)
+       Total Material
+         Current                              1.341e-06 +/- 4.30398e-08
+     Outgoing Energy [3500000, 3600000)
+       Total Material
+         Current                              1.353e-06 +/- 5.96488e-08
+     Outgoing Energy [3600000, 3700000)
+       Total Material
+         Current                              1.065e-06 +/- 4.80274e-08
+     Outgoing Energy [3700000, 3800000.0000000005)
+       Total Material
+         Current                              1.117e-06 +/- 5.42972e-08
+     Outgoing Energy [3800000.0000000005, 3900000.0000000005)
+       Total Material
+         Current                              8.94e-07 +/- 4.05483e-08
+     Outgoing Energy [3900000.0000000005, 4000000)
+       Total Material
+         Current                              8.08e-07 +/- 4.15849e-08
+     Outgoing Energy [4000000, 4100000.0000000005)
+       Total Material
+         Current                              8.04e-07 +/- 3.60793e-08
+     Outgoing Energy [4100000.0000000005, 4200000)
+       Total Material
+         Current                              8.06e-07 +/- 3.2471e-08
+     Outgoing Energy [4200000, 4300000)
+       Total Material
+         Current                              6.09e-07 +/- 3.48668e-08
+     Outgoing Energy [4300000, 4400000)
+       Total Material
+         Current                              6.2e-07 +/- 4.05825e-08
+     Outgoing Energy [4400000, 4500000)
+       Total Material
+         Current                              5.92e-07 +/- 3.12776e-08
+     Outgoing Energy [4500000, 4600000.000000001)
+       Total Material
+         Current                              5.69e-07 +/- 2.83164e-08
+     Outgoing Energy [4600000.000000001, 4700000)
+       Total Material
+         Current                              5.12e-07 +/- 3.0053e-08
+     Outgoing Energy [4700000, 4800000.000000001)
+       Total Material
+         Current                              5.66e-07 +/- 3.21171e-08
+     Outgoing Energy [4800000.000000001, 4900000)
+       Total Material
+         Current                              5.42e-07 +/- 3.21781e-08
+     Outgoing Energy [4900000, 5000000)
+       Total Material
+         Current                              5.93e-07 +/- 3.66731e-08
+     Outgoing Energy [5000000, 5100000.000000001)
+       Total Material
+         Current                              3.89e-07 +/- 2.85103e-08
+     Outgoing Energy [5100000.000000001, 5200000)
+       Total Material
+         Current                              4.35e-07 +/- 3.23643e-08
+     Outgoing Energy [5200000, 5300000.000000001)
+       Total Material
+         Current                              3.99e-07 +/- 2.77926e-08
+     Outgoing Energy [5300000.000000001, 5400000)
+       Total Material
+         Current                              3.65e-07 +/- 2.53244e-08
+     Outgoing Energy [5400000, 5500000)
+       Total Material
+         Current                              6.22e-07 +/- 3.08108e-08
+     Outgoing Energy [5500000, 5600000.000000001)
+       Total Material
+         Current                              5.75e-07 +/- 3.48539e-08
+     Outgoing Energy [5600000.000000001, 5700000)
+       Total Material
+         Current                              1.3366e-05 +/- 1.55534e-07
+     Outgoing Energy [5700000, 5800000.000000001)
+       Total Material
+         Current                              1.3336e-05 +/- 1.80944e-07
+     Outgoing Energy [5800000.000000001, 5900000)
+       Total Material
+         Current                              5.83e-07 +/- 3.74059e-08
+     Outgoing Energy [5900000, 6000000)
+       Total Material
+         Current                              5.55e-07 +/- 4.04124e-08
+     Outgoing Energy [6000000, 6100000.000000001)
+       Total Material
+         Current                              1.4e-07 +/- 1.48461e-08
+     Outgoing Energy [6100000.000000001, 6200000)
+       Total Material
+         Current                              1.74e-07 +/- 1.69778e-08
+     Outgoing Energy [6200000, 6300000.000000001)
+       Total Material
+         Current                              1.39e-07 +/- 1.62437e-08
+     Outgoing Energy [6300000.000000001, 6400000)
+       Total Material
+         Current                              1.35e-07 +/- 1.45861e-08
+     Outgoing Energy [6400000, 6500000)
+       Total Material
+         Current                              7.7e-08 +/- 1.25527e-08
+     Outgoing Energy [6500000, 6600000.000000001)
+       Total Material
+         Current                              6.9e-08 +/- 1.07751e-08
+     Outgoing Energy [6600000.000000001, 6700000)
+       Total Material
+         Current                              7.7e-08 +/- 1.08994e-08
+     Outgoing Energy [6700000, 6800000.000000001)
+       Total Material
+         Current                              1e-07 +/- 1.22057e-08
+     Outgoing Energy [6800000.000000001, 6900000)
+       Total Material
+         Current                              1.19e-07 +/- 1.30063e-08
+     Outgoing Energy [6900000, 7000000)
+       Total Material
+         Current                              1.27e-07 +/- 1.08053e-08
+     Outgoing Energy [7000000, 7100000.000000001)
+       Total Material
+         Current                              5.2e-08 +/- 6.6945e-09
+     Outgoing Energy [7100000.000000001, 7200000)
+       Total Material
+         Current                              4.3e-08 +/- 6.70212e-09
+     Outgoing Energy [7200000, 7300000.000000001)
+       Total Material
+         Current                              3.9e-08 +/- 5.94018e-09
+     Outgoing Energy [7300000.000000001, 7400000)
+       Total Material
+         Current                              2.2e-08 +/- 4.77237e-09
+     Outgoing Energy [7400000, 7500000)
+       Total Material
+         Current                              3.1e-08 +/- 5.69461e-09
+     Outgoing Energy [7500000, 7600000.000000001)
+       Total Material
+         Current                              3.4e-08 +/- 6.13455e-09
+     Outgoing Energy [7600000.000000001, 7700000)
+       Total Material
+         Current                              2.2e-08 +/- 4.32364e-09
+     Outgoing Energy [7700000, 7800000.000000001)
+       Total Material
+         Current                              4.1e-08 +/- 5.8362e-09
+     Outgoing Energy [7800000.000000001, 7900000)
+       Total Material
+         Current                              4.7e-08 +/- 7.34152e-09
+     Outgoing Energy [7900000, 8000000)
+       Total Material
+         Current                              7.1e-08 +/- 8.81673e-09
+     Outgoing Energy [8000000, 8100000)
+       Total Material
+         Current                              4.6941e-05 +/- 2.09955e-07
+     Outgoing Energy [8100000, 8200000.000000001)
+       Total Material
+         Current                              1.21e-07 +/- 1.05066e-08
+     Outgoing Energy [8200000.000000001, 8300000.000000001)
+       Total Material
+         Current                              1.46e-07 +/- 1.21923e-08
+     Outgoing Energy [8300000.000000001, 8400000)
+       Total Material
+         Current                              2.26e-07 +/- 1.4374e-08
+     Outgoing Energy [8400000, 8500000)
+       Total Material
+         Current                              2.26e-07 +/- 1.34194e-08
+     Outgoing Energy [8500000, 8600000)
+       Total Material
+         Current                              0 +/- 0
+     Outgoing Energy [8600000, 8700000.000000002)
+       Total Material
+         Current                              0 +/- 0
+     Outgoing Energy [8700000.000000002, 8800000)
+       Total Material
+         Current                              0 +/- 0
+     Outgoing Energy [8800000, 8900000)
+       Total Material
+         Current                              0 +/- 0
+ ====================>     TALLY 2: SINGLE_SCATTER     <====================
+
+ Surface 7
+   Polar Angle [1.038470904936626, 1.0559241974565692)
+     Outgoing Energy [0, 100000)
+       Collision Number 1
+         Total Material
+           Current                              2.035e-06 +/- 4.45671e-08
+     Outgoing Energy [100000, 200000)
+       Collision Number 1
+         Total Material
+           Current                              2.716e-06 +/- 5.11788e-08
+     Outgoing Energy [200000, 300000.00000000006)
+       Collision Number 1
+         Total Material
+           Current                              2.456e-06 +/- 4.99722e-08
+     Outgoing Energy [300000.00000000006, 400000)
+       Collision Number 1
+         Total Material
+           Current                              2.476e-06 +/- 4.85555e-08
+     Outgoing Energy [400000, 500000)
+       Collision Number 1
+         Total Material
+           Current                              2.771e-06 +/- 6.20909e-08
+     Outgoing Energy [500000, 600000.0000000001)
+       Collision Number 1
+         Total Material
+           Current                              2.735e-06 +/- 5.60111e-08
+     Outgoing Energy [600000.0000000001, 700000.0000000001)
+       Collision Number 1
+         Total Material
+           Current                              2.334e-06 +/- 4.76475e-08
+     Outgoing Energy [700000.0000000001, 800000)
+       Collision Number 1
+         Total Material
+           Current                              2.474e-06 +/- 4.84503e-08
+     Outgoing Energy [800000, 900000)
+       Collision Number 1
+         Total Material
+           Current                              1.901e-06 +/- 3.71014e-08
+     Outgoing Energy [900000, 1000000)
+       Collision Number 1
+         Total Material
+           Current                              1.838e-06 +/- 4.27513e-08
+     Outgoing Energy [1000000, 1100000)
+       Collision Number 1
+         Total Material
+           Current                              1.6e-06 +/- 3.23564e-08
+     Outgoing Energy [1100000, 1200000.0000000002)
+       Collision Number 1
+         Total Material
+           Current                              1.514e-06 +/- 3.61414e-08
+     Outgoing Energy [1200000.0000000002, 1300000)
+       Collision Number 1
+         Total Material
+           Current                              1.33e-06 +/- 2.86784e-08
+     Outgoing Energy [1300000, 1400000.0000000002)
+       Collision Number 1
+         Total Material
+           Current                              1.278e-06 +/- 3.84432e-08
+     Outgoing Energy [1400000.0000000002, 1500000)
+       Collision Number 1
+         Total Material
+           Current                              1.079e-06 +/- 3.82017e-08
+     Outgoing Energy [1500000, 1600000)
+       Collision Number 1
+         Total Material
+           Current                              1.142e-06 +/- 4.50025e-08
+     Outgoing Energy [1600000, 1700000.0000000002)
+       Collision Number 1
+         Total Material
+           Current                              1.046e-06 +/- 3.66406e-08
+     Outgoing Energy [1700000.0000000002, 1800000)
+       Collision Number 1
+         Total Material
+           Current                              1.047e-06 +/- 2.92564e-08
+     Outgoing Energy [1800000, 1900000.0000000002)
+       Collision Number 1
+         Total Material
+           Current                              1.008e-06 +/- 3.02156e-08
+     Outgoing Energy [1900000.0000000002, 2000000)
+       Collision Number 1
+         Total Material
+           Current                              9.72e-07 +/- 2.80364e-08
+     Outgoing Energy [2000000, 2100000)
+       Collision Number 1
+         Total Material
+           Current                              9.98e-07 +/- 2.99305e-08
+     Outgoing Energy [2100000, 2200000)
+       Collision Number 1
+         Total Material
+           Current                              9.61e-07 +/- 3.25542e-08
+     Outgoing Energy [2200000, 2300000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              8.18e-07 +/- 2.87764e-08
+     Outgoing Energy [2300000.0000000005, 2400000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              7.89e-07 +/- 2.4673e-08
+     Outgoing Energy [2400000.0000000005, 2500000)
+       Collision Number 1
+         Total Material
+           Current                              1.012e-06 +/- 3.57874e-08
+     Outgoing Energy [2500000, 2600000)
+       Collision Number 1
+         Total Material
+           Current                              1.027e-06 +/- 2.9905e-08
+     Outgoing Energy [2600000, 2700000)
+       Collision Number 1
+         Total Material
+           Current                              7.65e-07 +/- 2.84013e-08
+     Outgoing Energy [2700000, 2800000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              7.9e-07 +/- 2.50306e-08
+     Outgoing Energy [2800000.0000000005, 2900000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              5.76e-07 +/- 2.09099e-08
+     Outgoing Energy [2900000.0000000005, 3000000)
+       Collision Number 1
+         Total Material
+           Current                              5.23e-07 +/- 2.05143e-08
+     Outgoing Energy [3000000, 3100000)
+       Collision Number 1
+         Total Material
+           Current                              5.96e-07 +/- 2.69103e-08
+     Outgoing Energy [3100000, 3200000)
+       Collision Number 1
+         Total Material
+           Current                              6.42e-07 +/- 2.60047e-08
+     Outgoing Energy [3200000, 3300000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              6.16e-07 +/- 2.47205e-08
+     Outgoing Energy [3300000.0000000005, 3400000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              5.65e-07 +/- 2.41699e-08
+     Outgoing Energy [3400000.0000000005, 3500000)
+       Collision Number 1
+         Total Material
+           Current                              6.61e-07 +/- 2.10582e-08
+     Outgoing Energy [3500000, 3600000)
+       Collision Number 1
+         Total Material
+           Current                              6.66e-07 +/- 3.01168e-08
+     Outgoing Energy [3600000, 3700000)
+       Collision Number 1
+         Total Material
+           Current                              5.17e-07 +/- 2.45619e-08
+     Outgoing Energy [3700000, 3800000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              5.5e-07 +/- 2.65345e-08
+     Outgoing Energy [3800000.0000000005, 3900000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              4.48e-07 +/- 2.07492e-08
+     Outgoing Energy [3900000.0000000005, 4000000)
+       Collision Number 1
+         Total Material
+           Current                              3.94e-07 +/- 2.17893e-08
+     Outgoing Energy [4000000, 4100000.0000000005)
+       Collision Number 1
+         Total Material
+           Current                              3.92e-07 +/- 1.83147e-08
+     Outgoing Energy [4100000.0000000005, 4200000)
+       Collision Number 1
+         Total Material
+           Current                              3.96e-07 +/- 1.58333e-08
+     Outgoing Energy [4200000, 4300000)
+       Collision Number 1
+         Total Material
+           Current                              2.91e-07 +/- 1.72432e-08
+     Outgoing Energy [4300000, 4400000)
+       Collision Number 1
+         Total Material
+           Current                              2.96e-07 +/- 1.96832e-08
+     Outgoing Energy [4400000, 4500000)
+       Collision Number 1
+         Total Material
+           Current                              2.85e-07 +/- 1.6115e-08
+     Outgoing Energy [4500000, 4600000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              2.78e-07 +/- 1.53968e-08
+     Outgoing Energy [4600000.000000001, 4700000)
+       Collision Number 1
+         Total Material
+           Current                              2.4e-07 +/- 1.45686e-08
+     Outgoing Energy [4700000, 4800000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              2.8e-07 +/- 1.6413e-08
+     Outgoing Energy [4800000.000000001, 4900000)
+       Collision Number 1
+         Total Material
+           Current                              2.67e-07 +/- 1.81046e-08
+     Outgoing Energy [4900000, 5000000)
+       Collision Number 1
+         Total Material
+           Current                              2.79e-07 +/- 1.77333e-08
+     Outgoing Energy [5000000, 5100000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              1.88e-07 +/- 1.4953e-08
+     Outgoing Energy [5100000.000000001, 5200000)
+       Collision Number 1
+         Total Material
+           Current                              2.05e-07 +/- 1.56655e-08
+     Outgoing Energy [5200000, 5300000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              1.88e-07 +/- 1.43257e-08
+     Outgoing Energy [5300000.000000001, 5400000)
+       Collision Number 1
+         Total Material
+           Current                              1.69e-07 +/- 1.15961e-08
+     Outgoing Energy [5400000, 5500000)
+       Collision Number 1
+         Total Material
+           Current                              3.09e-07 +/- 1.70647e-08
+     Outgoing Energy [5500000, 5600000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              2.77e-07 +/- 1.75668e-08
+     Outgoing Energy [5600000.000000001, 5700000)
+       Collision Number 1
+         Total Material
+           Current                              6.668e-06 +/- 7.73774e-08
+     Outgoing Energy [5700000, 5800000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              6.649e-06 +/- 8.80687e-08
+     Outgoing Energy [5800000.000000001, 5900000)
+       Collision Number 1
+         Total Material
+           Current                              2.76e-07 +/- 1.86394e-08
+     Outgoing Energy [5900000, 6000000)
+       Collision Number 1
+         Total Material
+           Current                              2.64e-07 +/- 2.0456e-08
+     Outgoing Energy [6000000, 6100000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              6.4e-08 +/- 7.42857e-09
+     Outgoing Energy [6100000.000000001, 6200000)
+       Collision Number 1
+         Total Material
+           Current                              7.7e-08 +/- 8.71429e-09
+     Outgoing Energy [6200000, 6300000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              5.9e-08 +/- 7.91408e-09
+     Outgoing Energy [6300000.000000001, 6400000)
+       Collision Number 1
+         Total Material
+           Current                              5.9e-08 +/- 7.38034e-09
+     Outgoing Energy [6400000, 6500000)
+       Collision Number 1
+         Total Material
+           Current                              2.6e-08 +/- 4.78944e-09
+     Outgoing Energy [6500000, 6600000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              2e-08 +/- 4.28571e-09
+     Outgoing Energy [6600000.000000001, 6700000)
+       Collision Number 1
+         Total Material
+           Current                              2.1e-08 +/- 5.36238e-09
+     Outgoing Energy [6700000, 6800000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              1.9e-08 +/- 5.32418e-09
+     Outgoing Energy [6800000.000000001, 6900000)
+       Collision Number 1
+         Total Material
+           Current                              1.5e-08 +/- 3.57143e-09
+     Outgoing Energy [6900000, 7000000)
+       Collision Number 1
+         Total Material
+           Current                              9e-09 +/- 2.7442e-09
+     Outgoing Energy [7000000, 7100000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7100000.000000001, 7200000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7200000, 7300000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7300000.000000001, 7400000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7400000, 7500000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7500000, 7600000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7600000.000000001, 7700000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7700000, 7800000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7800000.000000001, 7900000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7900000, 8000000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8000000, 8100000)
+       Collision Number 1
+         Total Material
+           Current                              4.6847e-05 +/- 2.0874e-07
+     Outgoing Energy [8100000, 8200000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8200000.000000001, 8300000.000000001)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8300000.000000001, 8400000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8400000, 8500000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8500000, 8600000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8600000, 8700000.000000002)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8700000.000000002, 8800000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8800000, 8900000)
+       Collision Number 1
+         Total Material
+           Current                              0 +/- 0
+ ===================>     TALLY 3: MULTIPLE_SCATTER     <===================
+
+ Surface 7
+   Polar Angle [1.038470904936626, 1.0559241974565692)
+     Outgoing Energy [0, 100000)
+       Collision Number 2
+         Total Material
+           Current                              3.16e-07 +/- 1.64404e-08
+       Collision Number 3
+         Total Material
+           Current                              4.4e-08 +/- 6.64554e-09
+       Collision Number 4
+         Total Material
+           Current                              1.2e-08 +/- 3.36852e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [100000, 200000)
+       Collision Number 2
+         Total Material
+           Current                              3.33e-07 +/- 1.84396e-08
+       Collision Number 3
+         Total Material
+           Current                              5.7e-08 +/- 7.14429e-09
+       Collision Number 4
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [200000, 300000.00000000006)
+       Collision Number 2
+         Total Material
+           Current                              3.33e-07 +/- 1.6819e-08
+       Collision Number 3
+         Total Material
+           Current                              3.8e-08 +/- 7.36234e-09
+       Collision Number 4
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 5
+         Total Material
+           Current                              1e-09 +/- 1e-09
+     Outgoing Energy [300000.00000000006, 400000)
+       Collision Number 2
+         Total Material
+           Current                              2.88e-07 +/- 2.04819e-08
+       Collision Number 3
+         Total Material
+           Current                              2.1e-08 +/- 4.75738e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              1e-09 +/- 1e-09
+     Outgoing Energy [400000, 500000)
+       Collision Number 2
+         Total Material
+           Current                              2.7e-07 +/- 1.57791e-08
+       Collision Number 3
+         Total Material
+           Current                              2.9e-08 +/- 5.90572e-09
+       Collision Number 4
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [500000, 600000.0000000001)
+       Collision Number 2
+         Total Material
+           Current                              2.16e-07 +/- 1.51482e-08
+       Collision Number 3
+         Total Material
+           Current                              2.4e-08 +/- 4.78944e-09
+       Collision Number 4
+         Total Material
+           Current                              4e-09 +/- 2.40747e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [600000.0000000001, 700000.0000000001)
+       Collision Number 2
+         Total Material
+           Current                              1.84e-07 +/- 1.25714e-08
+       Collision Number 3
+         Total Material
+           Current                              2.1e-08 +/- 5.36238e-09
+       Collision Number 4
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [700000.0000000001, 800000)
+       Collision Number 2
+         Total Material
+           Current                              1.53e-07 +/- 1.21563e-08
+       Collision Number 3
+         Total Material
+           Current                              1.7e-08 +/- 4.42857e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [800000, 900000)
+       Collision Number 2
+         Total Material
+           Current                              1.55e-07 +/- 1.04247e-08
+       Collision Number 3
+         Total Material
+           Current                              1.2e-08 +/- 3.36852e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [900000, 1000000)
+       Collision Number 2
+         Total Material
+           Current                              1.35e-07 +/- 1.0227e-08
+       Collision Number 3
+         Total Material
+           Current                              7e-09 +/- 2.47848e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              1e-09 +/- 1e-09
+     Outgoing Energy [1000000, 1100000)
+       Collision Number 2
+         Total Material
+           Current                              1.34e-07 +/- 1.25714e-08
+       Collision Number 3
+         Total Material
+           Current                              7e-09 +/- 2.47848e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1100000, 1200000.0000000002)
+       Collision Number 2
+         Total Material
+           Current                              9.9e-08 +/- 8.5105e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1200000.0000000002, 1300000)
+       Collision Number 2
+         Total Material
+           Current                              9.8e-08 +/- 9.25379e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1300000, 1400000.0000000002)
+       Collision Number 2
+         Total Material
+           Current                              8.1e-08 +/- 8.06732e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1400000.0000000002, 1500000)
+       Collision Number 2
+         Total Material
+           Current                              6.6e-08 +/- 8.26105e-09
+       Collision Number 3
+         Total Material
+           Current                              7e-09 +/- 2.47848e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1500000, 1600000)
+       Collision Number 2
+         Total Material
+           Current                              7.5e-08 +/- 9.28571e-09
+       Collision Number 3
+         Total Material
+           Current                              7e-09 +/- 2.47848e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1600000, 1700000.0000000002)
+       Collision Number 2
+         Total Material
+           Current                              7.7e-08 +/- 9.81565e-09
+       Collision Number 3
+         Total Material
+           Current                              5e-09 +/- 2.14286e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1700000.0000000002, 1800000)
+       Collision Number 2
+         Total Material
+           Current                              7.1e-08 +/- 9.15735e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1800000, 1900000.0000000002)
+       Collision Number 2
+         Total Material
+           Current                              6.3e-08 +/- 6.51685e-09
+       Collision Number 3
+         Total Material
+           Current                              6e-09 +/- 2.32115e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [1900000.0000000002, 2000000)
+       Collision Number 2
+         Total Material
+           Current                              6.2e-08 +/- 6.78534e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2000000, 2100000)
+       Collision Number 2
+         Total Material
+           Current                              4.4e-08 +/- 6.79736e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2100000, 2200000)
+       Collision Number 2
+         Total Material
+           Current                              4.8e-08 +/- 6.22044e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2200000, 2300000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              5e-08 +/- 6.38877e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2300000.0000000005, 2400000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              5.6e-08 +/- 7.77752e-09
+       Collision Number 3
+         Total Material
+           Current                              6e-09 +/- 2.32115e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2400000.0000000005, 2500000)
+       Collision Number 2
+         Total Material
+           Current                              5e-08 +/- 8.45154e-09
+       Collision Number 3
+         Total Material
+           Current                              6e-09 +/- 2.32115e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2500000, 2600000)
+       Collision Number 2
+         Total Material
+           Current                              7.3e-08 +/- 7.98084e-09
+       Collision Number 3
+         Total Material
+           Current                              8e-09 +/- 3.30738e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2600000, 2700000)
+       Collision Number 2
+         Total Material
+           Current                              4.9e-08 +/- 6.7748e-09
+       Collision Number 3
+         Total Material
+           Current                              5e-09 +/- 2.14286e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2700000, 2800000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              6.4e-08 +/- 6.85714e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2800000.0000000005, 2900000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              3.8e-08 +/- 5.45108e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [2900000.0000000005, 3000000)
+       Collision Number 2
+         Total Material
+           Current                              3.2e-08 +/- 4.89898e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3000000, 3100000)
+       Collision Number 2
+         Total Material
+           Current                              5.1e-08 +/- 7.49013e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3100000, 3200000)
+       Collision Number 2
+         Total Material
+           Current                              4e-08 +/- 6.227e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3200000, 3300000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              3.2e-08 +/- 5.10302e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3300000.0000000005, 3400000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              2.9e-08 +/- 5.54941e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3400000.0000000005, 3500000)
+       Collision Number 2
+         Total Material
+           Current                              3.5e-08 +/- 5.20008e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3500000, 3600000)
+       Collision Number 2
+         Total Material
+           Current                              3.4e-08 +/- 5.79232e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3600000, 3700000)
+       Collision Number 2
+         Total Material
+           Current                              3.8e-08 +/- 5.81343e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3700000, 3800000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              3.3e-08 +/- 5.9949e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3800000.0000000005, 3900000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              1.7e-08 +/- 4.19183e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [3900000.0000000005, 4000000)
+       Collision Number 2
+         Total Material
+           Current                              2.3e-08 +/- 4.56473e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4000000, 4100000.0000000005)
+       Collision Number 2
+         Total Material
+           Current                              2.1e-08 +/- 4.30709e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4100000.0000000005, 4200000)
+       Collision Number 2
+         Total Material
+           Current                              1.8e-08 +/- 3.97954e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4200000, 4300000)
+       Collision Number 2
+         Total Material
+           Current                              2.7e-08 +/- 5.19222e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4300000, 4400000)
+       Collision Number 2
+         Total Material
+           Current                              3.9e-08 +/- 5.58606e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4400000, 4500000)
+       Collision Number 2
+         Total Material
+           Current                              3.8e-08 +/- 6.78534e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4500000, 4600000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              2.6e-08 +/- 4.78944e-09
+       Collision Number 3
+         Total Material
+           Current                              6e-09 +/- 2.72554e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4600000.000000001, 4700000)
+       Collision Number 2
+         Total Material
+           Current                              6.8e-08 +/- 9.12051e-09
+       Collision Number 3
+         Total Material
+           Current                              6e-09 +/- 2.72554e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4700000, 4800000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              6.1e-08 +/- 7.46283e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4800000.000000001, 4900000)
+       Collision Number 2
+         Total Material
+           Current                              5.5e-08 +/- 7.85714e-09
+       Collision Number 3
+         Total Material
+           Current                              4e-09 +/- 1.93781e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [4900000, 5000000)
+       Collision Number 2
+         Total Material
+           Current                              7e-08 +/- 8.45154e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5000000, 5100000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              3.2e-08 +/- 5.10302e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5100000.000000001, 5200000)
+       Collision Number 2
+         Total Material
+           Current                              3e-08 +/- 4.94872e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5200000, 5300000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              3.5e-08 +/- 5.75876e-09
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5300000.000000001, 5400000)
+       Collision Number 2
+         Total Material
+           Current                              2.6e-08 +/- 4.78944e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5400000, 5500000)
+       Collision Number 2
+         Total Material
+           Current                              2.2e-08 +/- 5.18239e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5500000, 5600000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              2.8e-08 +/- 5.18239e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5600000.000000001, 5700000)
+       Collision Number 2
+         Total Material
+           Current                              2.5e-08 +/- 5.20008e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5700000, 5800000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              2.9e-08 +/- 4.30709e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5800000.000000001, 5900000)
+       Collision Number 2
+         Total Material
+           Current                              2.9e-08 +/- 5.16859e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [5900000, 6000000)
+       Collision Number 2
+         Total Material
+           Current                              3e-08 +/- 4.94872e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6000000, 6100000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              1.8e-08 +/- 3.71429e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6100000.000000001, 6200000)
+       Collision Number 2
+         Total Material
+           Current                              1.8e-08 +/- 4.22819e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6200000, 6300000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              2.1e-08 +/- 4.06328e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6300000.000000001, 6400000)
+       Collision Number 2
+         Total Material
+           Current                              1.6e-08 +/- 3.62531e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6400000, 6500000)
+       Collision Number 2
+         Total Material
+           Current                              2.2e-08 +/- 4.9816e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6500000, 6600000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              2.8e-08 +/- 4.9816e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6600000.000000001, 6700000)
+       Collision Number 2
+         Total Material
+           Current                              3.4e-08 +/- 5.6134e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6700000, 6800000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              6.1e-08 +/- 6.89424e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6800000.000000001, 6900000)
+       Collision Number 2
+         Total Material
+           Current                              8.6e-08 +/- 8.81094e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [6900000, 7000000)
+       Collision Number 2
+         Total Material
+           Current                              1.06e-07 +/- 1.0166e-08
+       Collision Number 3
+         Total Material
+           Current                              3e-09 +/- 1.69633e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7000000, 7100000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              5.1e-08 +/- 6.62247e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7100000.000000001, 7200000)
+       Collision Number 2
+         Total Material
+           Current                              4.3e-08 +/- 6.70212e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7200000, 7300000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              3.7e-08 +/- 5.85714e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7300000.000000001, 7400000)
+       Collision Number 2
+         Total Material
+           Current                              2e-08 +/- 4.51754e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7400000, 7500000)
+       Collision Number 2
+         Total Material
+           Current                              3e-08 +/- 5.53283e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7500000, 7600000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              3.4e-08 +/- 6.13455e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7600000.000000001, 7700000)
+       Collision Number 2
+         Total Material
+           Current                              2.2e-08 +/- 4.32364e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7700000, 7800000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              4e-08 +/- 5.71429e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7800000.000000001, 7900000)
+       Collision Number 2
+         Total Material
+           Current                              4.6e-08 +/- 7.26187e-09
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [7900000, 8000000)
+       Collision Number 2
+         Total Material
+           Current                              7.1e-08 +/- 8.81673e-09
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8000000, 8100000)
+       Collision Number 2
+         Total Material
+           Current                              9.2e-08 +/- 8.84792e-09
+       Collision Number 3
+         Total Material
+           Current                              2e-09 +/- 1.39971e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8100000, 8200000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              1.21e-07 +/- 1.05066e-08
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8200000.000000001, 8300000.000000001)
+       Collision Number 2
+         Total Material
+           Current                              1.46e-07 +/- 1.21923e-08
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8300000.000000001, 8400000)
+       Collision Number 2
+         Total Material
+           Current                              2.25e-07 +/- 1.43036e-08
+       Collision Number 3
+         Total Material
+           Current                              1e-09 +/- 1e-09
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8400000, 8500000)
+       Collision Number 2
+         Total Material
+           Current                              2.26e-07 +/- 1.34194e-08
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8500000, 8600000)
+       Collision Number 2
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8600000, 8700000.000000002)
+       Collision Number 2
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8700000.000000002, 8800000)
+       Collision Number 2
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+     Outgoing Energy [8800000, 8900000)
+       Collision Number 2
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 3
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 4
+         Total Material
+           Current                              0 +/- 0
+       Collision Number 5
+         Total Material
+           Current                              0 +/- 0
+ =======================>     TALLY 4: N2N_RATE     <=======================
+
+ Cell 1
+   Total Material
+     (n,2n)                               0.00686065 +/- 1.51939e-07

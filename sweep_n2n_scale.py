@@ -23,7 +23,7 @@ def scale_be9_n2n(
     library.export_to_xml(str(out_xml_path))
 
 
-def setup_scaled_xs(scale: float, input_dir: Path, scale_dir: Path) -> None:
+def setup_scaled_xs(scale: float, scale_dir: Path) -> None:
     # Put scaled files under THIS sweep point so nothing collides
     xs_dir = scale_dir / "xs"
     xs_dir.mkdir(parents=True, exist_ok=True)
@@ -60,7 +60,6 @@ if __name__ == "__main__":
     )
 
     scales = [0.8, 0.9, 1.0, 1.1, 1.2]
-    # scales = [0.9]
 
     results = run_sweep(
         input_dir=input_dir,

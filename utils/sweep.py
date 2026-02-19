@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from dataclasses import replace
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, Optional
@@ -48,13 +49,14 @@ def run_sweep(
 
     for v in values:
         openmc.reset_auto_ids()
+        start_time = time.perf_counter()
 
         label = label_fmt.format(v) if label_fmt else f"{param_name}_{v}"
         scale_dir = output_root / label
         scale_dir.mkdir(parents=True, exist_ok=True)
 
         if setup_hook is not None:
-            setup_hook(v, input_dir, scale_dir)
+            setup_hook(v, scale_dir)
 
         cfg = replace(base_cfg, **{param_name: v}) if param_name else base_cfg
 
@@ -73,8 +75,10 @@ def run_sweep(
         results["all_r"].append(all_r)
         results["all_det"].append(all_det)
 
+        run_time = time.perf_counter() - start_time
         print(
             f"[{param_name}={v}] mean detections: {np.mean(all_det):.1f}  std: {np.std(all_det):.1f}"
+            f". time: {run_time:.2f}s"
         )
 
     return results

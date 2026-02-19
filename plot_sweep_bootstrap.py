@@ -236,13 +236,13 @@ def plot_results(
             )
 
     # detections
-    # ax = axes[1, 1]
-    # ax.errorbar(
-    #     x, det_mean, yerr=det_sem, fmt="s-", capsize=5, capthick=2, markersize=8
-    # )
-    # ax.set_xlabel(xlabel)
-    # ax.set_ylabel("Detections per replicate")
-    # ax.grid(True, alpha=0.3)
+    ax = axes[1, 1]
+    ax.errorbar(
+        x, det_mean, yerr=det_sem, fmt="s-", capsize=5, capthick=2, markersize=8
+    )
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel("Detections per replicate")
+    ax.grid(True, alpha=0.3)
 
     out.parent.mkdir(parents=True, exist_ok=True)
     plt.tight_layout()
@@ -324,7 +324,6 @@ def plot_results_overlay(
     )
     ax1.set_xlabel(f"{x_label}")
     ax1.set_ylabel("$r_1$ (doubles)")
-    ax1.axvline(1.0, ls="--", color="gray", alpha=0.5)
     ax1.ticklabel_format(axis="y", style="sci", scilimits=(-2, -2))
     ax1.grid(True, alpha=0.2, linestyle="-", linewidth=0.5)
     ax1.set_axisbelow(True)
@@ -335,13 +334,12 @@ def plot_results_overlay(
     )
     ax2.set_xlabel(f"{x_label}")
     ax2.set_ylabel("$r_2$ (triples)")
-    ax2.axvline(1.0, ls="--", color="gray", alpha=0.5)
     ax2.ticklabel_format(axis="y", style="sci", scilimits=(-3, -3))
     ax2.grid(True, alpha=0.2, linestyle="-", linewidth=0.5)
     ax2.set_axisbelow(True)
 
     plt.tight_layout()
-    plt.savefig(f"{x_label}_sensitivity_r1_r2.png", dpi=300)
+    plt.savefig(f"figures/{x_label}_sensitivity_r1_r2.png", dpi=300)
 
 
 def main() -> None:
@@ -351,9 +349,13 @@ def main() -> None:
     # FIG_PATH = Path("figures/be_radius_plot.png")
     # X_LABEL = "be radius"
 
-    PATTERN = "n2n_scale_*"
-    FIG_PATH = Path("figures/n2n_scale_plot.png")
-    X_LABEL = "n,2n scale factor"
+    # PATTERN = "n2n_scale_*"
+    # FIG_PATH = Path("figures/n2n_scale_plot.png")
+    # X_LABEL = "n,2n scale factor"
+
+    PATTERN = "ddx_scale_*"
+    FIG_PATH = Path("figures/ddx_scale_plot.png")
+    X_LABEL = "ddx scale factor"
 
     # PATTERN = "rate_*"
     # FIG_PATH = Path("figures/source_rate_plot.png")
@@ -369,7 +371,7 @@ def main() -> None:
     GATE = 28e-6
     DELAY = 1000e-6
 
-    MAX_RK = 3
+    MAX_RK = 5
     SORT = True
     SUBPLOT_PATH = FIG_PATH.with_name(FIG_PATH.stem + "_subplots" + FIG_PATH.suffix)
 
@@ -409,49 +411,49 @@ def main() -> None:
         r_means.append(r_mean)
         r_sems.append(r_std)
 
-    # det_means_arr = np.asarray(det_means, dtype=float)
-    # det_sems_arr = np.asarray(det_sems, dtype=float)
+    det_means_arr = np.asarray(det_means, dtype=float)
+    det_sems_arr = np.asarray(det_sems, dtype=float)
 
     if SORT:
         order = np.argsort(xs_arr)
         xs_arr = xs_arr[order]
-        # det_means_arr = det_means_arr[order]
-        # det_sems_arr = det_sems_arr[order]
+        det_means_arr = det_means_arr[order]
+        det_sems_arr = det_sems_arr[order]
         r_means = [r_means[i] for i in order]
         r_sems = [r_sems[i] for i in order]
 
-    plot_results_overlay(
-        x=xs_arr,
-        r_mean_list=r_means,
-        r_sem_list=r_sems,
-        x_label=X_LABEL,
-        out_r=FIG_PATH,
-    )
-    print_sweep_table(
-        x=xs_arr,
-        r_mean_list=r_means,
-        r_sem_list=r_sems,
-        # det_mean=det_means_arr,
-        # det_sem=det_sems_arr,
-        xlabel=X_LABEL,
-        max_r_k=MAX_RK,
-    )
-    plot_sensitivity_results(
-        x=xs_arr,
-        r_mean_list=r_means,
-        r_sem_list=r_sems,
-        xlabel=X_LABEL,
-        out=Path("figures/n2n_sensitivity.png"),
-        which_r_k=1,
-        N_PARTICLES=1e8,
-        # N_REPS=len(all_det),
-    )
+    # plot_results_overlay(
+    #     x=xs_arr,
+    #     r_mean_list=r_means,
+    #     r_sem_list=r_sems,
+    #     x_label=X_LABEL,
+    #     out_r=FIG_PATH,
+    # )
+    # print_sweep_table(
+    #     x=xs_arr,
+    #     r_mean_list=r_means,
+    #     r_sem_list=r_sems,
+    #     # det_mean=det_means_arr,
+    #     # det_sem=det_sems_arr,
+    #     xlabel=X_LABEL,
+    #     max_r_k=MAX_RK,
+    # )
+    # plot_sensitivity_results(
+    #     x=xs_arr,
+    #     r_mean_list=r_means,
+    #     r_sem_list=r_sems,
+    #     xlabel=X_LABEL,
+    #     out=Path("figures/n2n_sensitivity.png"),
+    #     which_r_k=1,
+    #     N_PARTICLES=1e8,
+    #     # N_REPS=len(all_det),
+    # )
     plot_results(
         x=xs_arr,
         r_mean_list=r_means,
         r_sem_list=r_sems,
-        # det_mean=det_means_arr,
-        # det_sem=det_sems_arr,
+        det_mean=det_means_arr,
+        det_sem=det_sems_arr,
         xlabel=X_LABEL,
         out=SUBPLOT_PATH,
         max_r_k=MAX_RK,

@@ -1,7 +1,10 @@
+import re
+
 import numpy as np
+import openmc
 
 
-def get_data(E_incident_MeV, angle_deg, source="auto"):
+def get_data(E_incident_MeV, angle_deg, E_interp_MeV=None, source="auto"):
     try:
         if source in ("baba", "auto"):
             return get_baba_exfor_data(E_incident_MeV, angle_deg)
@@ -10,12 +13,131 @@ def get_data(E_incident_MeV, angle_deg, source="auto"):
 
     try:
         if source in ("endf", "auto"):
-            e, y = get_endf81_data(E_incident_MeV, angle_deg)
-            return e, y, None
+            # e, y = derive_endf_data(E_interp_MeV, E_incident_MeV, angle_deg)
+            # e, y = get_endf81_data(E_incident_MeV, angle_deg)
+            endf_db = load_zvview_blocks(path="perkins/endf_exfor.txt")
+            res = get_endf_from_file(endf_db, E_incident_MeV, angle_deg)
+            e_endf, y_endf = res
+            return e_endf, y_endf, None
     except KeyError:
         pass
 
     return None
+
+
+def get_endf_from_file(db, E_incident_MeV, angle_deg, scale_to_mb_per_MeV=True):
+    key = (float(E_incident_MeV), float(angle_deg))
+    if key not in db:
+        return None
+
+    e, y = db[key]  # e in MeV, y in b/eV/sr (per your file header)
+    if scale_to_mb_per_MeV:
+        y = y * 1e9  # (b/eV/sr) -> (mb/MeV/sr)
+    return e, y
+
+
+_HDR_RE = re.compile(
+    r"#name:\s+.*Ei([0-9.]+)E\+([0-9]+)\s+An\s*([0-9.]+)",
+    re.IGNORECASE,
+)
+
+
+def load_zvview_blocks(path):
+    """
+    Returns dict: (Ei_MeV, angle_deg) -> (Eprime_MeV array, Y array)
+    Y is kept in the file units (typically b/eV/sr).
+    """
+    data = {}
+    Ei = None
+    ang = None
+    xs = []
+    ys = []
+    in_data = False
+
+    def flush():
+        nonlocal Ei, ang, xs, ys
+        if Ei is not None and ang is not None and xs:
+            key = (float(Ei), float(ang))
+            data[key] = (np.array(xs, dtype=float), np.array(ys, dtype=float))
+        xs, ys = [], []
+
+    with open(path, "r") as f:
+        for line in f:
+            line = line.strip()
+
+            m = _HDR_RE.match(line)
+            if m:
+                flush()
+                mant = float(m.group(1))
+                exp = int(m.group(2))
+                Ei = mant * 10 ** (exp - 6)  # convert eV → MeV
+                ang = float(m.group(3))
+                in_data = False
+                continue
+
+            if line.startswith("#data"):
+                in_data = True
+                continue
+
+            if line.startswith("//"):
+                flush()
+                in_data = False
+                Ei = None
+                ang = None
+                continue
+
+            if in_data:
+                if not line or line.startswith("#"):
+                    continue
+                parts = line.split()
+                if len(parts) >= 2:
+                    xs.append(float(parts[0]))
+                    ys.append(float(parts[1]))
+
+    flush()
+    return data
+
+
+def derive_endf_data(E_interp_MeV, E_incident_MeV, angle):
+    BE9_PATH = "/home/philip/Documents/endf-b8.0-hdf5/endfb-viii.0-hdf5/neutron/Be9.h5"
+
+    # === Load the evaluation === #
+    be9 = openmc.data.IncidentNeutron.from_hdf5(BE9_PATH)
+    rx = be9.reactions[16]
+    file6 = rx.products[0].distribution[0]
+
+    Ei_eV = E_incident_MeV * 1e6
+    # === convert to double differential === #
+    idx = np.where(np.isclose(file6.energy, Ei_eV, rtol=0, atol=0))[0]
+    if len(idx) == 0:
+        raise KeyError(f"No File-6 table at Ei={E_incident_MeV} MeV")
+    e_idx = int(idx[0])
+
+    # 1) build outgoing energy grid
+    Eprime_eV = np.asarray(E_interp_MeV) * 1e6
+
+    # 2) evaluate p(E'|Ei) from Tabular (per eV)
+    pE_njoy = file6.energy_out[e_idx]
+    pE = np.interp(Eprime_eV, pE_njoy.x, pE_njoy.p)
+
+    # 3) evaluate p(mu|Ei, E') from mu tables
+    mu0 = np.cos(np.deg2rad(angle))
+    Ej = pE_njoy.x
+    pMu_at_Ej = np.array(
+        [
+            np.interp(mu0, file6.mu[e_idx][j].x, file6.mu[e_idx][j].p)
+            for j in range(len(Ej))
+        ]
+    )
+    pMu = np.interp(Eprime_eV, Ej, pMu_at_Ej)  # per unit mu
+
+    pOmega = pMu / (1 * np.pi)
+
+    temp = "294K"
+    n2n_sigma = rx.xs[temp](E_incident_MeV * 1e6)
+
+    Y = n2n_sigma * pE * pOmega * 1e9
+    return np.asarray(E_interp_MeV), Y
 
 
 def get_endf81_data(E_incident_MeV, angle_deg):
@@ -76,6 +198,70 @@ def get_endf81_data(E_incident_MeV, angle_deg):
             (2.3, 6.7991e-10),
             (2.35, 3.3996e-10),
             (2.45, 3.3996e-10),
+        ],
+        (5.0, 60.0): [
+            (0.0001, 2.5959e-8),
+            (0.001, 9.7345e-9),
+            (0.005, 4.6726e-9),
+            (0.01, 7.1062e-8),
+            (0.05, 7.9901e-8),
+            (0.1, 7.4917e-8),
+            (0.15, 6.8531e-8),
+            (0.2, 5.9498e-8),
+            (0.25, 5.9342e-8),
+            (0.3, 6.931e-8),
+            (0.35, 7.7098e-8),
+            (0.4, 6.4793e-8),
+            (0.45, 7.4294e-8),
+            (0.5, 6.0588e-8),
+            (0.55, 6.8998e-8),
+            (0.6, 5.5604e-8),
+            (0.65, 6.5416e-8),
+            (0.7, 5.8719e-8),
+            (0.75, 4.6103e-8),
+            (0.8, 5.28e-8),
+            (0.85, 4.657e-8),
+            (0.9, 4.8595e-8),
+            (0.95, 3.1929e-8),
+            (1, 3.8627e-8),
+            (1.05, 3.7381e-8),
+            (1.1, 3.7225e-8),
+            (1.15, 3.2085e-8),
+            (1.2, 3.1618e-8),
+            (1.25, 2.4142e-8),
+            (1.3, 1.9625e-8),
+            (1.35, 3.115e-8),
+            (1.4, 2.7568e-8),
+            (1.45, 2.4453e-8),
+            (1.5, 2.788e-8),
+            (1.55, 2.7101e-8),
+            (1.6, 1.2927e-8),
+            (1.65, 1.1214e-8),
+            (1.7, 1.3706e-8),
+            (1.75, 8.8779e-9),
+            (1.8, 1.137e-8),
+            (1.85, 1.0124e-8),
+            (1.9, 8.0991e-9),
+            (1.95, 1.1214e-8),
+            (2, 7.7876e-9),
+            (2.05, 6.5416e-9),
+            (2.1, 4.5651e-7),
+            (2.15, 1.8628e-7),
+            (2.2, 7.3204e-9),
+            (2.25, 4.6726e-9),
+            (2.3, 4.8283e-9),
+            (2.35, 3.2708e-9),
+            (2.4, 5.2956e-9),
+            (2.45, 3.4266e-9),
+            (2.5, 5.7628e-9),
+            (2.55, 3.2708e-9),
+            (2.6, 1.7133e-9),
+            (2.65, 1.5575e-9),
+            (2.7, 2.8035e-9),
+            (2.75, 7.7876e-10),
+            (2.8, 1.246e-9),
+            (2.85, 4.6726e-10),
+            (2.9, 4.6726e-10),
         ],
     }
 

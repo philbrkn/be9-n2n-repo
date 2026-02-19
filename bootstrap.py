@@ -168,6 +168,7 @@ def analyze_with_bootstrap_parallel(
 
     absorption_events = ct[ct["event_mt"] == 101]
     detection_times = np.sort(absorption_events["time"])
+    n_det_full = int(detection_times.size)
 
     # Point estimate from full data
     # rplusa_full = sr_counts(detection_times, sr.predelay, sr.gate)
