@@ -133,7 +133,9 @@ def _worker_bootstrap_shm(b: int):
         times, _SR.predelay, _SR.gate, _SR.delay, cap=64
     )
 
-    return get_measured_multiplicity_causal(rplusa_dist, a_dist)
+    # return get_measured_multiplicity_causal(rplusa_dist, a_dist)
+    r = get_measured_multiplicity_causal(rplusa_dist, a_dist)
+    return r, int(times.size)
 
 
 def _wlog(tag):
@@ -237,7 +239,11 @@ def analyze_with_bootstrap_parallel(
             results = ex.map(
                 _worker_bootstrap_shm, range(n_bootstrap), chunksize=chunk_size
             )
-            boots = [r for r in results if r is not None]
+            # boots = [r for r in results if r is not None]
+            results = [r for r in results if r is not None]
+            boots = [r for (r, _) in results]
+            dets = np.array([d for (_, d) in results], dtype=float)
+
     finally:
         shm.close()
         shm.unlink()
@@ -252,7 +258,9 @@ def analyze_with_bootstrap_parallel(
     arr = np.array([np.pad(r, (0, L - len(r))) for r in boots], dtype=float)
     r_mean = arr.mean(axis=0)
     r_std = arr.std(axis=0, ddof=1)
-    return r_full, r_mean, r_std, arr
+    det_mean = float(dets.mean())
+    det_sem = float(dets.std(ddof=1))  # bootstrap SE
+    return r_full, r_mean, r_std, arr, det_mean, det_sem, dets
 
 
 if __name__ == "__main__":
@@ -266,10 +274,11 @@ if __name__ == "__main__":
 
     start_time = time.perf_counter()
     # col_track_file = output_root / "rep_0000" / "collision_track.h5"
-    col_track_file = output_root / "standard_rep_0000_1e8p" / "collision_track.h5"
+    # col_track_file = output_root / "standard_rep_0000_1e8p" / "collision_track.h5"
+    col_track_file = output_root / "tendl" / "rep_0000" / "collision_track.h5"
 
     sr = SRParams(predelay=PREDELAY, gate=GATE, delay=DELAY)
-    r_full, r_mean, r_std, arr = analyze_with_bootstrap_parallel(
+    r_full, r_mean, r_std, arr, det_mean, det_sem, _ = analyze_with_bootstrap_parallel(
         col_track_file,
         sr,
         n_bootstrap=200,
@@ -278,6 +287,7 @@ if __name__ == "__main__":
         n_workers=32,
         chunk_size=1,
     )
+    print(f"det mean {det_mean} det sem {det_sem}")
     print("\nidx |   r_full | boot_mean | boot_std")
     print("-" * 45)
     K = 6

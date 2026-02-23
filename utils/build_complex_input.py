@@ -48,7 +48,7 @@ def create_geometry(input_dir: Path, cfg) -> Dict[str, Any]:
 
     # === GEOMETRY PARAMETERS === #
     # Beryllium assembly
-    BE_RADIUS = float(cfg.be_radius)  # cm
+    BE_RADIUS = float(cfg.be_radius)  # cm, default 9cm
     BE_HALF_HEIGHT = 32.5  # cm
     # central beam hole for DT target:
     BEAM_HOLE_RADIUS = 1.0  # cm
@@ -56,10 +56,12 @@ def create_geometry(input_dir: Path, cfg) -> Dict[str, Any]:
     # he3 detectors
     N_TUBES = int(cfg.n_tubes)
     HE3_RADIUS = 1.5
-    HE3_RADIAL_POS = 15  # distance from origin to each cylinder
+    # defualt 15 cm:
+    HE3_RADIAL_POS = BE_RADIUS + 6  # distance from origin to each cylinder
 
     # outer boundary
-    OUTER_RADIUS = 20.0  # cm total
+    # default 20cm:
+    OUTER_RADIUS = BE_RADIUS + 11  # cm total
     OUTER_HALF_HEIGHT = 40.0  # cm
 
     CD_THICKNESS = 0.1  # 1mm lining
@@ -329,7 +331,7 @@ def create_noBe_geometry(input_dir: Path) -> None:
     }
 
 
-def build_complex_inputs(input_dir: Path) -> None:
+def build_complex_inputs(input_dir: Path, cfg) -> None:
     """
     Build and export materials.xml, geometry.xml, settings.xml (template),
     tallies.xml into input_dir.
@@ -340,7 +342,7 @@ def build_complex_inputs(input_dir: Path) -> None:
 
     openmc.reset_auto_ids()
 
-    geo = create_geometry(input_dir)
+    geo = create_geometry(input_dir, cfg)
 
     # =============================================================================
     # Settings
@@ -399,4 +401,6 @@ def build_complex_inputs(input_dir: Path) -> None:
 
 if __name__ == "__main__":
     base_dir = Path(__file__).parent.resolve()
-    build_complex_inputs(base_dir / "inputs")
+    path = base_dir / "inputs"
+    cfg = ReplicateConfig()
+    build_complex_inputs(path, cfg)

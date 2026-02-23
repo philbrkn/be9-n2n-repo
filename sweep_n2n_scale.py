@@ -57,6 +57,7 @@ if __name__ == "__main__":
         rate=3e4,
         base_seed=123456,
         max_collisions=0.5 * PARTICLES_PER_REP,
+        source_z=-32.5,
     )
 
     scales = [0.8, 0.9, 1.0, 1.1, 1.2]
@@ -66,7 +67,7 @@ if __name__ == "__main__":
         output_root=output_root,
         base_cfg=base_cfg,
         values=scales,
-        label_fmt="n2n_scale_{:.2f}",
+        label_fmt="n2n_scale_endsource_{:.2f}",
         setup_hook=setup_scaled_xs,
         param_name=None,
     )

@@ -1,2 +1,5 @@
 *.h5
 *.xml
+tallies.out
+**.pyc
+

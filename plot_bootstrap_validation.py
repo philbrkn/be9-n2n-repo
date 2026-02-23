@@ -1,6 +1,7 @@
 import time
 from pathlib import Path
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -12,16 +13,38 @@ def plot_validation_figure(all_r_full, all_r_bootstrap_std, k_index=1, label="Do
     Publication-quality bootstrap validation figure.
     k_index: 1 for doubles (r_1), 2 for triples (r_2)
     """
-    plt.rcParams.update(
+    mpl.rcParams.update(
         {
-            "font.size": 11,
             "font.family": "serif",
-            "axes.labelsize": 12,
-            "axes.titlesize": 13,
-            "xtick.labelsize": 10,
-            "ytick.labelsize": 10,
-            "legend.fontsize": 10,
+            "font.size": 9,  # better for multi-panel
+            "axes.labelsize": 9,
+            "axes.titlesize": 9,
+            "legend.fontsize": 8,
+            "xtick.labelsize": 8,
+            "ytick.labelsize": 8,
+            "lines.linewidth": 1.2,
+            "axes.linewidth": 0.8,
+            "xtick.direction": "in",
+            "ytick.direction": "in",
+            "xtick.major.size": 3.5,
+            "ytick.major.size": 3.5,
+            "xtick.minor.size": 2.0,
+            "ytick.minor.size": 2.0,
+            "xtick.minor.visible": True,
+            "ytick.minor.visible": True,
+            "savefig.bbox": "tight",
+            "savefig.pad_inches": 0.02,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+            "mathtext.fontset": "custom",
+            "mathtext.rm": "serif",
+            "mathtext.it": "serif:italic",
+            "mathtext.bf": "serif:bold",
             "figure.dpi": 300,
+            # "mathtext.fontset": "stix",
+            # "mathtext.rm": "STIXGeneral",
+            # "mathtext.it": "STIXGeneral:italic",
+            # "mathtext.bf": "STIXGeneral:bold",
         }
     )
 
@@ -120,91 +143,85 @@ def plot_validation_figure(all_r_full, all_r_bootstrap_std, k_index=1, label="Do
     return fig
 
 
-# def plot_validation_figure(all_r_full, all_r_bootstrap_std, k_index=1, label="Doubles"):
-#     """
-#     Polished validation figure for publication.
-#     """
-#     # Professional styling
-#     plt.rcParams.update(
-#         {
-#             "font.family": "serif",
-#             "font.size": 11,
-#             "axes.grid": True,
-#             "grid.alpha": 0.3,
-#             "grid.linestyle": "--",
-#         }
-#     )
-#
-#     n_reps = len(all_r_full)
-#     # Start x at 1 for more natural "Simulation Number"
-#     x = np.arange(1, n_reps + 1)
-#
-#     values = all_r_full[:, k_index]
-#     errors = all_r_bootstrap_std[:, k_index]
-#     mean_val = np.mean(values)
-#
-#     fig, ax = plt.subplots(figsize=(9, 5), dpi=300)
-#
-#     # Use a professional color (SlateGray or DarkSlateBlue) instead of default blue
-#     main_color = "#2c3e50"
-#     mean_color = "#e74c3c"  # Deep crimson for the mean line
-#
-#     ax.errorbar(
-#         x,
-#         values,
-#         yerr=errors,
-#         fmt="o",
-#         markersize=4,
-#         color=main_color,
-#         ecolor=main_color,
-#         elinewidth=1,
-#         capsize=2,
-#         capthick=1,
-#         label=f"{label} rate",
-#         alpha=0.8,
-#     )
-#
-#     ax.axhline(
-#         mean_val,
-#         ls="--",
-#         lw=1.5,
-#         color=mean_color,
-#         label=f"Mean: {mean_val:.4f}",
-#         zorder=0,
-#     )
-#
-#     # Fix the cluttered x-axis
-#     ax.set_xticks(np.arange(0, n_reps + 1, 5))  # Label every 5th simulation
-#
-#     # Labels and Titles
-#     ax.set_xlabel("Simulation Number", fontweight="bold")
-#     ax.set_ylabel(f"{label} Rate ($r_{k_index}$)", fontweight="bold")
-#     ax.set_title(f"Bootstrap Stability: {label} Rate ({n_reps} Simulations)", pad=15)
-#
-#     # Clean up the legend
-#     ax.legend(frameon=True, loc="lower right")
-#
-#     # Chi-square annotation (Removed the wheat box for a cleaner look)
-#     chi2 = np.sum((values - mean_val) ** 2 / errors**2) / (n_reps - 1)
-#     ax.text(
-#         0.02,
-#         0.95,
-#         f"$\chi^2_\\nu$ = {chi2:.2f}",
-#         transform=ax.transAxes,
-#         fontsize=12,
-#         verticalalignment="top",
-#         bbox=dict(facecolor="white", alpha=0.5, edgecolor="none"),
-#     )
-#
-#     # Remove top and right spines for a modern look
-#     ax.spines["top"].set_visible(False)
-#     ax.spines["right"].set_visible(False)
-#
-#     plt.tight_layout()
-#     plt.savefig(
-#         f"{label}_bootstrap_validation.pdf", bbox_inches="tight"
-#     )  # PDF is better for papers
-#     return fig
+def plot_validation_panel(
+    ax, all_r_full, all_r_bootstrap_std, k_index=1, label="Doubles"
+):
+    """
+    Plot a single bootstrap validation panel onto a provided axes object.
+    """
+    data_color = "#2E5090"  # Deep blue
+    mean_color = "#C1403D"  # Muted red
+
+    n_reps = len(all_r_full)
+    x = np.arange(1, n_reps + 1)
+    values = all_r_full[:, k_index]
+    errors = all_r_bootstrap_std[:, k_index]
+    mean_val = np.mean(values)
+
+    ax.errorbar(
+        x,
+        values,
+        yerr=errors,
+        fmt="o",
+        capsize=4,
+        color=data_color,
+        ecolor=data_color,
+        markersize=5,
+        markeredgewidth=0.5,
+        markeredgecolor="white",
+        linewidth=1.2,
+        alpha=0.85,
+        label=f"{label} rate",
+    )
+    ax.axhline(
+        mean_val,
+        ls="--",
+        color=mean_color,
+        linewidth=1.5,
+        alpha=0.8,
+        label=f"Mean = {mean_val:.5f}",
+    )
+    ax.set_xlabel("Simulation number")
+    ax.set_ylabel(rf"{label} rate $r_{{{k_index}}}$")
+
+    # x ticks
+    if n_reps == 50:
+        ax.set_xticks(np.arange(5, n_reps + 1, 5))
+        ax.set_xticks(x, minor=True)
+    elif n_reps <= 20:
+        ax.set_xticks(x)
+    else:
+        tick_positions = np.arange(10, n_reps + 1, 10)
+        if 1 not in tick_positions:
+            tick_positions = np.insert(tick_positions, 0, 1)
+        ax.set_xticks(tick_positions)
+        ax.set_xticks(x, minor=True)
+
+    ax.set_xlim(0, n_reps + 1)
+    ax.grid(True, alpha=0.2, linestyle="-", linewidth=0.5)
+    ax.set_axisbelow(True)
+    ax.legend(
+        frameon=True, fancybox=False, edgecolor="gray", framealpha=0.95, loc="best"
+    )
+
+    chi2 = np.sum((values - mean_val) ** 2 / errors**2) / (n_reps - 1)
+    print(f"chi2 for {label} is {chi2:.2f}")
+    # ax.text(
+    #     0.97,
+    #     0.97,
+    #     rf"$\chi^2_\nu$ = {chi2:.2f}",
+    #     transform=ax.transAxes,
+    #     ha="right",
+    #     va="top",
+    #     fontsize=11,
+    #     bbox=dict(
+    #         boxstyle="round,pad=0.5",
+    #         facecolor="white",
+    #         edgecolor="gray",
+    #         alpha=0.9,
+    #         linewidth=1,
+    #     ),
+    # )
 
 
 if __name__ == "__main__":
@@ -241,17 +258,75 @@ if __name__ == "__main__":
 
     print("\nRatio should be ~1.0 if bootstrap is valid")
 
-    fig1 = plot_validation_figure(
-        all_r_full,
-        all_r_bootstrap_std,
-        k_index=1,
-        label="Doubles",
-    )
-    fig2 = plot_validation_figure(
-        all_r_full,
-        all_r_bootstrap_std,
-        k_index=2,
-        label="Triples",
+    # === PRETTY PLOT CODE === #
+    plt.rcParams.update(
+        {
+            "font.family": "serif",
+            "font.size": 9,  # better for multi-panel
+            "axes.labelsize": 9,
+            "axes.titlesize": 9,
+            "legend.fontsize": 8,
+            "xtick.labelsize": 8,
+            "ytick.labelsize": 8,
+            "lines.linewidth": 1.2,
+            "axes.linewidth": 0.8,
+            "xtick.direction": "in",
+            "ytick.direction": "in",
+            "xtick.major.size": 3.5,
+            "ytick.major.size": 3.5,
+            "xtick.minor.size": 2.0,
+            "ytick.minor.size": 2.0,
+            "xtick.minor.visible": True,
+            "ytick.minor.visible": True,
+            "savefig.bbox": "tight",
+            "savefig.pad_inches": 0.02,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+            "mathtext.fontset": "custom",
+            "mathtext.rm": "serif",
+            "mathtext.it": "serif:italic",
+            "mathtext.bf": "serif:bold",
+            "figure.dpi": 300,
+        }
     )
 
-    print(f"Boot strapping took {time.perf_counter() - start_time:.2f} seconds.")
+    fig, axes = plt.subplots(1, 2, figsize=(8.27, 3.5), constrained_layout=True)
+
+    plot_validation_panel(
+        axes[0], all_r_full, all_r_bootstrap_std, k_index=1, label="Doubles"
+    )
+    plot_validation_panel(
+        axes[1], all_r_full, all_r_bootstrap_std, k_index=2, label="Triples"
+    )
+
+    for ax, label in zip(axes, ["(a)", "(b)"]):
+        ax.text(
+            0.5,
+            -0.18,
+            label,
+            transform=ax.transAxes,
+            ha="center",
+            va="top",
+            fontsize=11,
+            # fontweight="bold",
+        )
+
+    fig.savefig("bootstrap_validation_combined.png", dpi=300)
+    fig.savefig("bootstrap_validation_combined.pdf", dpi=300)
+    plt.close(fig)
+
+    # === UGLY PLOT CODE === #
+    # fig1 = plot_validation_figure(
+    #     all_r_full,
+    #     all_r_bootstrap_std,
+    #     k_index=1,
+    #     label="Doubles",
+    # )
+    # fig2 = plot_validation_figure(
+    #     all_r_full,
+    #     all_r_bootstrap_std,
+    #     k_index=2,
+    #     label="Triples",
+    # )
+    #
+    # print(f"Boot strapping took {time.perf_counter() - start_time:.2f} seconds.")

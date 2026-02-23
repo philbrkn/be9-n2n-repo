@@ -27,12 +27,14 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Sequence
+from typing import List, Sequence, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
+import openmc
 
 from bootstrap import analyze_with_bootstrap_parallel
+from plot_sweep_bootstrap import get_sensitivity
 
 plt.rcParams.update(
     {
@@ -274,6 +276,26 @@ def plot_results(
         if "density" in xlabel.lower() or "rate" in xlabel.lower():
             ax.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
 
+        if fit_sensitivity:
+            coeffs = np.polyfit(x, means, 1)
+            slope = coeffs[0]
+            i0 = int(np.argmin(np.abs(x - 1.0)))
+            r_nominal = means[i0]
+            sem_nominal = sems[i0]
+            x0 = x[i0]
+            S = slope * x0 / r_nominal
+            print(f"Sensitivity coefficient S = {S:.3f}")
+            print(
+                f"Interpretation: 1% change in (n,2n) causes {S:.2f}% change in r[{idx}]"
+            )
+            precision = sem_nominal / r_nominal
+            constraint = 1 / S * precision
+            print(
+                f"A shift register measurement of r[{idx}] with {precision * 100:.2f}% precision"
+                f" (achievable with {1} replicates of {N_PARTICLES} particles) "
+                f"can constrain the {xlabel} to ±{constraint * 100:.4f}%."
+            )
+
     # --- detector count panel ---
     ax = axes[3]
     ax.errorbar(
@@ -304,86 +326,249 @@ def plot_results(
     plt.close(fig)
 
 
-def get_sensitivity(
-    x: np.ndarray,
-    r_mean_list: Sequence[np.ndarray],
-    r_sem_list: Sequence[np.ndarray],
-    det_mean: np.ndarray,
-    det_sem: np.ndarray,
-    max_r_k: int = 3,
-    N_PARTICLES: int = None,
-) -> None:
-    # --- r0, r1, r2 panels ---
-    for idx in range(max_r_k):
-        means = [r[idx] if len(r) > idx else np.nan for r in r_mean_list]
-        sems = [s[idx] if len(s) > idx else np.nan for s in r_sem_list]
-
-        coeffs = np.polyfit(x, means, 1)
+def plot_detection_counts(x, det_mean, det_sem, x_label, out, fit_sensitivity=True):
+    fig, ax = plt.subplots(1, 1, figsize=(3.5, 3.5), constrained_layout=True)
+    ax.errorbar(
+        x, det_mean, yerr=det_sem, fmt="s-", capsize=5, capthick=2, markersize=8
+    )
+    ax.set_xlabel(x_label)
+    ax.set_ylabel("Detections per replicate")
+    ax.grid(True, alpha=0.3)
+    fig.savefig(out, dpi=300)
+    plt.close(fig)
+    if fit_sensitivity:
+        # Fit a line to get sensitivity
+        coeffs = np.polyfit(x, det_mean, 1)
         slope = coeffs[0]
+        # intercept = coeffs[1]
+
+        # Sensitivity: (dr/r) / (dXS/XS) at nominal
+        # choose the middle one:
         i0 = int(np.argmin(np.abs(x - 1.0)))
-        r_nominal = means[i0]
-        sem_nominal = sems[i0]
+        r_nominal = det_mean[i0]
+        sem_nominal = det_sem[i0]
         x0 = x[i0]
-        S = slope * x0 / r_nominal
-        print(f"For r[{idx}]:")
-        print(f"    Sensitivity coefficient  = {S:.3f}")
-        # print(f"Interpretation: 1% change in (n,2n) causes {S:.2f}% change in r[{idx}]")
+        # S = slope * x0 / r_nominal  # dr/dXS normalized
+        S = slope / r_nominal  # dr/dXS normalized
+
+        print(f"Sensitivity coefficient S = {S:.3f}")
+        print(f"Interpretation: 1% change in (n,2n) causes {S:.2f}% change in det mean")
+        # invert for constraint:
+        # if we measure r[1] with precision delr[1] we constrain XS(n,2n) to:
+        # deltaXS / XS = (1/S) * (deltar[1]/r[1])
         precision = sem_nominal / r_nominal
         constraint = 1 / S * precision
-        print(f"    Precision: {precision * 100:.2f}%")
-        print(f"    Constraint {constraint * 100:.4f}%")
-        # print(
-        #     f"A shift register measurement of r[{idx}] with {precision * 100:.2f}% precision"
-        #     f" (achievable with {1} replicates of {N_PARTICLES} particles) "
-        #     f"can constrain the {xlabel} to ±{constraint * 100:.4f}%."
-        residuals = np.array(means) - np.polyval(coeffs, x)
-        ss_res = np.sum(residuals**2)
-        ss_tot = np.sum((np.array(means) - np.mean(means)) ** 2)
-        r_squared = 1 - ss_res / ss_tot
-        print(f"    R² = {r_squared:.4f}")
+        print(
+            f"A shift register measurement of detection mean with {precision * 100:.2f}% precision"
+            f" (achievable with {1} replicates of x particles) "
+            f"can constrain the {x_label} to ±{constraint * 100:.4f}%."
+        )
 
-    # Fit a line to get sensitivity
-    coeffs = np.polyfit(x, det_mean, 1)
-    slope = coeffs[0]
 
-    # Sensitivity: (dr/r) / (dXS/XS) at nominal
-    # choose the middle one:
-    i0 = int(np.argmin(np.abs(x - 1.0)))
-    r_nominal = det_mean[i0]
-    sem_nominal = det_sem[i0]
-    x0 = x[i0]
-    # S = slope * x0 / r_nominal  # dr/dXS normalized
-    S = slope / r_nominal  # dr/dXS normalized
+def compute_f_high_eff_and_x(
+    points: List[Path],
+    xs_arr: np.ndarray,
+    E_CUT: float = 1.0e6,
+    nominal_scale: float = 1.0,
+) -> Tuple[np.ndarray, float]:
+    f_high_eff_per_point = []
 
-    print("For detection counts:")
-    print(f"    Sensitivity coefficient  = {S:.3f}")
-    # print(f"Interpretation: 1% change in (n,2n) causes {S:.2f}% change in r[{idx}]")
-    precision = sem_nominal / r_nominal
-    constraint = 1 / S * precision
-    print(f"    Precision: {precision * 100:.2f}%")
-    print(f"    Constraint {constraint * 100:.4f}%")
-    residuals = np.array(det_mean) - np.polyval(coeffs, x)
-    ss_res = np.sum(residuals**2)
-    ss_tot = np.sum((np.array(det_mean) - np.mean(det_mean)) ** 2)
-    r_squared = 1 - ss_res / ss_tot
-    print(f"    R² = {r_squared:.4f}")
+    for p in points:
+        # find perturbed h5 for this sweep point
+        xs_dir = p / "xs"
+        h5_files = list(xs_dir.glob("Be9_scaled_*.h5"))
+        if not h5_files:
+            raise FileNotFoundError(f"No scaled Be9 h5 found in {xs_dir}")
+        be9_path = h5_files[0]
 
-    # invert for constraint:
-    # if we measure r[1] with precision delr[1] we constrain XS(n,2n) to:
-    # deltaXS / XS = (1/S) * (deltar[1]/r[1])
+        # compute f_high at each incident energy from the perturbed file
+        be9 = openmc.data.IncidentNeutron.from_hdf5(str(be9_path))
+        file6 = be9.reactions[16].products[0].distribution[0]
+        incident_energies = np.array(file6.energy)
+
+        f_high_per_energy = []
+        for k in range(len(incident_energies)):
+            tab = file6.energy_out[k]
+            dE = np.diff(tab.x)
+            Emid = 0.5 * (tab.x[:-1] + tab.x[1:])
+            mass_bins = tab.p[:-1] * dE
+            f_high_per_energy.append(mass_bins[Emid >= E_CUT].sum())
+        f_high_per_energy = np.array(f_high_per_energy)
+
+        # get reaction rate spectrum from statepoint
+        rep_dirs = sorted([d for d in p.glob("rep_*") if d.is_dir()])
+        sp = openmc.StatePoint(rep_dirs[0] / "statepoint.1.h5")
+        tally = sp.get_tally(name="n2n_spectrum")
+        energy_filter = tally.find_filter(openmc.EnergyFilter)
+        energy_bins = energy_filter.bins
+        energy_mids = 0.5 * (energy_bins[:, 0] + energy_bins[:, 1])
+        rxn_rates = tally.get_values(scores=["(n,2n)"]).flatten()
+
+        # interpolate f_high onto tally energy midpoints and weight
+        f_high_interp = np.interp(energy_mids, incident_energies, f_high_per_energy)
+        weights = rxn_rates / rxn_rates.sum()
+        f_high_eff_per_point.append(np.dot(weights, f_high_interp))
+
+    f_high_eff_arr = np.array(f_high_eff_per_point)
+    nominal_idx = np.argmin(np.abs(xs_arr - nominal_scale))
+    f_high_eff_nominal = f_high_eff_arr[nominal_idx]
+    x_ddx = f_high_eff_arr / f_high_eff_nominal
+
+    return x_ddx, f_high_eff_nominal
+
+
+def plot_ddx_perturbation_figure(
+    points: List[Path],
+    xs_arr: np.ndarray,
+    E_CUT: float = 1.8e6,
+    nominal_scale: float = 0.0,
+    out: Path = Path("figures/ddx_perturbation.png"),
+):
+    nominal_idx = np.argmin(np.abs(xs_arr - nominal_scale))
+    nominal_point = points[nominal_idx]
+    largest_idx = np.argmax(np.abs(xs_arr - nominal_scale))
+    largest_point = points[largest_idx]
+
+    # --- load all be9 files ---
+    def load_file6(p, nominal_be9_path):
+        xs_dir = p / "xs"
+        h5_files = list(xs_dir.glob("Be9_scaled_*.h5")) if xs_dir.exists() else []
+        path = str(h5_files[0]) if h5_files else nominal_be9_path
+        be9 = openmc.data.IncidentNeutron.from_hdf5(path)
+        return be9.reactions[16].products[0].distribution[0]
+
+    BE9_PATH = "/home/philip/Documents/endf-b8.0-hdf5/endfb-viii.0-hdf5/neutron/Be9.h5"
+    nominal_be9_path = str(
+        next((nominal_point / "xs").glob("Be9_scaled_*.h5"), Path(BE9_PATH))
+    )
+    file6_nom = load_file6(nominal_point, nominal_be9_path)
+    inc_energies = np.array(file6_nom.energy)
+    e_idx = np.argmin(np.abs(inc_energies - 14.1e6))
+
+    # --- reaction rate spectrum from nominal statepoint ---
+    # rep_dirs = sorted([d for d in nominal_point.glob("rep_*") if d.is_dir()])
+    # sp = openmc.StatePoint(rep_dirs[0] / "statepoint.1.h5")
+    # tally = sp.get_tally(name="n2n_spectrum")
+    # energy_filter = tally.find_filter(openmc.EnergyFilter)
+    # energy_bins = energy_filter.bins
+    # energy_mids = 0.5 * (energy_bins[:, 0] + energy_bins[:, 1])
+    # rxn_rates = tally.get_values(scores=["(n,2n)"]).flatten()
+    # --- f_high_eff at nominal for annotation ---
+    # f_high_per_energy = []
+    # for k in range(len(inc_energies)):
+    #     tab = file6_nom.energy_out[k]
+    #     dE = np.diff(tab.x)
+    #     Emid = 0.5 * (tab.x[:-1] + tab.x[1:])
+    #     mass_bins = tab.p[:-1] * dE
+    #     f_high_per_energy.append(mass_bins[Emid >= E_CUT].sum())
+    # f_high_interp = np.interp(energy_mids, inc_energies, f_high_per_energy)
+    # weights = rxn_rates / rxn_rates.sum()
+    # f_high_eff = np.dot(weights, f_high_interp)
+
+    data_color = "#2E5090"  # Deep blue
+    mean_color = "#C1403D"  # Muted red
+    fig, axes = plt.subplots(1, 2, figsize=(8.27, 3.0), constrained_layout=True)
+
+    # --- panel a: family ---
+    ax = axes[0]
+    non_nominal = [i for i in range(len(points)) if i != nominal_idx]
+    colors = plt.cm.RdBu(np.linspace(0.1, 0.9, len(non_nominal)))
+    color_iter = iter(colors)
+    for i, (p, label) in enumerate(zip(points, xs_arr)):
+        file6 = load_file6(p, nominal_be9_path)
+        tab = file6.energy_out[e_idx]
+        if i == nominal_idx:
+            ax.semilogy(
+                tab.x / 1e6,
+                tab.p * 1e6,
+                color="black",
+                lw=2,
+                label=f"{label:+.2f} (nominal)",
+                zorder=5,
+            )
+        else:
+            ax.semilogy(
+                tab.x / 1e6,
+                tab.p * 1e6,
+                color=next(color_iter),
+                lw=1,
+                ls="--",
+                label=f"{label:+.2f}",
+            )
+    ax.axvline(
+        E_CUT / 1e6, color="k", ls=":", lw=1, label=f"$E_{{cut}}$={E_CUT / 1e6:.1f} MeV"
+    )
+    ax.set_xlabel("E' (MeV)")
+    ax.set_ylabel("p(E'|E) (per MeV)")
+    ax.set_title(f"$E_i$ = {inc_energies[e_idx] / 1e6:.1f} MeV")
+    ax.legend(fontsize=7, title="δ")
+    ax.grid(True, alpha=0.3)
+    # ax = axes[0]
+    # for p, label in zip(points, xs_arr):
+    #     file6 = load_file6(p, nominal_be9_path)
+    #     tab = file6.energy_out[e_idx]
+    #     ax.semilogy(tab.x / 1e6, tab.p * 1e6, label=f"{label:+.2f}")
+    # ax.axvline(E_CUT / 1e6, color="k", ls=":", lw=1)
+    # ax.set_xlabel("E' (MeV)")
+    # ax.set_ylabel("p(E'|E) (per MeV)")
+    # ax.set_title(f"$E_i$ = {inc_energies[e_idx] / 1e6:.1f} MeV")
+    # ax.legend(fontsize=7, title="δ")
+    # ax.grid(True, alpha=0.3)
+
+    # --- panel b: delta p largest perturbation ---
+    ax = axes[1]
+    tab0 = file6_nom.energy_out[e_idx]
+    E0, p0 = tab0.x.copy(), tab0.p.copy()
+    file6_pert = load_file6(largest_point, nominal_be9_path)
+    p1 = file6_pert.energy_out[e_idx].p.copy()
+    ax.plot(E0 / 1e6, (p1 - p0) * 1e6, color="k")
+    ax.axhline(0, color="k", lw=0.5)
+    ax.axvline(
+        E_CUT / 1e6,
+        color=mean_color,
+        ls=":",
+        lw=1,
+        label=f"$E_{{cut}}$ = {E_CUT / 1e6:.1f} MeV",
+    )
+    ax.set_xlabel("E' (MeV)")
+    ax.set_ylabel("Δp(E'|E) (per MeV)")
+    ax.set_title(f"δ = {xs_arr[largest_idx]:+.2f}")
+    ax.legend(fontsize=8)
+    ax.grid(True, alpha=0.3)
+
+    # # --- panel c: reaction rate spectrum ---
+    # ax = axes[2]
+    # rates_norm = rxn_rates / rxn_rates.sum()
+    # ax.plot(energy_mids / 1e6, weights, color="k", label="reaction rate weights")
+    # ax.plot(energy_mids / 1e6, f_high_interp, color="b", label="$f_{high}(E_i)$")
+    # ax.fill_between(
+    #     energy_mids / 1e6,
+    #     weights * f_high_interp,
+    #     alpha=0.3,
+    #     label=f"integrand, $f_{{high,eff}}$ = {f_high_eff:.3f}",
+    # )
+    # ax.axvline(E_CUT / 1e6, color="r", ls=":", lw=1)
+    # ax.set_xlabel("Incident energy (MeV)")
+    # ax.set_ylabel("")
+    # ax.legend(fontsize=8)
+    # ax.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(out, dpi=300)
+    plt.close(fig)
 
 
 def main() -> None:
     OUTPUT_ROOT = Path("outputs")
-    OUTPUT_ROOT = Path("outputs/be_rad_n2n_sweep_11.0/")
+    # OUTPUT_ROOT = Path("outputs/be_rad_ddx_sweep_11.0/")
+    # OUTPUT_ROOT = Path("outputs/10e6_particles/")
 
     FIG_DIR = Path("figures")
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-    PATTERN = "n2n_scale_*"
-    # PATTERN = "n2n_scale_endsource_*"
-    FIG_PATH = Path("figures/n2n_scale_plot.png")
-    X_LABEL = "n,2n scale factor"
+    PATTERN = "ddx_scale_*"
+    FIG_PATH = Path("figures/ddx_scale_plot.png")
+    X_LABEL = "ddx scale factor"
 
     # --- cache settings (minimal) ---
     CACHE_PATH = Path("figures") / f"cache_{PATTERN.rstrip('*')}.npz"
@@ -399,6 +584,9 @@ def main() -> None:
     SUBPLOT_PATH = FIG_PATH.with_name(FIG_PATH.stem + "_subplots" + FIG_PATH.suffix)
 
     sr = SRParams(predelay=PREDELAY, gate=GATE, delay=DELAY)
+    points = list_sweep_points(OUTPUT_ROOT, PATTERN)
+    pairs = sorted(((point_x(p), p) for p in points), key=lambda t: t[0])
+    points = [p for _, p in pairs]
 
     if USE_CACHE and CACHE_PATH.exists():
         d = np.load(CACHE_PATH, allow_pickle=True)
@@ -414,11 +602,7 @@ def main() -> None:
         N_PARTICLES = float(d["N_PARTICLES"])
         print(f"Loaded cache: {CACHE_PATH}")
     else:
-        points = list_sweep_points(OUTPUT_ROOT, PATTERN)
-        pairs = sorted(((point_x(p), p) for p in points), key=lambda t: t[0])
-
         xs_arr = np.array([x for x, _ in pairs], dtype=float)
-        points = [p for _, p in pairs]
 
         r_means: List[np.ndarray] = []
         r_sems: List[np.ndarray] = []
@@ -482,8 +666,18 @@ def main() -> None:
         )
         print(f"Saved cache: {CACHE_PATH}")
 
+    x_ddx, f_high_eff_nominal = compute_f_high_eff_and_x(
+        points,
+        xs_arr,
+        E_CUT=1.8e6,
+        nominal_scale=0.0,
+    )
+    print(x_ddx, f_high_eff_nominal)
+
+    # plot_ddx_perturbation_figure(points, xs_arr, E_CUT=1.8e6, nominal_scale=0.0)
+
     get_sensitivity(
-        x=xs_arr,
+        x=x_ddx,
         r_mean_list=r_means,
         r_sem_list=r_sems,
         det_mean=det_means_arr,
@@ -491,7 +685,7 @@ def main() -> None:
         max_r_k=MAX_RK,
     )
     # plot_results(
-    #     x=xs_arr,
+    #     x=x_ddx,
     #     r_mean_list=r_means,
     #     r_sem_list=r_sems,
     #     det_mean=det_means_arr,
@@ -502,25 +696,8 @@ def main() -> None:
     #     fit_sensitivity=True,
     #     N_PARTICLES=N_PARTICLES,
     # )
-    # print_sweep_table(
-    #     x=xs_arr,
-    #     r_mean_list=r_means,
-    #     r_sem_list=r_sems,
-    #     # det_mean=det_means_arr,
-    #     # det_sem=det_sems_arr,
-    #     xlabel=X_LABEL,
-    #     max_r_k=MAX_RK,
-    # )
-    # plot_sensitivity_results(
-    #     x=xs_arr,
-    #     r_mean_list=r_means,
-    #     r_sem_list=r_sems,
-    #     xlabel=X_LABEL,
-    #     out=Path("figures/n2n_sensitivity.png"),
-    #     which_r_k=1,
-    #     N_PARTICLES=1e8,
-    #     # N_REPS=len(all_det),
-    # )
+    # det_path = f"figures/{X_LABEL}_detection_counts.png"
+    # plot_detection_counts(x_ddx, det_means_arr, det_sems_arr, X_LABEL, out=det_path)
 
 
 if __name__ == "__main__":

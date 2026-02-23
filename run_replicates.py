@@ -31,6 +31,8 @@ class ReplicateConfig:
     be_density: float = 1.85
     he_density: float = 0.0005
 
+    source_z: float = 0.0  # cm, axial position of point source
+
     n_tubes: int = 20
     # (later) he3_radius: float = 1.5, he3_radial_pos: float = 15.0
 
@@ -58,6 +60,7 @@ def run_independent_replicates(
 
     geo = create_geometry(template_dir, cfg)
     he3_cell_ids = geo["he3_cell_ids"]
+    be_material = geo["materials"]["be"]
 
     if cfg.base_seed is None:
         base_seed = int(time.time() * 1000) % 2**31
@@ -86,7 +89,7 @@ def run_independent_replicates(
         settings.particles = cfg.particles_per_rep
         settings.batches = 1
         settings.run_mode = "fixed source"
-        settings.output = {"path": ".", "tallies": False}
+        settings.output = {"path": ".", "tallies": True}
         max_coll = (
             cfg.max_collisions
             if cfg.max_collisions is not None
@@ -100,8 +103,9 @@ def run_independent_replicates(
         #     (1, 1, i) for i in range(1, settings.particles)
         # ]  # (batch, gen, part)
         T = cfg.particles_per_rep / cfg.rate
+        space = openmc.stats.Point((0, 0, cfg.source_z))
         settings.source = openmc.IndependentSource(
-            space=openmc.stats.Point((0, 0, 0)),
+            space=space,
             energy=openmc.stats.Normal(mean_value=14.1e6, std_dev=5.0e4),
             angle=openmc.stats.Isotropic(),
             time=openmc.stats.Uniform(0.0, T),
@@ -109,6 +113,15 @@ def run_independent_replicates(
         settings.export_to_xml(path=str(rep_dir / "settings.xml"))
 
         # remove tallies
+        energy_bins = np.geomspace(1.8e6, 15e6, 100)  # from threshold to source energy
+        energy_filter = openmc.EnergyFilter(energy_bins)
+        material_filter = openmc.MaterialFilter([be_material])
+
+        n2n_tally = openmc.Tally(name="n2n_spectrum")
+        n2n_tally.filters = [energy_filter, material_filter]
+        n2n_tally.scores = ["(n,2n)"]
+        tallies = openmc.Tallies([n2n_tally])
+        tallies.export_to_xml(path=str(rep_dir / "tallies.xml"))
 
         # Run using rep_dir for both cwd and input
         openmc.run(output=False, cwd=str(rep_dir), path_input=str(rep_dir))
@@ -206,10 +219,10 @@ def analyze_independent_replicates(
 if __name__ == "__main__":
     base_dir = Path(__file__).parent.resolve()
     input_dir = base_dir / "inputs"
-    output_root = base_dir / "outputs"
+    output_root = base_dir / "outputs" / "test"
 
     cfg = ReplicateConfig(
-        n_replicates=50,
+        n_replicates=1,
         particles_per_rep=10_000_000,
         base_seed=12346,
         gate=85e-6,
@@ -233,3 +246,20 @@ if __name__ == "__main__":
     print("-" * 50)
     for i in range(min(5, len(r_mean))):
         print(f"{i:>3} | {r_mean[i]:>12.6f} | {r_std[i]:>12.6f} | {r_sem[i]:>12.6f}")
+
+    # sp = openmc.StatePoint(str(output_root / "rep_0000" / "statepoint.1.h5"))
+    # energy_bins = np.geomspace(1.8e6, 15e6, 100)  # from threshold to source energy
+    # t = sp.get_tally(name="n2n_spectrum")
+    # rates = t.get_values(scores=["(n,2n)"]).flatten()
+    # n2n_reaction_rates = rates / rates.sum()
+    # midpoints = 0.5 * (energy_bins[:-1] + energy_bins[1:])
+    #
+    # import matplotlib.pyplot as plt
+    #
+    # plt.figure()
+    # plt.step(midpoints / 1e6, n2n_reaction_rates)
+    # plt.xlabel("Incident neutron energy (MeV)")
+    # plt.ylabel("Normalized (n,2n) reaction rate")
+    # plt.savefig("n2n_spectrum.png", dpi=150)
+    # np.save(output_root / "n2n_reaction_rates.npy", n2n_reaction_rates)
+    # np.save(output_root / "n2n_energy_midpoints.npy", midpoints)
