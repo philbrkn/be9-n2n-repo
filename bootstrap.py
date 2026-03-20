@@ -157,6 +157,7 @@ def analyze_with_bootstrap_parallel(
     seed: int | None = 12345,
     n_workers: int | None = None,
     chunk_size: int | None = None,
+    return_samples: bool = False,
 ):
     """
     LIST-mode block bootstrap with parallel execution.
@@ -260,7 +261,10 @@ def analyze_with_bootstrap_parallel(
     r_std = arr.std(axis=0, ddof=1)
     det_mean = float(dets.mean())
     det_sem = float(dets.std(ddof=1))  # bootstrap SE
-    return r_full, r_mean, r_std, arr, det_mean, det_sem, dets
+    if not return_samples:
+        return r_full, r_mean, r_std, arr, det_mean, det_sem, dets
+    else:
+        return arr, dets
 
 
 if __name__ == "__main__":

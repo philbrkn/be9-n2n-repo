@@ -353,7 +353,8 @@ def get_sensitivity(
     sem_nominal = det_sem[i0]
     x0 = x[i0]
     # S = slope * x0 / r_nominal  # dr/dXS normalized
-    S = slope / r_nominal  # dr/dXS normalized
+    S = slope * x0 / r_nominal
+    # S = slope / r_nominal  # dr/dXS normalized
 
     print("For detection counts:")
     print(f"    Sensitivity coefficient  = {S:.3f}")
@@ -375,7 +376,7 @@ def get_sensitivity(
 
 def main() -> None:
     OUTPUT_ROOT = Path("outputs")
-    OUTPUT_ROOT = Path("outputs/be_rad_n2n_sweep_11.0/")
+    # OUTPUT_ROOT = Path("outputs/be_rad_n2n_sweep_8.0/")
 
     FIG_DIR = Path("figures")
     FIG_DIR.mkdir(parents=True, exist_ok=True)
