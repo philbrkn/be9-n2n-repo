@@ -57,11 +57,13 @@ def create_geometry(input_dir: Path, cfg) -> Dict[str, Any]:
     N_TUBES = int(cfg.n_tubes)
     HE3_RADIUS = 1.5
     # defualt 15 cm:
-    HE3_RADIAL_POS = BE_RADIUS + 6  # distance from origin to each cylinder
+    # HE3_RADIAL_POS = BE_RADIUS + 6  # distance from origin to each cylinder
+    HE3_RADIAL_POS = 15  # FIXED OUTER CONFIG
 
     # outer boundary
     # default 20cm:
-    OUTER_RADIUS = BE_RADIUS + 11  # cm total
+    # OUTER_RADIUS = BE_RADIUS + 11  # cm total
+    OUTER_RADIUS = 20  # FIXED OUTER CONFIG
     OUTER_HALF_HEIGHT = 40.0  # cm
 
     CD_THICKNESS = 0.1  # 1mm lining

@@ -268,6 +268,7 @@ def plot_results(
             capthick=1,
             markersize=3,
         )
+        print(xlabel)
         ax.set_xlabel(xlabel)
         ax.set_ylabel(f"$r_{idx}$")
         ax.grid(True, alpha=0.2, linestyle="-", linewidth=0.5)
@@ -560,7 +561,7 @@ def plot_ddx_perturbation_figure(
 
 def main() -> None:
     OUTPUT_ROOT = Path("outputs")
-    # OUTPUT_ROOT = Path("outputs/be_rad_ddx_sweep_11.0/")
+    OUTPUT_ROOT = Path("outputs/be_rad_ddx_sweep_11.0/")
     # OUTPUT_ROOT = Path("outputs/10e6_particles/")
 
     FIG_DIR = Path("figures")
@@ -568,11 +569,11 @@ def main() -> None:
 
     PATTERN = "ddx_scale_*"
     FIG_PATH = Path("figures/ddx_scale_plot.png")
-    X_LABEL = "ddx scale factor"
+    X_LABEL = "DDXS scale factor"
 
     # --- cache settings (minimal) ---
     CACHE_PATH = Path("figures") / f"cache_{PATTERN.rstrip('*')}.npz"
-    USE_CACHE = True
+    USE_CACHE = False
 
     # PARAMETERS
     N_PARTICLES = 1e8
@@ -674,8 +675,9 @@ def main() -> None:
     )
     print(x_ddx, f_high_eff_nominal)
 
-    plot_ddx_perturbation_figure(points, xs_arr, E_CUT=1.8e6, nominal_scale=0.0)
+    # plot_ddx_perturbation_figure(points, xs_arr, E_CUT=1.8e6, nominal_scale=0.0)
 
+    print(f"Sensitivities for {str(OUTPUT_ROOT)}")
     get_sensitivity(
         x=x_ddx,
         r_mean_list=r_means,
@@ -684,6 +686,7 @@ def main() -> None:
         det_sem=det_sems_arr,
         max_r_k=MAX_RK,
     )
+    # X_LABEL = "DDXS scale factor"
     # plot_results(
     #     x=x_ddx,
     #     r_mean_list=r_means,

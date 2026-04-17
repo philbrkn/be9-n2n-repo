@@ -25,7 +25,7 @@ if __name__ == "__main__":
     PARTICLES_PER_REP = 100_000_000
     for r in radii:
         # output_root = base_dir / "outputs" / f"be_rad_ddx_sweep_{r}"
-        output_root = base_dir / "outputs" / f"be_rad_n2n_sweep_{r}"
+        output_root = base_dir / "outputs" / f"fixed_outer_be_rad_n2n_sweep_{r}"
         cfg = ReplicateConfig(
             n_replicates=1,
             particles_per_rep=PARTICLES_PER_REP,

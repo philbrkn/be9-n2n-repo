@@ -318,15 +318,28 @@ def get_sensitivity(
         means = [r[idx] if len(r) > idx else np.nan for r in r_mean_list]
         sems = [s[idx] if len(s) > idx else np.nan for s in r_sem_list]
 
-        coeffs = np.polyfit(x, means, 1)
+        # coeffs = np.polyfit(x, means, 1)
+        # slope = coeffs[0]
+        # NEW: weighted least-squares fit with uncertainty on slope
+        weights = 1.0 / np.array(sems) ** 2
+        coeffs, cov = np.polyfit(x, means, 1, w=np.sqrt(weights), cov=True)
         slope = coeffs[0]
+        slope_err = np.sqrt(cov[0, 0])
+
         i0 = int(np.argmin(np.abs(x - 1.0)))
         r_nominal = means[i0]
         sem_nominal = sems[i0]
         x0 = x[i0]
         S = slope * x0 / r_nominal
         print(f"For r[{idx}]:")
-        print(f"    Sensitivity coefficient  = {S:.3f}")
+        # print(f"    Sensitivity coefficient  = {S:.3f}")
+        # NEW: uncertainty on S via error propagation
+        # S = slope * x0 / r_nominal, so dS/dslope = x0 / r_nominal
+        # and dS/dr_nominal = -slope * x0 / r_nominal^2
+        S_err = np.abs(S) * np.sqrt(
+            (slope_err / slope) ** 2 + (sem_nominal / r_nominal) ** 2
+        )
+        print(f"    Sensitivity coefficient  = {S:.3f} +/- {S_err:.3f}")
         # print(f"Interpretation: 1% change in (n,2n) causes {S:.2f}% change in r[{idx}]")
         precision = sem_nominal / r_nominal
         constraint = 1 / S * precision
@@ -343,8 +356,10 @@ def get_sensitivity(
         print(f"    R² = {r_squared:.4f}")
 
     # Fit a line to get sensitivity
-    coeffs = np.polyfit(x, det_mean, 1)
+    weights = 1.0 / np.array(det_sem) ** 2
+    coeffs, cov = np.polyfit(x, det_mean, 1, w=np.sqrt(weights), cov=True)
     slope = coeffs[0]
+    slope_err = np.sqrt(cov[0, 0])
 
     # Sensitivity: (dr/r) / (dXS/XS) at nominal
     # choose the middle one:
@@ -357,7 +372,10 @@ def get_sensitivity(
     # S = slope / r_nominal  # dr/dXS normalized
 
     print("For detection counts:")
-    print(f"    Sensitivity coefficient  = {S:.3f}")
+    S_err = np.abs(S) * np.sqrt(
+        (slope_err / slope) ** 2 + (sem_nominal / r_nominal) ** 2
+    )
+    print(f"    Sensitivity coefficient  = {S:.3f} +/- {S_err:.3f}")
     # print(f"Interpretation: 1% change in (n,2n) causes {S:.2f}% change in r[{idx}]")
     precision = sem_nominal / r_nominal
     constraint = 1 / S * precision
@@ -376,15 +394,15 @@ def get_sensitivity(
 
 def main() -> None:
     OUTPUT_ROOT = Path("outputs")
-    # OUTPUT_ROOT = Path("outputs/be_rad_n2n_sweep_8.0/")
+    # OUTPUT_ROOT = Path("outputs/be_rad_n2n_sweep_11.0/")
 
     FIG_DIR = Path("figures")
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-    PATTERN = "n2n_scale_*"
-    # PATTERN = "n2n_scale_endsource_*"
+    # PATTERN = "n2n_scale_*"
+    PATTERN = "endsource_n2n_scale_*"
     FIG_PATH = Path("figures/n2n_scale_plot.png")
-    X_LABEL = "n,2n scale factor"
+    X_LABEL = "(n,2n) XS scale factor"
 
     # --- cache settings (minimal) ---
     CACHE_PATH = Path("figures") / f"cache_{PATTERN.rstrip('*')}.npz"
@@ -483,6 +501,7 @@ def main() -> None:
         )
         print(f"Saved cache: {CACHE_PATH}")
 
+    print(f"Sensitivities for {str(OUTPUT_ROOT)}")
     get_sensitivity(
         x=xs_arr,
         r_mean_list=r_means,

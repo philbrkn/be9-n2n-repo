@@ -206,6 +206,81 @@ def plot_triptych(endf_be9_h5, tendl_be9, E_incident_MeV=14.1):
     plt.close(fig)
 
 
+def plot_mean_mu_tendl(
+    be9_h5, E_incident_MeV=14.1, temp="294K", ax=None, color="C1", label="TENDL"
+):
+    be9 = openmc.data.IncidentNeutron.from_hdf5(be9_h5)
+    dist = be9.reactions[16].products[0].distribution[0]
+
+    Egrid = np.asarray(dist.energy) / 1e6
+    i = int(np.argmin(np.abs(Egrid - E_incident_MeV)))
+    print(f"Using incident energy grid point: {Egrid[i]:.3f} MeV")
+
+    E_out_eV = np.asarray(dist.energy_out[i].x)
+    E_out_MeV = E_out_eV / 1e6
+
+    mu_grid = np.linspace(-1, 1, 501)
+
+    # use your working Kalbach approach
+    r_fun = dist.precompound[i]
+    a_fun = dist.slope[i]
+    r = np.array([r_fun(E) for E in E_out_eV])
+    a = np.array([a_fun(E) for E in E_out_eV])
+
+    P_mu = _kalbach_pdf(mu_grid, a, r)  # (nmu, nEout)
+
+    # compute <mu> at each outgoing energy bin
+    means = np.trapz(mu_grid[:, None] * P_mu, mu_grid, axis=0)
+
+    fig, ax = plt.subplots(figsize=(4, 4), constrained_layout=True)
+    ax.plot(
+        E_out_MeV,
+        means,
+        color=color,
+        marker="o",
+        markersize=2,
+        linewidth=1,
+        label=label,
+    )
+    ax.set_xlabel(r"$E'\ \mathrm{[MeV]}$")
+    ax.set_ylabel(r"$\langle \mu \rangle$")
+    ax.grid(True, alpha=0.1)
+    ax.set_box_aspect(1)
+    fig.savefig("tendl/mean_mu_comparison.png", dpi=300)
+    return E_out_MeV, means
+
+
+def plot_energy_pdf(
+    be9_h5, E_incident_MeV=14.1, temp="294K", ax=None, color="C1", label="TENDL"
+):
+    be9 = openmc.data.IncidentNeutron.from_hdf5(be9_h5)
+    dist = be9.reactions[16].products[0].distribution[0]
+
+    Egrid = np.asarray(dist.energy) / 1e6
+    i = int(np.argmin(np.abs(Egrid - E_incident_MeV)))
+    print(f"Using incident energy grid point: {Egrid[i]:.3f} MeV")
+
+    E_out_eV = np.asarray(dist.energy_out[i].x)
+    E_out_MeV = E_out_eV / 1e6
+    p_per_MeV = np.asarray(dist.energy_out[i].p) * 1e6  # convert from per ev to mev
+
+    fig, ax = plt.subplots(figsize=(4, 4), constrained_layout=True)
+    ax.plot(
+        E_out_MeV,
+        p_per_MeV,
+        color=color,
+        marker="o",
+        markersize=2,
+        linewidth=1,
+        label=label,
+    )
+    ax.set_xlabel(r"$E'\ \mathrm{[MeV]}$")
+    ax.set_ylabel(r"$p(E' \mid E)\ \mathrm{[MeV^{-1}]}$")
+    ax.grid(True, alpha=0.1)
+    ax.set_box_aspect(1)
+    fig.savefig("tendl/tendl_energy_pdf.png", dpi=300)
+
+
 if __name__ == "__main__":
     tendl_endf = "n_004-Be-9_0425.dat"
 
@@ -220,7 +295,17 @@ if __name__ == "__main__":
     # print(dist.__dict__.keys())
     # print(dir(dist))
     # be9_km.export_to_hdf5("Be9_TENDL_raw.h5")
+    for i, E_in in enumerate(dist.energy):
+        a_tab = dist.slope[i]
+        a = np.asarray(a_tab.y)
+        r_tab = dist.precompound[i]
+        r = np.asarray(r_tab.y)
+        print(
+            f"E_in={E_in / 1e6:8.3f} MeV | a: min={a.min():.4f} max={a.max():.4f} mean={a.mean():.4f} | r: min={r.min():.4f} max={r.max():.4f} mean={r.mean():.4f}"
+        )
 
     BE9_PATH = "/home/philip/Documents/endf-b8.0-hdf5/endfb-viii.0-hdf5/neutron/Be9.h5"
-    BE9_PATH_ENDF7 = "ENDFB-7.1-NNDC_Be9.h5"
-    plot_triptych(BE9_PATH, BE9_PATH_ENDF7, E_incident_MeV=14.1)
+    # BE9_PATH_ENDF7 = "ENDFB-7.1-NNDC_Be9.h5"
+    plot_triptych(BE9_PATH, h5_path, E_incident_MeV=14.1)
+    # plot_mean_mu_tendl(h5_path)
+    # plot_energy_pdf(h5_path)
