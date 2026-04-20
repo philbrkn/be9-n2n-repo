@@ -7,10 +7,10 @@ logic to recover the singles/doubles/triples distribution.
 
 The core question the repo is set up to answer: **how sensitive is the measured
 multiplicity to the Be9 (n,2n) cross section and its outgoing energy
-distribution (DDx)?** That's done by running sweeps that scale the underlying
+distribution (DDXS)?** This is done by running sweeps that scale the underlying
 nuclear data and re-running the whole detector simulation at each point.
 
-## Quick start (tl;dr)
+## Quick start
 
 ```bash
 # 1. Create the env
@@ -23,7 +23,7 @@ cp config.yaml my_config.yaml      # optional
 # edit my_config.yaml paths.cross_sections_xml and paths.be9_h5
 # OR just export the env vars — see below
 
-# 4. Run a single replicate (sanity check)
+# 4. Run a single replicate (check if things work)
 python run_replicates.py --config config.yaml
 
 # 5. Run the main (n,2n) scale sweep
@@ -41,12 +41,12 @@ conda activate n2n-env
 ```
 
 OpenMC is only reliably installable via conda-forge; `requirements.txt` exists
-as a secondary option for people who already have OpenMC built.
+as a secondary option if one already has OpenMC built.
 
-## Nuclear data setup (required)
+## Nuclear data setup
 
-OpenMC does not ship cross-section data. You need an ENDF/B-VIII.0 HDF5
-library, unpacked somewhere on disk, and the code needs to know two paths:
+As OpenMC does not come with cross-section data, will need an ENDF/B-VIII.0 HDF5
+library, unpacked somewhere on disk, and the code will need to know two paths:
 
 - `cross_sections.xml` — the library index OpenMC reads to resolve nuclide names
 - `Be9.h5` — the individual Be9 file; the DDx/(n,2n) sweeps open this directly
@@ -54,13 +54,13 @@ library, unpacked somewhere on disk, and the code needs to know two paths:
 
 ### Download
 
-From <https://openmc.org/data/> (or the anl.gov mirror), grab:
+From <https://openmc.org/data/> (or from another installer somewhere), grab:
 
 ```
 endfb-viii.0-hdf5.tar.xz   # ~1.5 GB compressed, ~3 GB extracted
 ```
 
-Extract wherever you want:
+Extract as necessary:
 
 ```bash
 cd ~/nuclear_data
@@ -81,7 +81,7 @@ Should now have:
 
 ### Point the code at the library
 
-**Option A — environment variables** (recommended; leaves `config.yaml`
+**Option A — environment variables** (this option lets one leave `config.yaml`
 portable between machines):
 
 ```bash

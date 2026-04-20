@@ -406,6 +406,8 @@ def main() -> None:
     X_LABEL = "(n,2n) XS scale factor"
 
     # --- cache settings (minimal) ---
+    # SO don't have to run bootstarp each time.
+    # TODO: DIFFERENT CACHE NAME FOR DIFFERENT RUNS SO THEY DONT OVERWRITE
     CACHE_PATH = FIG_DIR / f"cache_{PATTERN.rstrip('*')}.npz"
     USE_CACHE = False
 
