@@ -1,0 +1,11 @@
+# Prefer `conda env create -f environment.yml`. OpenMC is not reliably
+# pip-installable — this file is for contributors who already have OpenMC
+# (built from source or via conda) and only need the Python extras.
+numpy
+scipy
+matplotlib
+numba
+pandas
+psutil
+pyyaml
+h5py

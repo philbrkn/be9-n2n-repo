@@ -1,0 +1,34 @@
+# User-editable simulation parameters. Loaded by utils/config.py.
+# All fields map 1:1 onto run_replicates.ReplicateConfig.
+
+simulation:
+  n_replicates: 1
+  particles_per_rep: 1000000
+  base_seed: 12345
+  max_collisions: null # null -> defaults to particles_per_rep
+  output_subdir: default # outputs land in outputs/<output_subdir>/
+
+geometry:
+  be_radius: 9.0 # cm — radius of central target cylinder
+  n_tubes: 20 # He-3 detector tubes
+  source_z: 0.0 # cm — axial position of point DT source
+
+material:
+  be_density:
+    1.85 # g/cm3 (note: currently hardcoded at geometry build time;
+    # changing here does not yet affect the simulation)
+  he_density: 0.0005 # g/cm3 — He-3 fill density in detector tubes
+
+sr_analysis:
+  gate: 85.0e-6 # seconds
+  predelay: 4.0e-6
+  delay: 1000.0e-6
+  rate: 3.0e4 # source neutrons per second (sets time window)
+
+paths:
+  # If null, utils/config.py falls back to $OPENMC_CROSS_SECTIONS.
+  # cross_sections_xml: null
+  # Used by paper_scripts that directly perturb Be9.h5. Falls back to $ENDF_BE9_H5.
+  # be9_h5: null
+  be9_h5: "/home/philip/Documents/endf-b8.0-hdf5/endfb-viii.0-hdf5/neutron/Be9.h5"
+  cross_sections_xml: "/home/philip/Documents/endf-b8.0-hdf5/endfb-viii.0-hdf5/cross_sections.xml"

@@ -8,10 +8,6 @@ from typing import Any, Dict
 import numpy as np
 import openmc
 
-# os.environ["OPENMC_CROSS_SECTIONS"] = os.path.abspath(
-#     "Documents/endf-b8.0-hdf5/endfb-viii.0-hdf5/cross_sections.xml"
-# )
-
 
 def create_geometry(input_dir: Path, cfg) -> Dict[str, Any]:
     # === MATERIALS === #

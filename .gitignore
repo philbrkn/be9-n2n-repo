@@ -1,6 +1,25 @@
-*.h5
-*.xml
-tallies.out
-**.pyc
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
 
-tracks_cache.pkl
+# Simulation outputs (regenerable; often large)
+outputs/
+figures/
+geometries/
+logs/
+
+# Large cached data
+*.pkl
+cache_nominal.npz
+_baseline_pre_refactor.npz
+
+# HDF5 / XML generated at repo root; inputs/*.xml and inputs/*.h5 remain tracked
+/*.h5
+/*.xml
+tallies.out
+
+.DS_Store
+.ipynb_checkpoints/

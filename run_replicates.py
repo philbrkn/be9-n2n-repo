@@ -217,19 +217,24 @@ def analyze_independent_replicates(
 
 
 if __name__ == "__main__":
+    import argparse
+
+    from utils.config import DEFAULT_CONFIG_PATH, load_config
+
+    parser = argparse.ArgumentParser(description="Run independent OpenMC replicates.")
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=DEFAULT_CONFIG_PATH,
+        help="Path to config.yaml (default: repo-root config.yaml)",
+    )
+    args = parser.parse_args()
+
     base_dir = Path(__file__).parent.resolve()
     input_dir = base_dir / "inputs"
-    output_root = base_dir / "outputs" / "test"
 
-    cfg = ReplicateConfig(
-        n_replicates=1,
-        particles_per_rep=10_000_000,
-        base_seed=12346,
-        gate=85e-6,
-        predelay=4e-6,
-        delay=1000e-6,
-        rate=3e4,
-    )
+    cfg, _paths, output_subdir = load_config(args.config)
+    output_root = base_dir / "outputs" / output_subdir
 
     r_mean, r_std, r_sem, all_r, all_det = run_independent_replicates(
         input_dir=input_dir,

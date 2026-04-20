@@ -1,0 +1,14 @@
+name: n2n-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - openmc
+  - numpy
+  - scipy
+  - matplotlib
+  - numba
+  - pandas
+  - psutil
+  - pyyaml
+  - h5py
